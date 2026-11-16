@@ -51,6 +51,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Fails with a precise message instead of git's generic 403 ("Write access to repository not granted"), which
+      # GitHub returns for every token that cannot read the repository, including an empty one.
+      - name: Check access to the SDK repository
+        shell: pwsh
+        env:
+          TOKEN: ${{ secrets.AD_SDK_TOKEN }}
+          REPO: ${{ vars.AD_SDK_REPOSITORY || 'AltiumDeveloper/ad-sdk-assemblies' }}
+          REF: ${{ vars.AD_SDK_REF || 'ad-26.12.0.6' }}
+        run: |
+          if (-not $env:TOKEN) { throw "The secret AD_SDK_TOKEN is empty or not visible to this workflow: add it under Settings > Secrets and variables > Actions > Repository secrets (not Environment or Codespaces secrets)." }
+          $headers = @{ Authorization = "Bearer $env:TOKEN"; Accept = 'application/vnd.github+json'; 'X-GitHub-Api-Version' = '2022-11-28' }
+          function Get-Status($uri) {
+            try { Invoke-RestMethod -Uri $uri -Headers $headers | Out-Null; return 200 }
+            catch { return [int] $_.Exception.Response.StatusCode }
+          }
+          $repo = Get-Status "https://api.github.com/repos/$env:REPO"
+          if ($repo -ne 200) {
+            throw ("AD_SDK_TOKEN cannot see $env:REPO (HTTP $repo). For a fine-grained token: resource owner must be the organization, " +
+                   "Repository access must include $env:REPO, and the organization may still have to approve the token " +
+                   "(Organization settings > Personal access tokens > Pending requests). A classic token needs the 'repo' scope and, " +
+                   "with SAML SSO, authorization for the organization.")
+          }
+          $contents = Get-Status "https://api.github.com/repos/$env:REPO/contents/README.md?ref=$env:REF"
+          if ($contents -ne 200) { throw "AD_SDK_TOKEN can see $env:REPO but cannot read its contents at '$env:REF' (HTTP $contents): give it Contents: read, and check that the tag exists." }
+          "AD_SDK_TOKEN can read $env:REPO at $env:REF."
+
       - name: Fetch the Altium Designer SDK assemblies (private)
         uses: actions/checkout@v4
         with:

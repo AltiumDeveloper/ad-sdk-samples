@@ -151,14 +151,21 @@ sealed class SampleUsage
                 var name = m.Name;
                 var prefix = AccessorPrefixes.FirstOrDefault(p => name.StartsWith(p, StringComparison.Ordinal));
                 var member = prefix != null ? name[prefix.Length..] : name;
-                Add(Members, $"{TypeId(owner)}.{member}", file, line, command, name);
+                // An accessor pair (GetState_X / SetState_X) is the property X, as the SDK reference names it.
+                Add(Members, $"{TypeId(owner)}.{member}", file, line, command, name, prefix != null ? "property" : "method");
                 Add(Types, TypeId(owner), file, line, command, owner.Name);
                 break;
             }
             case IPropertySymbol or IFieldSymbol or IEventSymbol when IsSdk(symbol.ContainingAssembly):
             {
                 var owner = symbol.ContainingType;
-                var kind = symbol is IFieldSymbol f && owner.TypeKind == TypeKind.Enum ? "value" : "member";
+                var kind = symbol switch
+                {
+                    IFieldSymbol when owner.TypeKind == TypeKind.Enum => "enumValue",
+                    IFieldSymbol => "field",
+                    IEventSymbol => "event",
+                    _ => "property",
+                };
                 Add(Members, $"{TypeId(owner)}.{symbol.Name}", file, line, command, symbol.Name, kind);
                 Add(Types, TypeId(owner), file, line, command, owner.Name);
                 break;

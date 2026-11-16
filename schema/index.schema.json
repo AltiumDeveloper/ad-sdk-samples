@@ -12,7 +12,26 @@
   ],
   "properties": {
     "schemaVersion": {
-      "const": 1
+      "const": 2
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo",
+        "commit"
+      ],
+      "description": "The repository and commit the index was built from. Every file and line in the index refers to that commit.",
+      "properties": {
+        "repo": {
+          "type": "string",
+          "description": "Repository URL, without .git."
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
     },
     "vocabulary": {
       "type": "object",
@@ -43,6 +62,7 @@
           "task",
           "surface",
           "path",
+          "digest",
           "commands",
           "apis"
         ],
@@ -83,6 +103,11 @@
           "path": {
             "type": "string",
             "description": "The sample folder, relative to the repository root."
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "description": "A hash of the sample's files (README, sample.json, sources, installation files; line endings normalized). It changes whenever the sample does."
           },
           "commands": {
             "type": "array",
@@ -138,8 +163,13 @@
                 "kind": {
                   "enum": [
                     "type",
-                    "member"
-                  ]
+                    "method",
+                    "property",
+                    "field",
+                    "enumValue",
+                    "event"
+                  ],
+                  "description": "What the id names. An accessor pair (GetState_X / SetState_X) is the property X."
                 },
                 "primary": {
                   "type": "boolean",
@@ -179,35 +209,55 @@
     },
     "apis": {
       "type": "object",
-      "description": "SDK id (Namespace.Type or Namespace.Type.Member) -> the samples that use it, primary users first, then by fewest distinct APIs (the most focused sample first).",
+      "description": "SDK id (Namespace.Type or Namespace.Type.Member) -> what it is and the samples that use it, primary users first, then by fewest distinct APIs (the most focused sample first).",
       "additionalProperties": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "sample",
-            "file",
-            "line",
-            "uses"
-          ],
-          "properties": {
-            "sample": {
-              "type": "string"
-            },
-            "primary": {
-              "type": "boolean"
-            },
-            "file": {
-              "type": "string",
-              "description": "First use: path relative to the repository root."
-            },
-            "line": {
-              "type": "integer"
-            },
-            "uses": {
-              "type": "integer",
-              "description": "How many times the sample's code uses it."
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "samples"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "type",
+              "method",
+              "property",
+              "field",
+              "enumValue",
+              "event"
+            ]
+          },
+          "samples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sample",
+                "file",
+                "line",
+                "uses"
+              ],
+              "properties": {
+                "sample": {
+                  "type": "string"
+                },
+                "primary": {
+                  "type": "boolean"
+                },
+                "file": {
+                  "type": "string",
+                  "description": "First use: path relative to the repository root."
+                },
+                "line": {
+                  "type": "integer"
+                },
+                "uses": {
+                  "type": "integer",
+                  "description": "How many times the sample's code uses it."
+                }
+              }
             }
           }
         }

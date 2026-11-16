@@ -173,18 +173,22 @@ copy). For a new Altium Designer version: export it as a new folder, tag it ther
 CI builds, from every sample's `sample.json`, its README and its compiled code:
 
 * `index.json` (`schema/index.schema.json`): each sample with its facets and commands, every SDK type and member its
-  code uses with file and line (`apis`; `primary` for the ones named in "What it shows"), and the reverse index from
-  each SDK type and member to the samples that use it.
+  code uses with file and line (`apis`: each with its `kind`, type, method, property, field, enumValue or event;
+  `primary` for the ones named in "What it shows"), and the reverse index from each SDK type and member to the
+  samples that use it. `source` names the repository and commit it was built from: every file and line refers to
+  that commit. Each sample's `digest` is a hash of its files, so the index changes whenever any sample does.
 * `llms.txt`: the same list for language models.
 * `sample.schema.json`, `index.schema.json`: the schemas the files follow.
 
-It is never committed. On the default branch, every change to it becomes a release `index-<date>.<run>` with these
-four files as assets, marked latest; releases are kept, and a push that leaves the index unchanged creates none. The
+It is never committed. On the default branch, every change to it (apart from `source`) becomes a release
+`index-<date>.<run>` with these four files as assets, marked latest; releases are kept. A change to any sample, a
+README included, changes its digest and so makes a release; a push that changes no sample creates none. The
 AD SDK documentation build reads it from there: `releases/latest/download/index.json` for the newest, or a
 specific `releases/download/index-<date>.<run>/index.json` to pin it (a reproducible docs build; moving the pin is a
 reviewed change there). Do not create other releases marked latest, and never delete an `index-*` release: docs
 builds may pin it.
 
-The schemas are the contract with that build: a change that removes or renames a field, or changes its meaning, increments `schemaVersion` in both schemas
-and needs a matching change in the documentation build; adding an optional field does not.
+The schemas are the contract with that build, and each is versioned on its own: a change that removes or renames a
+field, or changes its meaning or shape, increments that schema's `schemaVersion` and needs a matching change in the
+documentation build; adding an optional field does not.
 

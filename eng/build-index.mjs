@@ -10,9 +10,13 @@
 //                                              compiler; the samples must build: AltiumSystemDir set, restored) and
 //                                              write DIR/index.json (schema/index.schema.json) and DIR/llms.txt
 //
-// The index is a build output (the CI artifact 'samples-index'); it is never committed. "primary": an API the README names under
-// "What it shows" (in backticks, as `NS.Type.Member`, `Type.Member` or `Type`), as opposed to plumbing.
+// The index is a build output (the CI artifact 'samples-index', published as a release); it is never committed.
+// "primary": an API the README names under "What it shows" (in backticks, as `NS.Type.Member`, `Type.Member` or
+// `Type`), as opposed to plumbing. "digest": a hash of the sample's files (README, sources, installation files), so the
+// index changes whenever a sample does. "source": the repository and commit the index was built from (from
+// GITHUB_REPOSITORY / GITHUB_SHA in CI, else from git); line references are relative to that commit.
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
@@ -125,6 +129,26 @@ if (API) {
       .filter((span) => /^[A-Za-z_][A-Za-z0-9_.]*$/.test(span) && (span.includes('.') || /^(I|T)[A-Z]/.test(span)));
   };
 
+  // The sample's files, in path order, with line endings normalized (a Windows checkout may have CRLF).
+  const digestOf = (dir) => {
+    const files = [];
+    const walk = (d) => { for (const n of readdirSync(d).sort()) { const f = join(d, n);
+      if (statSync(f).isDirectory()) { if (!['bin', 'obj'].includes(n)) walk(f); } else files.push(f); } };
+    walk(dir);
+    const h = createHash('sha256');
+    for (const f of files) {
+      const data = readFileSync(f);
+      const text = /\.(cs|csproj|md|json|ins|rcs|out|csv|txt|xml|resx|config|props|targets)$/i.test(f)
+        ? Buffer.from(data.toString('utf8').replace(/\r\n/g, '\n')) : data;
+      h.update(posix(relative(dir, f))).update('\0').update(text).update('\0');
+    }
+    return `sha256:${h.digest('hex')}`;
+  };
+  const git = (...a) => { try { return execFileSync('git', a, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return ''; } };
+  const repoUrl = process.env.GITHUB_REPOSITORY ? `https://github.com/${process.env.GITHUB_REPOSITORY}`
+    : git('remote', 'get-url', 'origin').replace(/\.git$/, '');
+  const commit = process.env.GITHUB_SHA || git('rev-parse', 'HEAD');
+
   const apisOf = new Map();
   for (const s of samples) {
     const u = usage[s.meta.id];
@@ -135,31 +159,34 @@ if (API) {
     for (const kind of ['types', 'members'])
       for (const [id, uses] of Object.entries(u[kind]).sort(([x], [y]) => x.localeCompare(y))) {
         const primary = named.some((n) => id === n || id.toLowerCase().endsWith(`.${n.toLowerCase()}`));
-        apis.push({ id, kind: kind === 'types' ? 'type' : 'member', ...(primary ? { primary: true } : {}),
+        apis.push({ id, kind: kind === 'types' ? 'type' : memberKind(uses), ...(primary ? { primary: true } : {}),
           uses: uses.map((x) => ({ file: posix(relative(s.dir, join(root, x.file))), line: x.line, ...(x.command ? { command: x.command } : {}) })) });
       }
     apisOf.set(s.meta.id, apis);
   }
 
-  const byApi = {};
+  const byApi = {}, kindOf = {};
   for (const s of samples)
-    for (const api of apisOf.get(s.meta.id))
+    for (const api of apisOf.get(s.meta.id)) {
+      kindOf[api.id] ??= api.kind;
       (byApi[api.id] ??= []).push({ sample: s.meta.id, ...(api.primary ? { primary: true } : {}),
         file: `${s.path}/${api.uses[0].file}`, line: api.uses[0].line, uses: api.uses.length, _focus: apisOf.get(s.meta.id).length });
+    }
   for (const id of Object.keys(byApi))
     byApi[id] = byApi[id].sort((x, y) => (y.primary ? 1 : 0) - (x.primary ? 1 : 0) || x._focus - y._focus || x.sample.localeCompare(y.sample))
       .map(({ _focus, ...e }) => e);
 
   const vocab = (axis) => schema.properties[axis].enum ?? schema.properties[axis].items.enum;
   const index = {
-    schemaVersion: 1,
+    schemaVersion: 2,
+    ...(repoUrl && commit ? { source: { repo: repoUrl, commit } } : {}),
     vocabulary: { domain: vocab('domain'), task: vocab('task'), surface: vocab('surface') },
     samples: samples.map(({ path, meta: m }) => ({
       id: m.id, title: m.title, summary: m.summary, category: m.category, domain: m.domain, task: m.task, surface: m.surface,
       ...(m.interactive ? { interactive: true } : {}), ...(m.requiresRestart ? { requiresRestart: true } : {}),
-      path, phrasings: m.phrasings ?? [], commands: m.commands ?? [], apis: apisOf.get(m.id),
+      path, digest: digestOf(join(root, path)), phrasings: m.phrasings ?? [], commands: m.commands ?? [], apis: apisOf.get(m.id),
     })),
-    apis: Object.fromEntries(Object.entries(byApi).sort(([x], [y]) => x.localeCompare(y))),
+    apis: Object.fromEntries(Object.entries(byApi).sort(([x], [y]) => x.localeCompare(y)).map(([id, l]) => [id, { kind: kindOf[id], samples: l }])),
   };
   problems.push(...validate(readJson(join(root, 'schema', 'index.schema.json')), index, 'index.json', []));
 
@@ -183,6 +210,13 @@ if (API) {
   cpSchema(OUT);
   console.log(`build-index: ${Object.keys(byApi).length} SDK types and members, ` +
     `${[...apisOf.values()].reduce((n, l) => n + l.filter((x) => x.primary).length, 0)} primary uses -> ${OUT}`);
+}
+// A member's kind, from the uses eng/ApiUsage recorded (method, property, field, enumValue, event). Uses of one id
+// normally agree; if they do not, a property wins over a method (an accessor and the property are one entry).
+function memberKind(uses) {
+  const kinds = new Set(uses.map((u) => u.kind).filter(Boolean));
+  for (const k of ['property', 'event', 'enumValue', 'field', 'method']) if (kinds.has(k)) return k;
+  return 'method';
 }
 function cpSchema(out) {
   mkdirSync(join(out, 'schema'), { recursive: true });

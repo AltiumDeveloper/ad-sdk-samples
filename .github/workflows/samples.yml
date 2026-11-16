@@ -143,7 +143,11 @@ jobs:
           if [ -n "$previous" ]; then
             mkdir -p previous
             gh release download "$previous" --repo "$repo" --pattern index.json --dir previous
-            if cmp -s previous/index.json index-out/index.json; then
+            # Compare everything but "source" (the commit, new on every push). Each sample's "digest" covers its
+            # files, so a change to any sample (a README too) makes a release.
+            if node -e '
+              const read = (f) => { const { source, ...rest } = JSON.parse(require("fs").readFileSync(f, "utf8")); return JSON.stringify(rest); };
+              process.exit(read("previous/index.json") === read("index-out/index.json") ? 0 : 1);'; then
               echo "The index is unchanged since $previous: no release."
               exit 0
             fi

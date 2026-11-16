@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ComponentParameterAdd",
+  "title": "Add a custom parameter to every component",
+  "summary": "Shows how to create a parameter with the PCB parameters factory and add or update it on every component of a board through IPCB_PrimitiveParameters, inside a modify bracket.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "set a parameter on all PCB components",
+    "add a part number to each footprint on a board",
+    "update a component parameter value in the PCB editor",
+    "read a component's parameters on a PcbDoc"
+  ],
+  "commands": [
+    {
+      "name": "AddParamToComponent",
+      "description": "Add or update a parameter on every component",
+      "params": "Name=<text, default OpenBOMPartNumber>|Value=<text, default 123456>",
+      "readOnly": false
+    }
+  ]
+}

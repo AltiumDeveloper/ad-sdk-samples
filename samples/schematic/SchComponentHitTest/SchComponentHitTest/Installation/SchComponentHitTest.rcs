@@ -1,0 +1,49 @@
+PL PLSchComponentHitTest:CheckComponentProperty
+    Command='SchComponentHitTest:Run'
+    Caption='&Check Component Property'
+    Image=''
+    Description='Click a component and list its parameters'
+    Params='Cmd=CheckComponentProperty'
+End
+
+PL PLSchComponentHitTest:ListComponents
+    Command='SchComponentHitTest:Run'
+    Caption='&List Components'
+    Image=''
+    Description='List the components on the current sheet (test helper)'
+    Params='Cmd=ListComponents'
+End
+
+#if DEBUG
+PL PLSchComponentHitTest:Reload
+    Command='SchComponentHitTest:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchComponentHitTest implementation module'
+    Params=''
+End
+
+PL PLSchComponentHitTest:Status
+    Command='SchComponentHitTest:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchComponentHitTest hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchComponentHitTest Caption='&SchComponentHitTest' TopLevel=True
+    Link      MNSchComponentHitTest_CheckComponentProperty  PLID='PLSchComponentHitTest:CheckComponentProperty'  End
+    Link      MNSchComponentHitTest_ListComponents  PLID='PLSchComponentHitTest:ListComponents'  End
+#if DEBUG
+    Separator MNSchComponentHitTest_Sep10                              End
+    Tree MNSchComponentHitTest_Developer Caption='&Developer'
+        Link  MNSchComponentHitTest_Reload PLID='PLSchComponentHitTest:Reload' End
+        Link  MNSchComponentHitTest_Status PLID='PLSchComponentHitTest:Status' End
+    End
+#endif
+End
+
+Insertion MNSchComponentHitTest_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchComponentHitTest OriginalID=MNSchComponentHitTest IDSuffix='_2' End
+End

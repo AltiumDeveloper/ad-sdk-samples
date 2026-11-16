@@ -1,0 +1,46 @@
+PL PLPartChoice:GetPartChoiceInfo
+    Command='PartChoice:Run'
+    Caption='&Get Part Choice Info'
+    Image=''
+    Description='List the part choices of a Vault component'
+    Params='Cmd=GetPartChoiceInfo|Hrid=CMP-00029-00000'
+End
+
+#if DEBUG
+PL PLPartChoice:Reload
+    Command='PartChoice:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PartChoice implementation module'
+    Params=''
+End
+
+PL PLPartChoice:Status
+    Command='PartChoice:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PartChoice hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPartChoice Caption='&PartChoice' TopLevel=True
+    Link      MNPartChoice_GetPartChoiceInfo  PLID='PLPartChoice:GetPartChoiceInfo'  End
+#if DEBUG
+    Separator MNPartChoice_Sep10                              End
+    Tree MNPartChoice_Developer Caption='&Developer'
+        Link  MNPartChoice_Reload PLID='PLPartChoice:Reload' End
+        Link  MNPartChoice_Status PLID='PLPartChoice:Status' End
+    End
+#endif
+End
+
+Insertion MNPartChoice_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PartChoice OriginalID=MNPartChoice IDSuffix='_1' End
+End
+Insertion MNPartChoice_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PartChoice OriginalID=MNPartChoice IDSuffix='_2' End
+End
+Insertion MNPartChoice_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PartChoice OriginalID=MNPartChoice IDSuffix='_3' End
+End

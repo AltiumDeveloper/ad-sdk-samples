@@ -1,0 +1,25 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'SchComponentContextMenu'
+    EditorExePath     = 'SchComponentContextMenu.DLL'
+    EditorDescription = 'Context menu item for the schematic component under the cursor'
+    Version           = 'Version 1.0.0.0'
+    Date              = '11/13/2026'
+    HelpAboutInfo     = 'Altium Designer SDK sample.'
+    Copyright         = 'Copyright Altium Limited'
+    // Merge this extension's menus at startup. Without it, AD merges them only when the server first starts,
+    // after the menu bar is built: no top-level menu.
+    Updates           = 'AdvSch'
+End
+
+// Generic, stable processes. Features are [HotCommand] methods reached through Run with Cmd=<Name>.
+// "#if DEBUG" blocks are kept in Debug builds only (Directory.Build.targets).
+Command Name = 'Run'    LongSummary = 'Run a command of SchComponentContextMenu (Params: Cmd=<Name>|...)' End
+// Same as Run, but registered with a GetState that shows the item only while a component is under the right-click
+// position (ComponentContextMenu.cs). Used by the schematic context menu item in SchComponentContextMenu.rcs.
+Command Name = 'RunOnComponent' LongSummary = 'Run a SchComponentContextMenu command on the component under the right-click cursor' End
+#if DEBUG
+Command Name = 'Reload' LongSummary = 'Reload the SchComponentContextMenu implementation module'        End
+Command Name = 'Status' LongSummary = 'Show SchComponentContextMenu hot reload status'                  End
+#endif

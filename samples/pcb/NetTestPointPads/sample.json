@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NetTestPointPads",
+  "title": "Add a bottom test-point pad to every net",
+  "summary": "Shows how to create pads with PCBObjectFactory, flag them as bottom test points, assign them to a net, place them on a net's track and add them to the board, with a command that counts the result.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "create a pad on a PCB from code",
+    "add a test point for each net",
+    "assign a new pad to a net",
+    "count test point pads on a board"
+  ],
+  "commands": [
+    {
+      "name": "CreateTestPoint",
+      "description": "Add a bottom test-point pad to every net",
+      "params": "OffsetMm=10 (optional)|PitchMm=5 (optional)|RowMm=10 (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "CountTestPointPads",
+      "description": "Count the pads flagged as bottom test points (read-back)",
+      "readOnly": true
+    }
+  ]
+}

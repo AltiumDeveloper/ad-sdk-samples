@@ -1,0 +1,52 @@
+PL PLFixPcbComponent:FixPcbComponent
+    Command='FixPcbComponent:Run'
+    Caption='&Fix Pcb Component'
+    Image=''
+    Description='Copy a schematic parameter into the PCB component comments'
+    Params='Cmd=FixPcbComponent|Param=Comment'
+End
+
+PL PLFixPcbComponent:ImportSchComponentParams
+    Command='FixPcbComponent:Run'
+    Caption='&Import Sch Component Params'
+    Image=''
+    Description='Import schematic component parameters from a CSV file'
+    Params='Cmd=ImportSchComponentParams'
+End
+
+#if DEBUG
+PL PLFixPcbComponent:Reload
+    Command='FixPcbComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the FixPcbComponent implementation module'
+    Params=''
+End
+
+PL PLFixPcbComponent:Status
+    Command='FixPcbComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show FixPcbComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNFixPcbComponent Caption='&FixPcbComponent' TopLevel=True
+    Link      MNFixPcbComponent_FixPcbComponent  PLID='PLFixPcbComponent:FixPcbComponent'  End
+    Link      MNFixPcbComponent_ImportSchComponentParams  PLID='PLFixPcbComponent:ImportSchComponentParams'  End
+#if DEBUG
+    Separator MNFixPcbComponent_Sep10                              End
+    Tree MNFixPcbComponent_Developer Caption='&Developer'
+        Link  MNFixPcbComponent_Reload PLID='PLFixPcbComponent:Reload' End
+        Link  MNFixPcbComponent_Status PLID='PLFixPcbComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNFixPcbComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_FixPcbComponent OriginalID=MNFixPcbComponent IDSuffix='_2' End
+End
+Insertion MNFixPcbComponent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_FixPcbComponent OriginalID=MNFixPcbComponent IDSuffix='_3' End
+End

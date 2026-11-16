@@ -1,0 +1,40 @@
+PL PLDielectricLossTangent:GetDfValue
+    Command='DielectricLossTangent:Run'
+    Caption='&Get Df Value'
+    Image=''
+    Description='List the dielectric layers with their loss tangent (Df)'
+    Params='Cmd=GetDfValue'
+End
+
+#if DEBUG
+PL PLDielectricLossTangent:Reload
+    Command='DielectricLossTangent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DielectricLossTangent implementation module'
+    Params=''
+End
+
+PL PLDielectricLossTangent:Status
+    Command='DielectricLossTangent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DielectricLossTangent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDielectricLossTangent Caption='&DielectricLossTangent' TopLevel=True
+    Link      MNDielectricLossTangent_GetDfValue  PLID='PLDielectricLossTangent:GetDfValue'  End
+#if DEBUG
+    Separator MNDielectricLossTangent_Sep10                              End
+    Tree MNDielectricLossTangent_Developer Caption='&Developer'
+        Link  MNDielectricLossTangent_Reload PLID='PLDielectricLossTangent:Reload' End
+        Link  MNDielectricLossTangent_Status PLID='PLDielectricLossTangent:Status' End
+    End
+#endif
+End
+
+Insertion MNDielectricLossTangent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DielectricLossTangent OriginalID=MNDielectricLossTangent IDSuffix='_3' End
+End

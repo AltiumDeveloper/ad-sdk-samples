@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "GetVaultFolder",
+  "title": "List the folders of an installed Vault",
+  "summary": "Gets the vault manager, picks an installed Vault (workspace) and lists its top-level folders with subtree counts, showing the EDMS asynchronous request pattern: start, wait with a timeout, check the outcome, read the result.",
+  "category": "integration",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "list workspace folders from an extension",
+    "browse the folder tree of a connected workspace",
+    "call an EDMS request and wait for the result",
+    "enumerate installed vaults"
+  ],
+  "commands": [
+    {
+      "name": "GetVaultFolders",
+      "description": "List the folders of an installed Vault",
+      "params": "Vault=<index, default 0>|Timeout=<seconds, default 30>|Max=<lines, default 200>",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LayerStackInfo",
+  "title": "List internal plane and dielectric layers",
+  "summary": "Walks the board's master layer stack with a layer-class filtered iterator and reports each internal plane (copper thickness, pull-back, net) and each dielectric (type, height, material, Dk) in millimetres, optionally to a file.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "read board stackup thickness",
+    "get dielectric constant of PCB layers",
+    "list core and prepreg layers",
+    "export layer stack details to a text file"
+  ],
+  "commands": [
+    {
+      "name": "InternalPlaneInfo",
+      "description": "List the internal plane layers of the current board: name, copper thickness and pull-back distance in mm, net",
+      "params": "Out=<file, optional>",
+      "readOnly": true
+    },
+    {
+      "name": "DielectricInfo",
+      "description": "List the dielectric layers of the current board: type, thickness in mm, material and dielectric constant",
+      "params": "Out=<file, optional>",
+      "readOnly": true
+    }
+  ]
+}

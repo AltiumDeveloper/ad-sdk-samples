@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BoardOutlineSize",
+  "title": "Report a board outline's bounding width and height",
+  "summary": "Opens a PcbDoc by path (or takes the current board), gets it with GetPCBBoardByPath and reports the board outline's bounding width and height in mils, millimetres and internal units.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get the board size",
+    "measure PCB dimensions in mm",
+    "open a PcbDoc by path and read its board",
+    "convert PCB coordinates to mils"
+  ],
+  "commands": [
+    {
+      "name": "GetPcbSize",
+      "description": "Report the board outline width and height",
+      "params": "PCBFile=<path to .PcbDoc> (optional; default: the current board)|Out=<file or folder> (optional)",
+      "readOnly": true
+    }
+  ]
+}

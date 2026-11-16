@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbToImage",
+  "title": "Capture the PCB 3D view as a PNG image",
+  "summary": "Switches the active board to 3D with the PCB:SwitchTo3D process, takes the document view's window handle and saves a PrintWindow capture as PNG; shows that PW_RENDERFULLCONTENT is needed to capture the 3D canvas.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "save a screenshot of the 3D board view",
+    "export the PCB view to an image file",
+    "switch the PCB to 3D from code",
+    "get the window handle of a document view"
+  ],
+  "commands": [
+    {
+      "name": "PcbToImage",
+      "description": "Switch the PCB view to 3D and save the view window as a PNG",
+      "params": "Out=<file or folder> (optional, default: temp folder, file PcbToImage.png)|FullContent=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

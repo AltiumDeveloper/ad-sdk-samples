@@ -1,0 +1,58 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "WireAddParameter",
+  "title": "Add, read and remove parameters on a schematic wire",
+  "summary": "Adds a parameter as a child object of a schematic wire, lists and removes the wire's parameters, and shows schematic right-click menu items whose GetState makes them visible only over a wire.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "modify",
+    "inspect",
+    "extend-ui"
+  ],
+  "surface": [
+    "command",
+    "context-menu"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "attach a parameter to a wire",
+    "list parameters on a schematic wire",
+    "delete parameters from a wire",
+    "show a right-click menu item only over a wire",
+    "find the object under the right-click position"
+  ],
+  "commands": [
+    {
+      "name": "AddParameterToWire",
+      "description": "Add a parameter to the wire under the right-click cursor or the selected wire",
+      "params": "Name=<text, default NewParamName>|Value=<text, default NewParamValue>|Wire=popup|selected (default selected)|Index=<n, 0-based among the selected wires, default 0>",
+      "readOnly": false
+    },
+    {
+      "name": "GetParameterFromWire",
+      "description": "List the parameters of the wire under the right-click cursor or the selected wire",
+      "params": "Wire=popup|selected (default selected)|Index=<n, default 0>",
+      "readOnly": true
+    },
+    {
+      "name": "RemoveParameterFromWire",
+      "description": "Remove the parameters of the wire under the right-click cursor or the selected wire",
+      "params": "Name=<text, optional: remove only parameters with this name; default all>|Wire=popup|selected (default selected)|Index=<n, default 0>",
+      "readOnly": false
+    },
+    {
+      "name": "ListWires",
+      "description": "List the wires of the current sheet with their parameter counts (test helper)",
+      "params": "Max=<n, default 20>",
+      "readOnly": true
+    },
+    {
+      "name": "SelectWire",
+      "description": "Select one wire of the current sheet by its ListWires index (test helper; changes the selection only)",
+      "params": "Index=<n, default 0>",
+      "readOnly": true
+    }
+  ]
+}

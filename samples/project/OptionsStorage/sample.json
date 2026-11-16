@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "OptionsStorage",
+  "title": "Read and write custom project option values",
+  "summary": "Adds, modifies, reads and deletes custom section/key/value parameters in the focused project's options storage (IOptionsStorage external parameters), including the null return for a missing key.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "configure",
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "store a custom setting in a project",
+    "save key value data with a PrjPcb",
+    "read an external parameter from project options",
+    "delete a custom project option"
+  ],
+  "commands": [
+    {
+      "name": "AddUserParameter",
+      "description": "Add a user parameter to the focused project's options",
+      "params": "Section=MySection|Key=UserName|Value=Allen[|Overwrite=true]",
+      "readOnly": false
+    },
+    {
+      "name": "ReadUserParameter",
+      "description": "Read a user parameter from the focused project's options",
+      "params": "Section=MySection|Key=UserName",
+      "readOnly": true
+    },
+    {
+      "name": "DeleteUserParameter",
+      "description": "Delete a user parameter from the focused project's options",
+      "params": "Section=MySection|Key=UserName",
+      "readOnly": false
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DocumentOpenSaveNotification",
+  "title": "Add and strip component parameters on document load and save",
+  "summary": "Registers the SDK's DXP.NotificationHandler to react to document notifications: adds a hidden parameter to every component when a schematic loads, and removes it, re-saves and restores it when the schematic is saved.",
+  "category": "framework-ui",
+  "domain": "schematic",
+  "task": [
+    "react",
+    "modify"
+  ],
+  "surface": [
+    "notification",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "run code when a schematic is opened",
+    "handle the document saved event in an extension",
+    "receive document notifications in .NET",
+    "add a hidden parameter to all components",
+    "keep a parameter out of the saved file"
+  ],
+  "commands": [
+    {
+      "name": "EnableNotifications",
+      "description": "Turn the document load/save handler on or off, or show its state and the notifications it saw",
+      "params": "State=on|off|status (default status); with on: Name=<parameter name, default SampleParameter>, Value=<text, default SampleValue>, Under=<folder: only schematics under it>; Reset (clears the counters)",
+      "readOnly": true
+    },
+    {
+      "name": "Notification.Document",
+      "description": "Handle one document notification: DocumentLoading adds the parameter, DocumentSaved removes it, saves again and adds it back (called by the shim's notification handler)",
+      "params": "Code=<notification code> (set by the shim; the notification is the command's context)",
+      "readOnly": false
+    },
+    {
+      "name": "AddParameters",
+      "description": "Add the hidden sample parameter to every component of the focused schematic",
+      "params": "Name=<parameter name, default SampleParameter>|Value=<text, default SampleValue>",
+      "readOnly": false
+    },
+    {
+      "name": "RemoveParameters",
+      "description": "Remove the sample parameter from every component of the focused schematic",
+      "params": "Name=<parameter name, default SampleParameter>",
+      "readOnly": false
+    },
+    {
+      "name": "CountParameters",
+      "description": "Count the components of the focused schematic that carry the sample parameter, and report whether the document is modified",
+      "params": "Name=<parameter name, default SampleParameter>|Value=<text, default SampleValue>",
+      "readOnly": true
+    },
+    {
+      "name": "SaveDocument",
+      "description": "Save the focused schematic: with IServerDocument.DoFileSave (raises no DocumentSaved), or with Via=process through AD's WorkSpaceManager:SaveObject, as File > Save (runs the save handler when it is on)",
+      "params": "Via=dofilesave|process (default dofilesave)",
+      "readOnly": false
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+PL PLSchWireParameterPanel:ShowPanel
+    Command='SchWireParameterPanel:Run'
+    Caption='Show &Panel'
+    Image=''
+    Description='Open the wire parameter panel'
+    Params='Cmd=ShowPanel'
+End
+
+PL PLSchWireParameterPanel:ListWireParameters
+    Command='SchWireParameterPanel:Run'
+    Caption='&List Wire Parameters'
+    Image=''
+    Description='List the wire parameters of the current sheet'
+    Params='Cmd=ListWireParameters'
+End
+
+PL PLSchWireParameterPanel:ShowWireParameters
+    Command='SchWireParameterPanel:Run'
+    Caption='Show &Wire Parameters'
+    Image=''
+    Description='Unhide and select every wire parameter of the current sheet'
+    Params='Cmd=ShowWireParameters'
+End
+
+PL PLSchWireParameterPanel:AutoShow
+    Command='SchWireParameterPanel:Run'
+    Caption='AutoShow S&tatus'
+    Image=''
+    Description='Show whether automatic mode (document view + EndUpdate handler) is on'
+    Params='Cmd=AutoShow|State=status'
+End
+
+PL PLSchWireParameterPanel:AutoShowOn
+    Command='SchWireParameterPanel:Run'
+    Caption='AutoShow &On'
+    Image=''
+    Description='Attach the view to activated schematics and unhide wire parameters after every view update'
+    Params='Cmd=AutoShow|State=on'
+End
+
+PL PLSchWireParameterPanel:AutoShowOff
+    Command='SchWireParameterPanel:Run'
+    Caption='AutoShow O&ff'
+    Image=''
+    Description='Unregister the notification handler and make the attached views inert'
+    Params='Cmd=AutoShow|State=off'
+End
+
+#if DEBUG
+PL PLSchWireParameterPanel:Reload
+    Command='SchWireParameterPanel:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchWireParameterPanel implementation module'
+    Params=''
+End
+
+PL PLSchWireParameterPanel:Status
+    Command='SchWireParameterPanel:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchWireParameterPanel hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchWireParameterPanel Caption='&SchWireParameterPanel' TopLevel=True
+    Link      MNSchWireParameterPanel_ShowPanel  PLID='PLSchWireParameterPanel:ShowPanel'  End
+    Link      MNSchWireParameterPanel_ListWireParameters  PLID='PLSchWireParameterPanel:ListWireParameters'  End
+    Link      MNSchWireParameterPanel_ShowWireParameters  PLID='PLSchWireParameterPanel:ShowWireParameters'  End
+    Link      MNSchWireParameterPanel_AutoShow  PLID='PLSchWireParameterPanel:AutoShow'  End
+    Link      MNSchWireParameterPanel_AutoShowOn  PLID='PLSchWireParameterPanel:AutoShowOn'  End
+    Link      MNSchWireParameterPanel_AutoShowOff  PLID='PLSchWireParameterPanel:AutoShowOff'  End
+#if DEBUG
+    Separator MNSchWireParameterPanel_Sep10                              End
+    Tree MNSchWireParameterPanel_Developer Caption='&Developer'
+        Link  MNSchWireParameterPanel_Reload PLID='PLSchWireParameterPanel:Reload' End
+        Link  MNSchWireParameterPanel_Status PLID='PLSchWireParameterPanel:Status' End
+    End
+#endif
+End
+
+Insertion MNSchWireParameterPanel_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SchWireParameterPanel OriginalID=MNSchWireParameterPanel IDSuffix='_1' End
+End
+Insertion MNSchWireParameterPanel_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchWireParameterPanel OriginalID=MNSchWireParameterPanel IDSuffix='_2' End
+End

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbLibRenameFootprintToFileName",
+  "title": "Rename each PcbLib's footprint to its file name",
+  "summary": "Batch-opens every .PcbLib in a folder, renames its footprint (Pattern) to the file name inside a modification bracket, saves with DoFileSave and closes it again, skipping libraries that are open or hold several footprints.",
+  "category": "pcb",
+  "domain": "library",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "batch rename footprints in PCB libraries",
+    "set footprint name from library file name",
+    "open, edit and save a PcbLib from code",
+    "list the footprints of a PcbLib file"
+  ],
+  "commands": [
+    {
+      "name": "RenameFootprintsToFileName",
+      "description": "Rename each PcbLib footprint in a folder to the file name",
+      "params": "Folder=<folder> (required on the pipe; dialog from the menu)|MultiFootprint=Skip|Current (default Skip)|Out=<folder> (default temp)|Open=true|false (default: true from the menu, false on the pipe)",
+      "readOnly": false
+    },
+    {
+      "name": "ListFootprints",
+      "description": "List the footprints of a PcbLib file (read-back check)",
+      "params": "Lib=<path to .PcbLib>",
+      "readOnly": true
+    }
+  ]
+}

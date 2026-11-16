@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The shim: what Altium Designer loads. Shared sources and settings: Directory.Build.targets. -->
+  <PropertyGroup>
+    <SampleRole>Shim</SampleRole>
+    <!-- Identifies the extension in Extensions\ExtensionsRegistry.xml (tools\deploy.ps1). Generated once; keep it. -->
+    <ExtensionGuid>3237cd5f-6d50-4ba4-84c2-a6528699ed7b</ExtensionGuid>
+  </PropertyGroup>
+</Project>

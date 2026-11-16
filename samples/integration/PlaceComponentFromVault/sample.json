@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlaceComponentFromVault",
+  "title": "Place a Vault component by item revision HRID",
+  "summary": "Looks up a component item revision in an installed Vault by its HRID (IEDMS_Vault.ItemRevisionByHRID) and starts placing it into the active document with IDXPWorkSpace.DM_UseItemRevision. Shows the Vault, item and revision GUIDs that call needs.",
+  "category": "integration",
+  "domain": "schematic",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a workspace component on a schematic from code",
+    "find an item revision by its HRID",
+    "get the vault GUID and item GUID of a component",
+    "place a managed component programmatically"
+  ],
+  "commands": [
+    {
+      "name": "PlaceVaultComponent",
+      "description": "Look up a Vault item revision by HRID and start placing it into the active document",
+      "params": "Hrid=<item revision HRID, required; the menu passes CMP-0001-00000-1>|Vault=<index, default 0>|DryRun=<true: look up only, do not place>",
+      "readOnly": false
+    }
+  ]
+}

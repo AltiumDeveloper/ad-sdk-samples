@@ -1,0 +1,34 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'ProjectBomReport'
+    EditorExePath     = 'ProjectBomReport.DLL'
+    EditorDescription = 'Report components of the focused project as a BOM text'
+    Version           = 'Version 1.0.0.0'
+    Date              = '11/13/2026'
+    HelpAboutInfo     = 'Altium Designer SDK sample.'
+    Copyright         = 'Copyright Altium Limited'
+    // Merge this extension's menus at startup. Without it, AD merges them only when the server first starts,
+    // after the menu bar is built: no top-level menu.
+    Updates           = 'AdvSch'
+End
+
+// Generic, stable processes. Features are [HotCommand] methods reached through Run with Cmd=<Name>.
+// "#if DEBUG" blocks are kept in Debug builds only (Directory.Build.targets).
+Command Name = 'Run'    LongSummary = 'Run a command of ProjectBomReport (Params: Cmd=<Name>|...)' End
+#if DEBUG
+Command Name = 'Reload' LongSummary = 'Reload the ProjectBomReport implementation module'        End
+Command Name = 'Status' LongSummary = 'Show ProjectBomReport hot reload status'                  End
+#endif
+
+PanelInfo
+    // The ProjectBomReport panel (framework\shim\Panel.cs). Its content comes from the implementation, so it hot-reloads;
+    // this block needs a redeploy and an AD restart.
+    Name              = 'ProjectBomReportPanel'
+    Category          = 'ProjectBomReport'
+    Bitmap            = ''
+    Hotkey            = ''
+    ButtonVisible     = True
+    CanDockVertical   = True
+    CanDockHorizontal = True
+End

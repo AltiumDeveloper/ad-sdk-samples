@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "RemoveSchLibComponent",
+  "title": "Delete a named component from a schematic library",
+  "summary": "Shows how to check that the active document is a SchLib, look up a component by library reference and delete it without a dialog through the Sch:DeleteComponentFromLibrary process, then confirm the deletion.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "remove a symbol from a SchLib",
+    "find a schematic library component by its library reference",
+    "check whether the active document is a schematic library",
+    "delete a library part without a confirmation dialog"
+  ],
+  "commands": [
+    {
+      "name": "RemoveComponent",
+      "description": "Delete a named component from the active schematic library",
+      "params": "Name=<library reference> (required)",
+      "readOnly": false
+    }
+  ]
+}

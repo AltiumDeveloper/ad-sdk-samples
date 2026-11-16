@@ -1,0 +1,40 @@
+PL PLPlaceAndMovePcbComponent:PlaceAndMoveComponent
+    Command='PlaceAndMovePcbComponent:Run'
+    Caption='&Place And Move Component'
+    Image=''
+    Description='Place a PcbLib footprint and start the interactive move'
+    Params='Cmd=PlaceAndMoveComponent'
+End
+
+#if DEBUG
+PL PLPlaceAndMovePcbComponent:Reload
+    Command='PlaceAndMovePcbComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlaceAndMovePcbComponent implementation module'
+    Params=''
+End
+
+PL PLPlaceAndMovePcbComponent:Status
+    Command='PlaceAndMovePcbComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlaceAndMovePcbComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlaceAndMovePcbComponent Caption='&PlaceAndMovePcbComponent' TopLevel=True
+    Link      MNPlaceAndMovePcbComponent_PlaceAndMoveComponent  PLID='PLPlaceAndMovePcbComponent:PlaceAndMoveComponent'  End
+#if DEBUG
+    Separator MNPlaceAndMovePcbComponent_Sep10                              End
+    Tree MNPlaceAndMovePcbComponent_Developer Caption='&Developer'
+        Link  MNPlaceAndMovePcbComponent_Reload PLID='PLPlaceAndMovePcbComponent:Reload' End
+        Link  MNPlaceAndMovePcbComponent_Status PLID='PLPlaceAndMovePcbComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNPlaceAndMovePcbComponent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PlaceAndMovePcbComponent OriginalID=MNPlaceAndMovePcbComponent IDSuffix='_3' End
+End

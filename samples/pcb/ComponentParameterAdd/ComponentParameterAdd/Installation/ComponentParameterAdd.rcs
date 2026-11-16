@@ -1,0 +1,40 @@
+PL PLComponentParameterAdd:AddParamToComponent
+    Command='ComponentParameterAdd:Run'
+    Caption='&Add Parameter To Components'
+    Image=''
+    Description='Add or update a parameter on every component'
+    Params='Cmd=AddParamToComponent'
+End
+
+#if DEBUG
+PL PLComponentParameterAdd:Reload
+    Command='ComponentParameterAdd:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ComponentParameterAdd implementation module'
+    Params=''
+End
+
+PL PLComponentParameterAdd:Status
+    Command='ComponentParameterAdd:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ComponentParameterAdd hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNComponentParameterAdd Caption='&ComponentParameterAdd' TopLevel=True
+    Link      MNComponentParameterAdd_AddParamToComponent  PLID='PLComponentParameterAdd:AddParamToComponent'  End
+#if DEBUG
+    Separator MNComponentParameterAdd_Sep10                              End
+    Tree MNComponentParameterAdd_Developer Caption='&Developer'
+        Link  MNComponentParameterAdd_Reload PLID='PLComponentParameterAdd:Reload' End
+        Link  MNComponentParameterAdd_Status PLID='PLComponentParameterAdd:Status' End
+    End
+#endif
+End
+
+Insertion MNComponentParameterAdd_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ComponentParameterAdd OriginalID=MNComponentParameterAdd IDSuffix='_3' End
+End

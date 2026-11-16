@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NavigationProvider",
+  "title": "Register a custom URL protocol navigation provider",
+  "summary": "Implements DXP.INavigationProvider as a COM callback in the shim and registers it for a custom URL protocol, so AD hands destinations like npdemo://target?params to the extension, which runs a command in response.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "react",
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "handle a custom URL scheme in Altium Designer",
+    "react when AD navigates to a link",
+    "implement INavigationProvider in C#",
+    "run a command when a protocol link is opened"
+  ],
+  "commands": [
+    {
+      "name": "RegisterProvider",
+      "description": "Register the shim's navigation provider for a URL protocol and keep the returned handle",
+      "params": "Protocol=<scheme, default npdemo>|RunCommand=<process id, default WorkspaceManager:NewProject; empty = record only>|RunParams=<default ShowDialog=True>",
+      "readOnly": true
+    },
+    {
+      "name": "TriggerNavigation",
+      "description": "Parse and navigate to a destination of the protocol and report whether and how the provider was called",
+      "params": "Url=<destination, default npdemo://test>|Via=<NavigateTo (default) or Scene for NavigateToScene>|AllowRun (pipe only: let the provider run its command)",
+      "readOnly": true
+    },
+    {
+      "name": "ProviderStatus",
+      "description": "Show the registration, the number of calls and the last call, action and error",
+      "readOnly": true
+    },
+    {
+      "name": "UnregisterProvider",
+      "description": "Unregister the provider with the stored handle",
+      "readOnly": true
+    },
+    {
+      "name": "Navigation.Handle",
+      "description": "Internal: called by the shim's provider for every navigation request; runs the configured command for the registered protocol",
+      "readOnly": true
+    }
+  ]
+}

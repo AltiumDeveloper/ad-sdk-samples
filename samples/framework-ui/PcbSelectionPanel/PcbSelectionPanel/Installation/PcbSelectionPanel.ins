@@ -1,0 +1,47 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'PcbSelectionPanel'
+    EditorExePath     = 'PcbSelectionPanel.DLL'
+    EditorDescription = 'Panel listing the selected primitives of a PCB document'
+    Version           = 'Version 1.0.0.0'
+    Date              = '11/13/2026'
+    HelpAboutInfo     = 'Altium Designer SDK sample.'
+    Copyright         = 'Copyright Altium Limited'
+    // Merge this extension's menus at startup. Without it, AD merges them only when the server first starts,
+    // after the menu bar is built: no top-level menu.
+    Updates           = 'AdvSch'
+End
+
+// Generic, stable processes. Features are [HotCommand] methods reached through Run with Cmd=<Name>.
+// "#if DEBUG" blocks are kept in Debug builds only (Directory.Build.targets).
+Command Name = 'Run'    LongSummary = 'Run a command of PcbSelectionPanel (Params: Cmd=<Name>|...)' End
+#if DEBUG
+Command Name = 'Reload' LongSummary = 'Reload the PcbSelectionPanel implementation module'        End
+Command Name = 'Status' LongSummary = 'Show PcbSelectionPanel hot reload status'                  End
+#endif
+
+PanelInfo
+    // The PcbSelectionPanel panel (framework\shim\Panel.cs). Its content comes from the implementation, so it hot-reloads;
+    // this block needs a redeploy and an AD restart.
+    Name              = 'PcbSelectionPanelPanel'
+    Category          = 'PcbSelectionPanel'
+    Bitmap            = ''
+    Hotkey            = ''
+    ButtonVisible     = True
+    CanDockVertical   = True
+    CanDockHorizontal = True
+End
+
+PanelInfo
+    // The per-document panel view (SelectionShim.cs, PcbHolderView), added to a PCB
+    // document by the AttachView command or, with Listen State=on|AutoAttach=true, on DocumentActivating.
+    // No Hotkey and no SystemExtension in the Server block: the sample does nothing until a command runs.
+    Name              = 'PcbSelectionPanelHolder'
+    Category          = 'PcbSelectionPanel'
+    Bitmap            = ''
+    Hotkey            = ''
+    ButtonVisible     = True
+    CanDockVertical   = True
+    CanDockHorizontal = True
+End

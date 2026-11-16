@@ -1,0 +1,43 @@
+PL PLPcbLibMerge:MergePcbLibs
+    Command='PcbLibMerge:Run'
+    Caption='&Merge Pcb Libs'
+    Image=''
+    Description='Merge all PcbLib files of a folder into a new PcbLib'
+    Params='Cmd=MergePcbLibs'
+End
+
+#if DEBUG
+PL PLPcbLibMerge:Reload
+    Command='PcbLibMerge:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbLibMerge implementation module'
+    Params=''
+End
+
+PL PLPcbLibMerge:Status
+    Command='PcbLibMerge:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbLibMerge hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbLibMerge Caption='&PcbLibMerge' TopLevel=True
+    Link      MNPcbLibMerge_MergePcbLibs  PLID='PLPcbLibMerge:MergePcbLibs'  End
+#if DEBUG
+    Separator MNPcbLibMerge_Sep10                              End
+    Tree MNPcbLibMerge_Developer Caption='&Developer'
+        Link  MNPcbLibMerge_Reload PLID='PLPcbLibMerge:Reload' End
+        Link  MNPcbLibMerge_Status PLID='PLPcbLibMerge:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbLibMerge_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PcbLibMerge OriginalID=MNPcbLibMerge IDSuffix='_1' End
+End
+Insertion MNPcbLibMerge_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbLibMerge OriginalID=MNPcbLibMerge IDSuffix='_3' End
+End

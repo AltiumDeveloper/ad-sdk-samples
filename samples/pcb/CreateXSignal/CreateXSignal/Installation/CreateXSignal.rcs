@@ -1,0 +1,58 @@
+PL PLCreateXSignal:CreateXSignal
+    Command='CreateXSignal:Run'
+    Caption='&Create XSignal'
+    Image=''
+    Description='Create an xSignal between two pins'
+    Params='Cmd=CreateXSignal'
+End
+
+PL PLCreateXSignal:ListXSignals
+    Command='CreateXSignal:Run'
+    Caption='&List XSignals'
+    Image=''
+    Description='List the board''s xSignals'
+    Params='Cmd=ListXSignals'
+End
+
+PL PLCreateXSignal:DeleteXSignal
+    Command='CreateXSignal:Run'
+    Caption='&Delete XSignal'
+    Image=''
+    Description='Delete an xSignal by name'
+    Params='Cmd=DeleteXSignal'
+End
+
+#if DEBUG
+PL PLCreateXSignal:Reload
+    Command='CreateXSignal:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CreateXSignal implementation module'
+    Params=''
+End
+
+PL PLCreateXSignal:Status
+    Command='CreateXSignal:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CreateXSignal hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCreateXSignal Caption='&CreateXSignal' TopLevel=True
+    Link      MNCreateXSignal_CreateXSignal  PLID='PLCreateXSignal:CreateXSignal'  End
+    Link      MNCreateXSignal_ListXSignals  PLID='PLCreateXSignal:ListXSignals'  End
+    Link      MNCreateXSignal_DeleteXSignal  PLID='PLCreateXSignal:DeleteXSignal'  End
+#if DEBUG
+    Separator MNCreateXSignal_Sep10                              End
+    Tree MNCreateXSignal_Developer Caption='&Developer'
+        Link  MNCreateXSignal_Reload PLID='PLCreateXSignal:Reload' End
+        Link  MNCreateXSignal_Status PLID='PLCreateXSignal:Status' End
+    End
+#endif
+End
+
+Insertion MNCreateXSignal_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_CreateXSignal OriginalID=MNCreateXSignal IDSuffix='_3' End
+End

@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Altium Designer SDK samples index",
+  "description": "index.json, built by CI (eng/build-index.mjs --api, from every samples/*/*/sample.json and the compiled code) and published; never committed. The one file a consumer such as the AD SDK documentation build needs: the samples with their facets and commands, every SDK type and member each one uses (file and line), and the reverse index from each SDK type and member to the samples that use it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "vocabulary",
+    "samples",
+    "apis"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "vocabulary": {
+      "type": "object",
+      "description": "The closed vocabularies of the facets, copied from sample.schema.json.",
+      "properties": {
+        "domain": {
+          "type": "array"
+        },
+        "task": {
+          "type": "array"
+        },
+        "surface": {
+          "type": "array"
+        }
+      }
+    },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "summary",
+          "category",
+          "domain",
+          "task",
+          "surface",
+          "path",
+          "commands",
+          "apis"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "task": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "surface": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interactive": {
+            "type": "boolean"
+          },
+          "requiresRestart": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string",
+            "description": "The sample folder, relative to the repository root."
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "description"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9.]*$"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "params": {
+                  "type": "string",
+                  "description": "Key=Value parameters, separated by |, as passed to tools/ad.ps1 or the menu item."
+                },
+                "readOnly": {
+                  "type": "boolean",
+                  "description": "False when the command changes a document or Altium Designer state."
+                }
+              }
+            }
+          },
+          "phrasings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "apis": {
+            "type": "array",
+            "description": "Every Altium Designer SDK type and member the sample's own code uses, resolved by the C# compiler. Accessor pairs (GetState_X / SetState_X) are reported as the property X, as the SDK reference names it.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "kind",
+                "uses"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^(SCH|PCB|EDP|DXP|ComponentLib|Embedded)\\.[A-Za-z0-9_.]+$",
+                  "description": "Namespace.Type or Namespace.Type.Member, as in the SDK reference."
+                },
+                "kind": {
+                  "enum": [
+                    "type",
+                    "member"
+                  ]
+                },
+                "primary": {
+                  "type": "boolean",
+                  "description": "Named in the README's \"What it shows\": what the sample is about, not plumbing."
+                },
+                "uses": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "file",
+                      "line"
+                    ],
+                    "properties": {
+                      "file": {
+                        "type": "string",
+                        "description": "Path relative to the sample folder, with forward slashes."
+                      },
+                      "line": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "command": {
+                        "type": "string",
+                        "description": "The command whose code uses it, when there is one."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "apis": {
+      "type": "object",
+      "description": "SDK id (Namespace.Type or Namespace.Type.Member) -> the samples that use it, primary users first, then by fewest distinct APIs (the most focused sample first).",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sample",
+            "file",
+            "line",
+            "uses"
+          ],
+          "properties": {
+            "sample": {
+              "type": "string"
+            },
+            "primary": {
+              "type": "boolean"
+            },
+            "file": {
+              "type": "string",
+              "description": "First use: path relative to the repository root."
+            },
+            "line": {
+              "type": "integer"
+            },
+            "uses": {
+              "type": "integer",
+              "description": "How many times the sample's code uses it."
+            }
+          }
+        }
+      }
+    }
+  }
+}

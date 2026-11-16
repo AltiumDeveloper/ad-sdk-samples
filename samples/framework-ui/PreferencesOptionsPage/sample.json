@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PreferencesOptionsPage",
+  "title": "Add a Preferences page and persist its options",
+  "summary": "Registers an extension page in the Altium Designer Preferences dialog through the protected ServerModule and OptionsForm contract, and stores its value with ServerOptionsReader/Writer, including Preferences export/import.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "configure",
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "add my own page to the Preferences dialog",
+    "save extension settings between sessions",
+    "read and write extension options",
+    "take part in preferences export and import"
+  ],
+  "commands": [
+    {
+      "name": "ShowPreference",
+      "description": "Read [General] Temperature with Utils.ServerOptionsReader (value, ValueExists, default '100'), the value the page has cached, and the shim's counters: RegisterOptionsPages calls, pages created, SetStateControls/GetStateControls/SetDefaultState calls, notifications received (and with code 1023), exports/imports, last save, last error",
+      "readOnly": true
+    },
+    {
+      "name": "SetPreference",
+      "description": "Write [General] Temperature with Utils.ServerOptionsWriter (or erase the section), Flush, read it back with a new reader and reload the page's cache",
+      "params": "Temperature=<text> (required unless Erase)|Erase (flag: EraseSection('General'))",
+      "readOnly": false
+    },
+    {
+      "name": "ExportPreferencesFolder",
+      "description": "Report IClientAPI_Interface.SpecialFolder_ExportPreferences; with WriteIni, write MyPref_General.ini there (or in Folder, which must exist) with the data manager's code (the value the page has cached) and read it back",
+      "params": "WriteIni (flag, optional; writes a file)|Folder=<folder> (optional, default the export folder)",
+      "readOnly": false
+    }
+  ]
+}

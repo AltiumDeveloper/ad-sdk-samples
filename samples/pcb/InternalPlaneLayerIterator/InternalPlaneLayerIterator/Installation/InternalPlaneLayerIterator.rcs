@@ -1,0 +1,49 @@
+PL PLInternalPlaneLayerIterator:GetTracks
+    Command='InternalPlaneLayerIterator:Run'
+    Caption='&Get Tracks'
+    Image=''
+    Description='List the tracks on each internal plane layer'
+    Params='Cmd=GetTracks'
+End
+
+PL PLInternalPlaneLayerIterator:AddTestPlaneTrack
+    Command='InternalPlaneLayerIterator:Run'
+    Caption='&Add Test Plane Track'
+    Image=''
+    Description='Place a track on an internal plane (test setup)'
+    Params='Cmd=AddTestPlaneTrack'
+End
+
+#if DEBUG
+PL PLInternalPlaneLayerIterator:Reload
+    Command='InternalPlaneLayerIterator:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the InternalPlaneLayerIterator implementation module'
+    Params=''
+End
+
+PL PLInternalPlaneLayerIterator:Status
+    Command='InternalPlaneLayerIterator:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show InternalPlaneLayerIterator hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNInternalPlaneLayerIterator Caption='&InternalPlaneLayerIterator' TopLevel=True
+    Link      MNInternalPlaneLayerIterator_GetTracks  PLID='PLInternalPlaneLayerIterator:GetTracks'  End
+    Link      MNInternalPlaneLayerIterator_AddTestPlaneTrack  PLID='PLInternalPlaneLayerIterator:AddTestPlaneTrack'  End
+#if DEBUG
+    Separator MNInternalPlaneLayerIterator_Sep10                              End
+    Tree MNInternalPlaneLayerIterator_Developer Caption='&Developer'
+        Link  MNInternalPlaneLayerIterator_Reload PLID='PLInternalPlaneLayerIterator:Reload' End
+        Link  MNInternalPlaneLayerIterator_Status PLID='PLInternalPlaneLayerIterator:Status' End
+    End
+#endif
+End
+
+Insertion MNInternalPlaneLayerIterator_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_InternalPlaneLayerIterator OriginalID=MNInternalPlaneLayerIterator IDSuffix='_3' End
+End

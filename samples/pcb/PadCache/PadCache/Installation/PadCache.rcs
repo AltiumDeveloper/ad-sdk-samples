@@ -1,0 +1,49 @@
+PL PLPadCache:InvalidatePadSolderMaskCache
+    Command='PadCache:Run'
+    Caption='&Invalidate Pad Solder Mask Cache'
+    Image=''
+    Description='Mark the solder mask cache of the first pad invalid (All=True: every pad)'
+    Params='Cmd=InvalidatePadSolderMaskCache'
+End
+
+PL PLPadCache:ReadPadCache
+    Command='PadCache:Run'
+    Caption='&Read Pad Cache'
+    Image=''
+    Description='Show the cache of the first pad'
+    Params='Cmd=ReadPadCache'
+End
+
+#if DEBUG
+PL PLPadCache:Reload
+    Command='PadCache:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PadCache implementation module'
+    Params=''
+End
+
+PL PLPadCache:Status
+    Command='PadCache:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PadCache hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPadCache Caption='&PadCache' TopLevel=True
+    Link      MNPadCache_InvalidatePadSolderMaskCache  PLID='PLPadCache:InvalidatePadSolderMaskCache'  End
+    Link      MNPadCache_ReadPadCache  PLID='PLPadCache:ReadPadCache'  End
+#if DEBUG
+    Separator MNPadCache_Sep10                              End
+    Tree MNPadCache_Developer Caption='&Developer'
+        Link  MNPadCache_Reload PLID='PLPadCache:Reload' End
+        Link  MNPadCache_Status PLID='PLPadCache:Status' End
+    End
+#endif
+End
+
+Insertion MNPadCache_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PadCache OriginalID=MNPadCache IDSuffix='_3' End
+End

@@ -1,0 +1,46 @@
+PL PLGetVaultFolder:GetVaultFolders
+    Command='GetVaultFolder:Run'
+    Caption='&Get Vault Folders'
+    Image=''
+    Description='List the folders of an installed Vault'
+    Params='Cmd=GetVaultFolders'
+End
+
+#if DEBUG
+PL PLGetVaultFolder:Reload
+    Command='GetVaultFolder:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the GetVaultFolder implementation module'
+    Params=''
+End
+
+PL PLGetVaultFolder:Status
+    Command='GetVaultFolder:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show GetVaultFolder hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNGetVaultFolder Caption='&GetVaultFolder' TopLevel=True
+    Link      MNGetVaultFolder_GetVaultFolders  PLID='PLGetVaultFolder:GetVaultFolders'  End
+#if DEBUG
+    Separator MNGetVaultFolder_Sep10                              End
+    Tree MNGetVaultFolder_Developer Caption='&Developer'
+        Link  MNGetVaultFolder_Reload PLID='PLGetVaultFolder:Reload' End
+        Link  MNGetVaultFolder_Status PLID='PLGetVaultFolder:Status' End
+    End
+#endif
+End
+
+Insertion MNGetVaultFolder_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_GetVaultFolder OriginalID=MNGetVaultFolder IDSuffix='_1' End
+End
+Insertion MNGetVaultFolder_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_GetVaultFolder OriginalID=MNGetVaultFolder IDSuffix='_2' End
+End
+Insertion MNGetVaultFolder_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_GetVaultFolder OriginalID=MNGetVaultFolder IDSuffix='_3' End
+End

@@ -1,0 +1,49 @@
+PL PLChangePhysicalSheet:ListPhysicalSheets
+    Command='ChangePhysicalSheet:Run'
+    Caption='&List Physical Sheets'
+    Image=''
+    Description='List the physical sheets of each schematic'
+    Params='Cmd=ListPhysicalSheets'
+End
+
+PL PLChangePhysicalSheet:CyclePhysicalSheets
+    Command='ChangePhysicalSheet:Run'
+    Caption='&Cycle Physical Sheets'
+    Image=''
+    Description='Make each physical sheet active in turn'
+    Params='Cmd=CyclePhysicalSheets'
+End
+
+#if DEBUG
+PL PLChangePhysicalSheet:Reload
+    Command='ChangePhysicalSheet:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ChangePhysicalSheet implementation module'
+    Params=''
+End
+
+PL PLChangePhysicalSheet:Status
+    Command='ChangePhysicalSheet:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ChangePhysicalSheet hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNChangePhysicalSheet Caption='&ChangePhysicalSheet' TopLevel=True
+    Link      MNChangePhysicalSheet_ListPhysicalSheets  PLID='PLChangePhysicalSheet:ListPhysicalSheets'  End
+    Link      MNChangePhysicalSheet_CyclePhysicalSheets  PLID='PLChangePhysicalSheet:CyclePhysicalSheets'  End
+#if DEBUG
+    Separator MNChangePhysicalSheet_Sep10                              End
+    Tree MNChangePhysicalSheet_Developer Caption='&Developer'
+        Link  MNChangePhysicalSheet_Reload PLID='PLChangePhysicalSheet:Reload' End
+        Link  MNChangePhysicalSheet_Status PLID='PLChangePhysicalSheet:Status' End
+    End
+#endif
+End
+
+Insertion MNChangePhysicalSheet_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ChangePhysicalSheet OriginalID=MNChangePhysicalSheet IDSuffix='_2' End
+End

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SimetrixExporter",
+  "title": "Export a schematic or project via an external DLL",
+  "summary": "Resolves the focused project or the active schematic sheet or schematic library and hands it to the third-party SIMetrixExporter.DLL through its ExportToSimetrix export, loaded at run time. Shows how to pass an Altium Designer document to native code.",
+  "category": "integration",
+  "domain": "schematic",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "call a native DLL with the active document",
+    "export the focused project to a simulator",
+    "get the focused project and its document kind",
+    "pass an IServerDocument to unmanaged code"
+  ],
+  "commands": [
+    {
+      "name": "ExportProjectToSimetrix",
+      "description": "Export the focused project via SIMetrixExporter.DLL (target <Out>\\SXPRJ, format SXPRJ)",
+      "params": "Out=<folder>|Dll=<file or folder>|DocumentIid=<guid>",
+      "readOnly": false
+    },
+    {
+      "name": "ExportFileToSimetrix",
+      "description": "Export the active schematic sheet (SXSCH) or schematic library (SXLIB) via SIMetrixExporter.DLL",
+      "params": "Out=<file or folder>|Dll=<file or folder>|DocumentIid=<guid>",
+      "readOnly": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+PL PLModifySchWireColor:ModifySchWireColor
+    Command='ModifySchWireColor:Run'
+    Caption='&Modify Sch Wire Color'
+    Image=''
+    Description='Give every wire on the current sheet its own colour'
+    Params='Cmd=ModifySchWireColor'
+End
+
+PL PLModifySchWireColor:ListWireColors
+    Command='ModifySchWireColor:Run'
+    Caption='&List Wire Colors'
+    Image=''
+    Description='List the colours of the wires on the current sheet'
+    Params='Cmd=ListWireColors'
+End
+
+#if DEBUG
+PL PLModifySchWireColor:Reload
+    Command='ModifySchWireColor:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ModifySchWireColor implementation module'
+    Params=''
+End
+
+PL PLModifySchWireColor:Status
+    Command='ModifySchWireColor:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ModifySchWireColor hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNModifySchWireColor Caption='&ModifySchWireColor' TopLevel=True
+    Link      MNModifySchWireColor_ModifySchWireColor  PLID='PLModifySchWireColor:ModifySchWireColor'  End
+    Link      MNModifySchWireColor_ListWireColors  PLID='PLModifySchWireColor:ListWireColors'  End
+#if DEBUG
+    Separator MNModifySchWireColor_Sep10                              End
+    Tree MNModifySchWireColor_Developer Caption='&Developer'
+        Link  MNModifySchWireColor_Reload PLID='PLModifySchWireColor:Reload' End
+        Link  MNModifySchWireColor_Status PLID='PLModifySchWireColor:Status' End
+    End
+#endif
+End
+
+Insertion MNModifySchWireColor_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ModifySchWireColor OriginalID=MNModifySchWireColor IDSuffix='_2' End
+End

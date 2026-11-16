@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "AddDeviceSheetPath",
+  "title": "Register a device sheet search folder",
+  "summary": "Adds, lists and removes the folders Altium Designer searches for device sheets through the device sheet manager, and flushes the IntegratedLibrary server options after each change.",
+  "category": "project",
+  "domain": "system",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add a folder to the device sheet search paths",
+    "list device sheet folders",
+    "remove a device sheet folder",
+    "save server options to user settings"
+  ],
+  "commands": [
+    {
+      "name": "AddDeviceSheetPath",
+      "description": "Add a folder to the device sheet folders and flush the IntegratedLibrary server options",
+      "params": "Path=<folder> (required on the pipe; the menu opens ChooseDeviceFolder)|Recursive (flag, search subfolders)",
+      "readOnly": false
+    },
+    {
+      "name": "ListDeviceSheetPaths",
+      "description": "List the device sheet folders with their subfolder flag",
+      "readOnly": true
+    },
+    {
+      "name": "RemoveDeviceSheetPath",
+      "description": "Remove a folder from the device sheet folders and flush the IntegratedLibrary server options",
+      "params": "Path=<folder> (required)",
+      "readOnly": false
+    }
+  ]
+}

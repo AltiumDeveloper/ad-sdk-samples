@@ -1,0 +1,52 @@
+PL PLSchPreference:ChangeSchPreference
+    Command='SchPreference:Run'
+    Caption='&Change Sch Preference'
+    Image=''
+    Description='Toggle a boolean schematic preference'
+    Params='Cmd=ChangeSchPreference'
+End
+
+PL PLSchPreference:ReadSchPreference
+    Command='SchPreference:Run'
+    Caption='&Read Sch Preference'
+    Image=''
+    Description='Show a boolean schematic preference'
+    Params='Cmd=ReadSchPreference'
+End
+
+#if DEBUG
+PL PLSchPreference:Reload
+    Command='SchPreference:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchPreference implementation module'
+    Params=''
+End
+
+PL PLSchPreference:Status
+    Command='SchPreference:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchPreference hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchPreference Caption='&SchPreference' TopLevel=True
+    Link      MNSchPreference_ChangeSchPreference  PLID='PLSchPreference:ChangeSchPreference'  End
+    Link      MNSchPreference_ReadSchPreference  PLID='PLSchPreference:ReadSchPreference'  End
+#if DEBUG
+    Separator MNSchPreference_Sep10                              End
+    Tree MNSchPreference_Developer Caption='&Developer'
+        Link  MNSchPreference_Reload PLID='PLSchPreference:Reload' End
+        Link  MNSchPreference_Status PLID='PLSchPreference:Status' End
+    End
+#endif
+End
+
+Insertion MNSchPreference_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SchPreference OriginalID=MNSchPreference IDSuffix='_1' End
+End
+Insertion MNSchPreference_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchPreference OriginalID=MNSchPreference IDSuffix='_2' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SheetSymbolChildSheets",
+  "title": "List a sheet's sheet symbols and their child sheets",
+  "summary": "Compiles the focused sheet's project with DM_Compile and walks the design hierarchy through the EDP design model: each sheet symbol, its linked file name and its child sheets; covers free documents and leaf sheets.",
+  "category": "schematic",
+  "domain": "project",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "walk the schematic hierarchy",
+    "find the child sheet of a sheet symbol",
+    "list sub-sheets of a top-level schematic",
+    "compile a project from code"
+  ],
+  "commands": [
+    {
+      "name": "ShowChildSheet",
+      "description": "List the sheet symbols of the focused schematic and their child sheets",
+      "params": "Compile=true|false (optional, default true)",
+      "readOnly": true
+    }
+  ]
+}

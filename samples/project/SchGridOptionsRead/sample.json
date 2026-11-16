@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchGridOptionsRead",
+  "title": "Read schematic grid preferences via IOptionsReader",
+  "summary": "Reads stored schematic editor preferences (grid color, style and presets) through the options manager and IOptionsReader, and tells stored values from defaults.",
+  "category": "project",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "read Altium Designer preferences from an extension",
+    "get the schematic grid settings",
+    "read a server's stored options",
+    "check whether a preference value exists"
+  ],
+  "commands": [
+    {
+      "name": "ReadOptions",
+      "description": "Read the schematic grid preferences",
+      "params": "Server=<name, default SCH>|Section=<name, default Schematic Preferences>",
+      "readOnly": true
+    }
+  ]
+}

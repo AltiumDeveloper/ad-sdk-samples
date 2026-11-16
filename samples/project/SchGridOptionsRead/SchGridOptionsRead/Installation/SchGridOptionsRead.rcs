@@ -1,0 +1,46 @@
+PL PLSchGridOptionsRead:ReadOptions
+    Command='SchGridOptionsRead:Run'
+    Caption='&Read Options'
+    Image=''
+    Description='Read the schematic grid preferences'
+    Params='Cmd=ReadOptions'
+End
+
+#if DEBUG
+PL PLSchGridOptionsRead:Reload
+    Command='SchGridOptionsRead:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchGridOptionsRead implementation module'
+    Params=''
+End
+
+PL PLSchGridOptionsRead:Status
+    Command='SchGridOptionsRead:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchGridOptionsRead hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchGridOptionsRead Caption='&SchGridOptionsRead' TopLevel=True
+    Link      MNSchGridOptionsRead_ReadOptions  PLID='PLSchGridOptionsRead:ReadOptions'  End
+#if DEBUG
+    Separator MNSchGridOptionsRead_Sep10                              End
+    Tree MNSchGridOptionsRead_Developer Caption='&Developer'
+        Link  MNSchGridOptionsRead_Reload PLID='PLSchGridOptionsRead:Reload' End
+        Link  MNSchGridOptionsRead_Status PLID='PLSchGridOptionsRead:Status' End
+    End
+#endif
+End
+
+Insertion MNSchGridOptionsRead_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SchGridOptionsRead OriginalID=MNSchGridOptionsRead IDSuffix='_1' End
+End
+Insertion MNSchGridOptionsRead_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchGridOptionsRead OriginalID=MNSchGridOptionsRead IDSuffix='_2' End
+End
+Insertion MNSchGridOptionsRead_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_SchGridOptionsRead OriginalID=MNSchGridOptionsRead IDSuffix='_3' End
+End

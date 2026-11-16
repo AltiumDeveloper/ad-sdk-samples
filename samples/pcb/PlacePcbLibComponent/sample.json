@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlacePcbLibComponent",
+  "title": "Place a footprint from an IntLib onto the board",
+  "summary": "Searches an integrated library with the integrated library manager, finds a component's PCBLIB footprint model and places it on the current board with PCBObjectFactory and LoadFromLibrary using the IntegratedLibraryName key.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "place a component from an integrated library on a PCB",
+    "list the models of an IntLib component",
+    "find the footprint model of a library component",
+    "load a footprint from an IntLib with LoadFromLibrary"
+  ],
+  "commands": [
+    {
+      "name": "PlaceComponent",
+      "description": "Place a footprint from an integrated library on the board",
+      "params": "Lib=<.IntLib path or file name> (default Miscellaneous Devices.IntLib)|Component=<name> (default Res Pack1)|Footprint=<model> (default SOIC16_M)|X=<mil>|Y=<mil> (from the board origin; default centre of the board outline)|LoadKey=<key> (optional; default tries IntegratedLibraryName then FileName)",
+      "readOnly": false
+    },
+    {
+      "name": "ListModels",
+      "description": "List the models of an integrated library component (read-only)",
+      "params": "Lib=<.IntLib path or file name>|Component=<name>",
+      "readOnly": true
+    }
+  ]
+}

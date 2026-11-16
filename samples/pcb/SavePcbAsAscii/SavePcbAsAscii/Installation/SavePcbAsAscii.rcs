@@ -1,0 +1,58 @@
+PL PLSavePcbAsAscii:SaveAsAscii
+    Command='SavePcbAsAscii:Run'
+    Caption='&Save As ASCII'
+    Image=''
+    Description='Save a copy of the PCB as ASCII'
+    Params='Cmd=SaveAsAscii'
+End
+
+PL PLSavePcbAsAscii:DocumentState
+    Command='SavePcbAsAscii:Run'
+    Caption='&Document State'
+    Image=''
+    Description='Show the PCB document''s file name, Modified flag and date'
+    Params='Cmd=DocumentState'
+End
+
+PL PLSavePcbAsAscii:SetModified
+    Command='SavePcbAsAscii:Run'
+    Caption='&Set Modified'
+    Image=''
+    Description='Set the PCB document''s Modified flag (test setup)'
+    Params='Cmd=SetModified|Modified=true'
+End
+
+#if DEBUG
+PL PLSavePcbAsAscii:Reload
+    Command='SavePcbAsAscii:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SavePcbAsAscii implementation module'
+    Params=''
+End
+
+PL PLSavePcbAsAscii:Status
+    Command='SavePcbAsAscii:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SavePcbAsAscii hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSavePcbAsAscii Caption='&SavePcbAsAscii' TopLevel=True
+    Link      MNSavePcbAsAscii_SaveAsAscii  PLID='PLSavePcbAsAscii:SaveAsAscii'  End
+    Link      MNSavePcbAsAscii_DocumentState  PLID='PLSavePcbAsAscii:DocumentState'  End
+    Link      MNSavePcbAsAscii_SetModified  PLID='PLSavePcbAsAscii:SetModified'  End
+#if DEBUG
+    Separator MNSavePcbAsAscii_Sep10                              End
+    Tree MNSavePcbAsAscii_Developer Caption='&Developer'
+        Link  MNSavePcbAsAscii_Reload PLID='PLSavePcbAsAscii:Reload' End
+        Link  MNSavePcbAsAscii_Status PLID='PLSavePcbAsAscii:Status' End
+    End
+#endif
+End
+
+Insertion MNSavePcbAsAscii_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_SavePcbAsAscii OriginalID=MNSavePcbAsAscii IDSuffix='_3' End
+End

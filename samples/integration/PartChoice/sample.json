@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PartChoice",
+  "title": "List the part choices of a Vault component",
+  "summary": "Finds a component item in the installed Vaults (workspaces) by its HRID, gets that Vault's part catalog and lists the item's part choices with part ID, MPN, manufacturer and description.",
+  "category": "integration",
+  "domain": "supply-chain",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get the manufacturer parts of a workspace component",
+    "find a component by item HRID",
+    "read approved MPNs from the part catalog",
+    "list part choices for a library component"
+  ],
+  "commands": [
+    {
+      "name": "GetPartChoiceInfo",
+      "description": "List the part choices of a Vault component",
+      "params": "Hrid=<component item HRID, required; the menu passes CMP-00029-00000>|Vault=<index, optional; default: search all installed Vaults>",
+      "readOnly": true
+    }
+  ]
+}

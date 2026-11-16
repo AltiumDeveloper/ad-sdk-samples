@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "TextDocumentEdit",
+  "title": "Create a text document and edit its lines",
+  "summary": "Writes a new Text document with EDP.ITextCommands, then finds and replaces text line by line through DXP.ITextDocument (LineCount, GetLine, SetLine), returning the lines before and after.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "create",
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "replace text in every line of a text document",
+    "read and write lines of an open text file",
+    "find and replace in a .Txt document from code",
+    "get the line count of a text editor"
+  ],
+  "commands": [
+    {
+      "name": "ReplaceText",
+      "description": "Create a text document and replace text line by line",
+      "params": "Find=<text>|Replace=<text> (defaults: line, LINE1\\r\\nLINE2; \\r \\n \\t expanded)",
+      "readOnly": false
+    }
+  ]
+}

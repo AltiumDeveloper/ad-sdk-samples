@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "AutoReleaseLicense",
+  "title": "Return leased licenses after user inactivity",
+  "summary": "Shows how to detect user inactivity in Altium Designer with thread input hooks and a UI-thread timer kept in the shim, and how to return leased licenses with ILicenseManager.ReturnLeasedLicensesOnLogout once the user is idle.",
+  "category": "licensing",
+  "domain": "system",
+  "task": [
+    "react",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "release a network license when the user is idle",
+    "detect keyboard and mouse inactivity in Altium Designer",
+    "run code on a timer on the UI thread from an extension",
+    "where to put a Windows hook in a hot-reloaded extension"
+  ],
+  "commands": [
+    {
+      "name": "StartAutoRelease",
+      "description": "Install the input hooks and the idle timer; return the leased licences once per idle period of IdleSeconds (dry run unless DryRun=false)",
+      "params": "IdleSeconds=<1..86400, default 30>|DryRun=<true|false, default true>",
+      "readOnly": false
+    },
+    {
+      "name": "StopAutoRelease",
+      "description": "Stop the idle timer and remove the input hooks",
+      "readOnly": true
+    },
+    {
+      "name": "AutoReleaseStatus",
+      "description": "Report whether the watcher runs, the threshold, seconds since the last input, input events seen, idle triggers and the last result or error",
+      "readOnly": true
+    },
+    {
+      "name": "ReleaseLicensesNow",
+      "description": "Call ILicenseManager.ReturnLeasedLicensesOnLogout once and report the licence info before and after (dry run unless DryRun=false)",
+      "params": "DryRun=<true|false, default true>",
+      "readOnly": false
+    },
+    {
+      "name": "AutoRelease.Idle",
+      "description": "Run by the shim's timer when the idle threshold is crossed; same work as ReleaseLicensesNow. Not on a menu",
+      "params": "DryRun=<bool>|IdleSeconds=<n> (set by the shim)",
+      "readOnly": false
+    }
+  ]
+}

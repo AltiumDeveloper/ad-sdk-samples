@@ -1,0 +1,58 @@
+PL PLViaHoleSizeCheck:CheckViaHoleSize
+    Command='ViaHoleSizeCheck:Run'
+    Caption='&Check Via Hole Size'
+    Image=''
+    Description='Check a via against a temporary hole size rule'
+    Params='Cmd=CheckViaHoleSize'
+End
+
+PL PLViaHoleSizeCheck:ListVias
+    Command='ViaHoleSizeCheck:Run'
+    Caption='&List Vias'
+    Image=''
+    Description='List the vias of the board with location and hole size'
+    Params='Cmd=ListVias'
+End
+
+PL PLViaHoleSizeCheck:AddTestVia
+    Command='ViaHoleSizeCheck:Run'
+    Caption='&Add Test Via'
+    Image=''
+    Description='Place a test via (test setup)'
+    Params='Cmd=AddTestVia'
+End
+
+#if DEBUG
+PL PLViaHoleSizeCheck:Reload
+    Command='ViaHoleSizeCheck:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ViaHoleSizeCheck implementation module'
+    Params=''
+End
+
+PL PLViaHoleSizeCheck:Status
+    Command='ViaHoleSizeCheck:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ViaHoleSizeCheck hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNViaHoleSizeCheck Caption='&ViaHoleSizeCheck' TopLevel=True
+    Link      MNViaHoleSizeCheck_CheckViaHoleSize  PLID='PLViaHoleSizeCheck:CheckViaHoleSize'  End
+    Link      MNViaHoleSizeCheck_ListVias  PLID='PLViaHoleSizeCheck:ListVias'  End
+    Link      MNViaHoleSizeCheck_AddTestVia  PLID='PLViaHoleSizeCheck:AddTestVia'  End
+#if DEBUG
+    Separator MNViaHoleSizeCheck_Sep10                              End
+    Tree MNViaHoleSizeCheck_Developer Caption='&Developer'
+        Link  MNViaHoleSizeCheck_Reload PLID='PLViaHoleSizeCheck:Reload' End
+        Link  MNViaHoleSizeCheck_Status PLID='PLViaHoleSizeCheck:Status' End
+    End
+#endif
+End
+
+Insertion MNViaHoleSizeCheck_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ViaHoleSizeCheck OriginalID=MNViaHoleSizeCheck IDSuffix='_3' End
+End

@@ -1,0 +1,98 @@
+PL PLDocumentOpenSaveNotification:EnableNotifications
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='Notifications &Status'
+    Image=''
+    Description='Show whether the load/save handler is on, and the notifications it saw'
+    Params='Cmd=EnableNotifications|State=status'
+End
+
+PL PLDocumentOpenSaveNotification:NotificationsOn
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='Notifications &On'
+    Image=''
+    Description='Turn the load/save handler on: every schematic loaded or saved from now on is changed'
+    Params='Cmd=EnableNotifications|State=on'
+End
+
+PL PLDocumentOpenSaveNotification:NotificationsOff
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='Notifications O&ff'
+    Image=''
+    Description='Turn the load/save handler off'
+    Params='Cmd=EnableNotifications|State=off'
+End
+
+PL PLDocumentOpenSaveNotification:AddParameters
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='&Add Parameters'
+    Image=''
+    Description='Add the hidden sample parameter to every component of the focused schematic'
+    Params='Cmd=AddParameters'
+End
+
+PL PLDocumentOpenSaveNotification:RemoveParameters
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='&Remove Parameters'
+    Image=''
+    Description='Remove the sample parameter from every component of the focused schematic'
+    Params='Cmd=RemoveParameters'
+End
+
+PL PLDocumentOpenSaveNotification:CountParameters
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='&Count Parameters'
+    Image=''
+    Description='Count the components of the focused schematic that carry the sample parameter'
+    Params='Cmd=CountParameters'
+End
+
+PL PLDocumentOpenSaveNotification:SaveDocument
+    Command='DocumentOpenSaveNotification:Run'
+    Caption='&Save Document'
+    Image=''
+    Description='Save the focused schematic (runs the save handler when it is on)'
+    Params='Cmd=SaveDocument'
+End
+
+#if DEBUG
+PL PLDocumentOpenSaveNotification:Reload
+    Command='DocumentOpenSaveNotification:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DocumentOpenSaveNotification implementation module'
+    Params=''
+End
+
+PL PLDocumentOpenSaveNotification:Status
+    Command='DocumentOpenSaveNotification:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DocumentOpenSaveNotification hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDocumentOpenSaveNotification Caption='&DocumentOpenSaveNotification' TopLevel=True
+    Link      MNDocumentOpenSaveNotification_NotificationsOn  PLID='PLDocumentOpenSaveNotification:NotificationsOn'  End
+    Link      MNDocumentOpenSaveNotification_NotificationsOff  PLID='PLDocumentOpenSaveNotification:NotificationsOff'  End
+    Link      MNDocumentOpenSaveNotification_EnableNotifications  PLID='PLDocumentOpenSaveNotification:EnableNotifications'  End
+    Separator MNDocumentOpenSaveNotification_Sep5  End
+    Link      MNDocumentOpenSaveNotification_AddParameters  PLID='PLDocumentOpenSaveNotification:AddParameters'  End
+    Link      MNDocumentOpenSaveNotification_RemoveParameters  PLID='PLDocumentOpenSaveNotification:RemoveParameters'  End
+    Link      MNDocumentOpenSaveNotification_CountParameters  PLID='PLDocumentOpenSaveNotification:CountParameters'  End
+    Link      MNDocumentOpenSaveNotification_SaveDocument  PLID='PLDocumentOpenSaveNotification:SaveDocument'  End
+#if DEBUG
+    Separator MNDocumentOpenSaveNotification_Sep10                              End
+    Tree MNDocumentOpenSaveNotification_Developer Caption='&Developer'
+        Link  MNDocumentOpenSaveNotification_Reload PLID='PLDocumentOpenSaveNotification:Reload' End
+        Link  MNDocumentOpenSaveNotification_Status PLID='PLDocumentOpenSaveNotification:Status' End
+    End
+#endif
+End
+
+Insertion MNDocumentOpenSaveNotification_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_DocumentOpenSaveNotification OriginalID=MNDocumentOpenSaveNotification IDSuffix='_1' End
+End
+Insertion MNDocumentOpenSaveNotification_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DocumentOpenSaveNotification OriginalID=MNDocumentOpenSaveNotification IDSuffix='_2' End
+End

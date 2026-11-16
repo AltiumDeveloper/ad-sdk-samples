@@ -1,0 +1,46 @@
+PL PLVaultItemSearchByHrid:BrowseVault
+    Command='VaultItemSearchByHrid:Run'
+    Caption='&Browse Vault'
+    Image=''
+    Description='Show Vault Explorer and search vault items by HRID'
+    Params='Cmd=BrowseVault|Hrid=PCLCMP-0001-00010'
+End
+
+#if DEBUG
+PL PLVaultItemSearchByHrid:Reload
+    Command='VaultItemSearchByHrid:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the VaultItemSearchByHrid implementation module'
+    Params=''
+End
+
+PL PLVaultItemSearchByHrid:Status
+    Command='VaultItemSearchByHrid:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show VaultItemSearchByHrid hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNVaultItemSearchByHrid Caption='&VaultItemSearchByHrid' TopLevel=True
+    Link      MNVaultItemSearchByHrid_BrowseVault  PLID='PLVaultItemSearchByHrid:BrowseVault'  End
+#if DEBUG
+    Separator MNVaultItemSearchByHrid_Sep10                              End
+    Tree MNVaultItemSearchByHrid_Developer Caption='&Developer'
+        Link  MNVaultItemSearchByHrid_Reload PLID='PLVaultItemSearchByHrid:Reload' End
+        Link  MNVaultItemSearchByHrid_Status PLID='PLVaultItemSearchByHrid:Status' End
+    End
+#endif
+End
+
+Insertion MNVaultItemSearchByHrid_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_VaultItemSearchByHrid OriginalID=MNVaultItemSearchByHrid IDSuffix='_1' End
+End
+Insertion MNVaultItemSearchByHrid_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_VaultItemSearchByHrid OriginalID=MNVaultItemSearchByHrid IDSuffix='_2' End
+End
+Insertion MNVaultItemSearchByHrid_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_VaultItemSearchByHrid OriginalID=MNVaultItemSearchByHrid IDSuffix='_3' End
+End

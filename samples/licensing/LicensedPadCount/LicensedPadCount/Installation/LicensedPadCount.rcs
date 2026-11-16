@@ -1,0 +1,52 @@
+PL PLLicensedPadCount:CountPads
+    Command='LicensedPadCount:Run'
+    Caption='&Count Pads'
+    Image=''
+    Description='Count the pads of the current board if a technology set is licensed'
+    Params='Cmd=CountPads'
+End
+
+PL PLLicensedPadCount:CheckLicense
+    Command='LicensedPadCount:Run'
+    Caption='&Check License'
+    Image=''
+    Description='Check whether a technology set is licensed'
+    Params='Cmd=CheckLicense'
+End
+
+#if DEBUG
+PL PLLicensedPadCount:Reload
+    Command='LicensedPadCount:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LicensedPadCount implementation module'
+    Params=''
+End
+
+PL PLLicensedPadCount:Status
+    Command='LicensedPadCount:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LicensedPadCount hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLicensedPadCount Caption='&LicensedPadCount' TopLevel=True
+    Link      MNLicensedPadCount_CountPads  PLID='PLLicensedPadCount:CountPads'  End
+    Link      MNLicensedPadCount_CheckLicense  PLID='PLLicensedPadCount:CheckLicense'  End
+#if DEBUG
+    Separator MNLicensedPadCount_Sep10                              End
+    Tree MNLicensedPadCount_Developer Caption='&Developer'
+        Link  MNLicensedPadCount_Reload PLID='PLLicensedPadCount:Reload' End
+        Link  MNLicensedPadCount_Status PLID='PLLicensedPadCount:Status' End
+    End
+#endif
+End
+
+Insertion MNLicensedPadCount_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_LicensedPadCount OriginalID=MNLicensedPadCount IDSuffix='_1' End
+End
+Insertion MNLicensedPadCount_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LicensedPadCount OriginalID=MNLicensedPadCount IDSuffix='_3' End
+End

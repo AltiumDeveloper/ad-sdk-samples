@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PartRequest",
+  "title": "List the current user's Part Request tasks",
+  "summary": "Queries the workspace task service (IEDMS_TaskService.GetPartRequestTasks) for the signed-in user's Part Request tasks and lists each task's HRID, GUID, state, description and assignee. Shows how to reach the EDMS task service and configure a task search.",
+  "category": "integration",
+  "domain": "library",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get my part requests from the workspace",
+    "query workspace tasks assigned to me",
+    "use the EDMS task service from an extension",
+    "check if Altium Designer is signed in to a workspace"
+  ],
+  "commands": [
+    {
+      "name": "GetPartRequests",
+      "description": "List the current user's Part Request tasks",
+      "params": "Max=<lines, default 50> (optional)|Sort=<field, default CreatedAt> (optional)|Names=true (optional: resolve assignee names)",
+      "readOnly": true
+    }
+  ]
+}

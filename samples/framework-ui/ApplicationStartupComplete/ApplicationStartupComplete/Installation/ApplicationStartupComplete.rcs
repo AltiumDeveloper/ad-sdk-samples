@@ -1,0 +1,64 @@
+PL PLApplicationStartupComplete:StartupStatus
+    Command='ApplicationStartupComplete:Run'
+    Caption='&Startup Status'
+    Image=''
+    Description='Show whether the startup-complete notification was received'
+    Params='Cmd=StartupStatus'
+End
+
+PL PLApplicationStartupComplete:Listen
+    Command='ApplicationStartupComplete:Run'
+    Caption='&Listen (register handler)'
+    Image=''
+    Description='Register the notification handler (Listen State=on)'
+    Params='Cmd=Listen|State=on'
+End
+
+PL PLApplicationStartupComplete:ListenOff
+    Command='ApplicationStartupComplete:Run'
+    Caption='Stop Listening'
+    Image=''
+    Description='Unregister the notification handler (Listen State=off)'
+    Params='Cmd=Listen|State=off'
+End
+
+#if DEBUG
+PL PLApplicationStartupComplete:Reload
+    Command='ApplicationStartupComplete:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ApplicationStartupComplete implementation module'
+    Params=''
+End
+
+PL PLApplicationStartupComplete:Status
+    Command='ApplicationStartupComplete:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ApplicationStartupComplete hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNApplicationStartupComplete Caption='&ApplicationStartupComplete' TopLevel=True
+    Link      MNApplicationStartupComplete_StartupStatus  PLID='PLApplicationStartupComplete:StartupStatus'  End
+    Link      MNApplicationStartupComplete_Listen  PLID='PLApplicationStartupComplete:Listen'  End
+    Link      MNApplicationStartupComplete_ListenOff  PLID='PLApplicationStartupComplete:ListenOff'  End
+#if DEBUG
+    Separator MNApplicationStartupComplete_Sep10                              End
+    Tree MNApplicationStartupComplete_Developer Caption='&Developer'
+        Link  MNApplicationStartupComplete_Reload PLID='PLApplicationStartupComplete:Reload' End
+        Link  MNApplicationStartupComplete_Status PLID='PLApplicationStartupComplete:Status' End
+    End
+#endif
+End
+
+Insertion MNApplicationStartupComplete_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ApplicationStartupComplete OriginalID=MNApplicationStartupComplete IDSuffix='_1' End
+End
+Insertion MNApplicationStartupComplete_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ApplicationStartupComplete OriginalID=MNApplicationStartupComplete IDSuffix='_2' End
+End
+Insertion MNApplicationStartupComplete_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ApplicationStartupComplete OriginalID=MNApplicationStartupComplete IDSuffix='_3' End
+End

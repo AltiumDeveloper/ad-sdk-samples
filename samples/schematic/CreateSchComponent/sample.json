@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CreateSchComponent",
+  "title": "Create a component with a pin in a schematic library",
+  "summary": "Creates a new component and a pin with the schematic object factory, adds them to the current .SchLib inside a change bracket and makes the component current in the library editor.",
+  "category": "schematic",
+  "domain": "library",
+  "task": [
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add a new symbol to a SchLib",
+    "add a pin to a schematic library component",
+    "use SchObjectFactory to make schematic objects",
+    "list the components in a schematic library"
+  ],
+  "commands": [
+    {
+      "name": "CreateSchComponent",
+      "description": "Create a component with one pin in the current schematic library",
+      "params": "LibReference=<name> (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ListComponents",
+      "description": "List the components of the current schematic library",
+      "params": "Max=<n> (optional, default 200)",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ImportPcbFromOutputDir",
+  "title": "Open the PcbDoc next to an output job's export folder",
+  "summary": "Finds the .PcbDoc in the base folder of an output job's export path and opens it with IClient.OpenDocument, and shows how an extension registers its own process with CommandLauncher.RegisterCommand in the shim.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "import-export",
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "open a PCB document from code",
+    "find the board for an export folder",
+    "register a custom process in an extension",
+    "count documents of a kind in the focused project"
+  ],
+  "commands": [
+    {
+      "name": "FileImportDirectory",
+      "description": "Open the first .PcbDoc (by name) of the folder before the 'Unit Output files' segment of BaseExportPath. Also reachable as the shim process ImportPcbFromOutputDir:FileImportDirectory with the same parameters.",
+      "params": "BaseExportPath=<path containing 'Unit Output files'> (required)",
+      "readOnly": true
+    },
+    {
+      "name": "CheckDocumentKind",
+      "description": "Report whether the focused project is Free Documents and how many of its logical documents have DM_DocumentKind = Kind",
+      "params": "Kind=<document kind> (default Extension_CAM350)",
+      "readOnly": true
+    }
+  ]
+}

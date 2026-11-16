@@ -1,0 +1,40 @@
+PL PLPcb3DImage:CreatePcb3DImage
+    Command='Pcb3DImage:Run'
+    Caption='&Create PCB 3D Image'
+    Image=''
+    Description='Switch the PCB view to 3D and save it as a bitmap'
+    Params='Cmd=CreatePcb3DImage'
+End
+
+#if DEBUG
+PL PLPcb3DImage:Reload
+    Command='Pcb3DImage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the Pcb3DImage implementation module'
+    Params=''
+End
+
+PL PLPcb3DImage:Status
+    Command='Pcb3DImage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show Pcb3DImage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcb3DImage Caption='&Pcb3DImage' TopLevel=True
+    Link      MNPcb3DImage_CreatePcb3DImage  PLID='PLPcb3DImage:CreatePcb3DImage'  End
+#if DEBUG
+    Separator MNPcb3DImage_Sep10                              End
+    Tree MNPcb3DImage_Developer Caption='&Developer'
+        Link  MNPcb3DImage_Reload PLID='PLPcb3DImage:Reload' End
+        Link  MNPcb3DImage_Status PLID='PLPcb3DImage:Status' End
+    End
+#endif
+End
+
+Insertion MNPcb3DImage_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_Pcb3DImage OriginalID=MNPcb3DImage IDSuffix='_3' End
+End

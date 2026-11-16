@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ModifySchWireColor",
+  "title": "Recolor every wire on the active schematic sheet",
+  "summary": "The basic pattern for changing schematic objects: iterate the wires of the active sheet, wrap each colour change in SCHMBeginModify/SCHMEndModify robot messages, redraw, and read the BGR colours back.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the color of all wires",
+    "set wire color from code",
+    "notify the schematic editor of a change",
+    "what color format does Color use in schematic"
+  ],
+  "commands": [
+    {
+      "name": "ModifySchWireColor",
+      "description": "Give every wire on the current sheet its own colour",
+      "params": "Colors=<BGR hex,...>|Property=Color|UnderlineColor|Zoom=true|false",
+      "readOnly": false
+    },
+    {
+      "name": "ListWireColors",
+      "description": "List the colours of the wires on the current sheet",
+      "params": "Max=<n>",
+      "readOnly": true
+    }
+  ]
+}

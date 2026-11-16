@@ -1,0 +1,40 @@
+PL PLComponentModelLocations:PartLibraryReport
+    Command='ComponentModelLocations:Run'
+    Caption='&Part Library Report'
+    Image=''
+    Description='Report library and model file locations of the parts on the focused sheet'
+    Params='Cmd=PartLibraryReport'
+End
+
+#if DEBUG
+PL PLComponentModelLocations:Reload
+    Command='ComponentModelLocations:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ComponentModelLocations implementation module'
+    Params=''
+End
+
+PL PLComponentModelLocations:Status
+    Command='ComponentModelLocations:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ComponentModelLocations hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNComponentModelLocations Caption='&ComponentModelLocations' TopLevel=True
+    Link      MNComponentModelLocations_PartLibraryReport  PLID='PLComponentModelLocations:PartLibraryReport'  End
+#if DEBUG
+    Separator MNComponentModelLocations_Sep10                              End
+    Tree MNComponentModelLocations_Developer Caption='&Developer'
+        Link  MNComponentModelLocations_Reload PLID='PLComponentModelLocations:Reload' End
+        Link  MNComponentModelLocations_Status PLID='PLComponentModelLocations:Status' End
+    End
+#endif
+End
+
+Insertion MNComponentModelLocations_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ComponentModelLocations OriginalID=MNComponentModelLocations IDSuffix='_2' End
+End

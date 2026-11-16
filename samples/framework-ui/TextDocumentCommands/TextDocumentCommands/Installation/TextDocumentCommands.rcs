@@ -1,0 +1,46 @@
+PL PLTextDocumentCommands:TextCommand
+    Command='TextDocumentCommands:Run'
+    Caption='&Text Command'
+    Image=''
+    Description='Create a text document and fill it through ITextCommands'
+    Params='Cmd=TextCommand'
+End
+
+#if DEBUG
+PL PLTextDocumentCommands:Reload
+    Command='TextDocumentCommands:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the TextDocumentCommands implementation module'
+    Params=''
+End
+
+PL PLTextDocumentCommands:Status
+    Command='TextDocumentCommands:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show TextDocumentCommands hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNTextDocumentCommands Caption='&TextDocumentCommands' TopLevel=True
+    Link      MNTextDocumentCommands_TextCommand  PLID='PLTextDocumentCommands:TextCommand'  End
+#if DEBUG
+    Separator MNTextDocumentCommands_Sep10                              End
+    Tree MNTextDocumentCommands_Developer Caption='&Developer'
+        Link  MNTextDocumentCommands_Reload PLID='PLTextDocumentCommands:Reload' End
+        Link  MNTextDocumentCommands_Status PLID='PLTextDocumentCommands:Status' End
+    End
+#endif
+End
+
+Insertion MNTextDocumentCommands_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_TextDocumentCommands OriginalID=MNTextDocumentCommands IDSuffix='_1' End
+End
+Insertion MNTextDocumentCommands_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_TextDocumentCommands OriginalID=MNTextDocumentCommands IDSuffix='_2' End
+End
+Insertion MNTextDocumentCommands_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_TextDocumentCommands OriginalID=MNTextDocumentCommands IDSuffix='_3' End
+End

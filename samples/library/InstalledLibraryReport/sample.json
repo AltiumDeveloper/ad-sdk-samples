@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "InstalledLibraryReport",
+  "title": "Report installed libraries, components and parameters",
+  "summary": "Walks every installed library with the integrated library manager and writes each component and its parameters to a text report, addressing everything by library path and index. Returns a per-library summary.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "iterate",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "list all installed libraries",
+    "dump component parameters from an IntLib",
+    "count components in each installed library",
+    "export library contents to a text file"
+  ],
+  "commands": [
+    {
+      "name": "InstalledLibraryReport",
+      "description": "Report installed libraries, components and parameters",
+      "params": "Out=<folder or file> (optional, default: temp folder, file InstalledLibraries.txt)|Open=true (optional; menu only: open the report in AD)|MaxComponents=<n> (optional, default 0 = all: components written per library)",
+      "readOnly": true
+    }
+  ]
+}

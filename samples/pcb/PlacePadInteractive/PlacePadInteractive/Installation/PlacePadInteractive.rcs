@@ -1,0 +1,58 @@
+PL PLPlacePadInteractive:PlacePad
+    Command='PlacePadInteractive:Run'
+    Caption='&Place Pad'
+    Image=''
+    Description='Place a bottom test-point pad that follows the cursor'
+    Params='Cmd=PlacePad'
+End
+
+PL PLPlacePadInteractive:PlacePadStatus
+    Command='PlacePadInteractive:Run'
+    Caption='Placement &Status'
+    Image=''
+    Description='Show the state of the pad placement'
+    Params='Cmd=PlacePadStatus'
+End
+
+PL PLPlacePadInteractive:PlacePadCancel
+    Command='PlacePadInteractive:Run'
+    Caption='&Cancel Placement'
+    Image=''
+    Description='Cancel a pad placement in progress'
+    Params='Cmd=PlacePadCancel'
+End
+
+#if DEBUG
+PL PLPlacePadInteractive:Reload
+    Command='PlacePadInteractive:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlacePadInteractive implementation module'
+    Params=''
+End
+
+PL PLPlacePadInteractive:Status
+    Command='PlacePadInteractive:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlacePadInteractive hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlacePadInteractive Caption='&PlacePadInteractive' TopLevel=True
+    Link      MNPlacePadInteractive_PlacePad  PLID='PLPlacePadInteractive:PlacePad'  End
+    Link      MNPlacePadInteractive_PlacePadStatus  PLID='PLPlacePadInteractive:PlacePadStatus'  End
+    Link      MNPlacePadInteractive_PlacePadCancel  PLID='PLPlacePadInteractive:PlacePadCancel'  End
+#if DEBUG
+    Separator MNPlacePadInteractive_Sep10                              End
+    Tree MNPlacePadInteractive_Developer Caption='&Developer'
+        Link  MNPlacePadInteractive_Reload PLID='PLPlacePadInteractive:Reload' End
+        Link  MNPlacePadInteractive_Status PLID='PLPlacePadInteractive:Status' End
+    End
+#endif
+End
+
+Insertion MNPlacePadInteractive_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PlacePadInteractive OriginalID=MNPlacePadInteractive IDSuffix='_3' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchAutoJunctionReport",
+  "title": "List auto-placed junctions and their net names",
+  "summary": "Finds the automatic junctions on a schematic sheet from its wire connection points and names the net of each by matching wire handles with the compiled netlist.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "find all junctions on a schematic sheet",
+    "get the net name at a wire T-connection",
+    "map a schematic wire to its compiled net",
+    "list wire connection points with coordinates"
+  ],
+  "commands": [
+    {
+      "name": "GetAllAutoJunctions",
+      "description": "List auto-placed junctions of the current sheet with their net names",
+      "params": "Threshold=<n> (optional, default 3)|Compile=false (optional)",
+      "readOnly": true
+    }
+  ]
+}

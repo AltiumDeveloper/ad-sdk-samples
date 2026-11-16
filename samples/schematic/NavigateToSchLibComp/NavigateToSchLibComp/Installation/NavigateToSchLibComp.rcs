@@ -1,0 +1,61 @@
+// Main menu item: no context menu is open when it runs, so it uses the one selected component.
+PL PLNavigateToSchLibComp:NavigateToSchLibComp
+    Command='NavigateToSchLibComp:Run'
+    Caption='&Open SchLib Component (Selected)'
+    Image=''
+    Description='Open the source SchLib of the selected schematic component and show its symbol'
+    Params='Cmd=NavigateToSchLibComp'
+End
+
+// Context menu item "Open SchLib Component": RunOnComponent shows it only while a component is
+// under the right-click position (ISch_Document.PopupMenuHitTest in its GetState).
+PL PLNavigateToSchLibComp:PopupNavigateToSchLibComp
+    Command='NavigateToSchLibComp:RunOnComponent'
+    Caption='Open SchLib Component'
+    Image=''
+    Description='Open the source SchLib of this component and show its symbol'
+    Params='Cmd=NavigateToSchLibComp|Component=popup'
+End
+
+#if DEBUG
+PL PLNavigateToSchLibComp:Reload
+    Command='NavigateToSchLibComp:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NavigateToSchLibComp implementation module'
+    Params=''
+End
+
+PL PLNavigateToSchLibComp:Status
+    Command='NavigateToSchLibComp:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NavigateToSchLibComp hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNavigateToSchLibComp Caption='&NavigateToSchLibComp' TopLevel=True
+    Link      MNNavigateToSchLibComp_NavigateToSchLibComp  PLID='PLNavigateToSchLibComp:NavigateToSchLibComp'  End
+#if DEBUG
+    Separator MNNavigateToSchLibComp_Sep10                              End
+    Tree MNNavigateToSchLibComp_Developer Caption='&Developer'
+        Link  MNNavigateToSchLibComp_Reload PLID='PLNavigateToSchLibComp:Reload' End
+        Link  MNNavigateToSchLibComp_Status PLID='PLNavigateToSchLibComp:Status' End
+    End
+#endif
+End
+
+Insertion MNNavigateToSchLibComp_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_NavigateToSchLibComp OriginalID=MNNavigateToSchLibComp IDSuffix='_2' End
+End
+
+// The schematic editor's right-click menu (Tree PUSCHMENU in the System advsch.rcs): after its first
+// separator MNSchematic_PUSCHMENU30, followed by a separator of its own.
+Insertion MNNavigateToSchLibComp_Popup1 TargetID='PUSCHMENU' InsertType='After' RefID0='MNSchematic_PUSCHMENU30'
+    Link MNNavigateToSchLibComp_PopupComponent PLID='PLNavigateToSchLibComp:PopupNavigateToSchLibComp' End
+End
+
+Insertion MNNavigateToSchLibComp_Popup2 TargetID='PUSCHMENU' InsertType='After' RefID0='MNNavigateToSchLibComp_PopupComponent'
+    Separator MNNavigateToSchLibComp_PopupSep End
+End

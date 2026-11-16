@@ -1,0 +1,40 @@
+PL PLNetPinConnection:GetPinConnection
+    Command='NetPinConnection:Run'
+    Caption='&Get Pin Connection'
+    Image=''
+    Description='List the component pins of every net of the focused project'
+    Params='Cmd=GetPinConnection'
+End
+
+#if DEBUG
+PL PLNetPinConnection:Reload
+    Command='NetPinConnection:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NetPinConnection implementation module'
+    Params=''
+End
+
+PL PLNetPinConnection:Status
+    Command='NetPinConnection:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NetPinConnection hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNetPinConnection Caption='&NetPinConnection' TopLevel=True
+    Link      MNNetPinConnection_GetPinConnection  PLID='PLNetPinConnection:GetPinConnection'  End
+#if DEBUG
+    Separator MNNetPinConnection_Sep10                              End
+    Tree MNNetPinConnection_Developer Caption='&Developer'
+        Link  MNNetPinConnection_Reload PLID='PLNetPinConnection:Reload' End
+        Link  MNNetPinConnection_Status PLID='PLNetPinConnection:Status' End
+    End
+#endif
+End
+
+Insertion MNNetPinConnection_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_NetPinConnection OriginalID=MNNetPinConnection IDSuffix='_2' End
+End

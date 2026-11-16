@@ -1,0 +1,55 @@
+PL PLDocumentsBarGrouping:GetGroupingInDocumentsBar
+    Command='DocumentsBarGrouping:Run'
+    Caption='&Get Grouping In Documents Bar'
+    Image=''
+    Description='Show the Documents Bar grouping'
+    Params='Cmd=GetGroupingInDocumentsBar'
+End
+
+PL PLDocumentsBarGrouping:SetGroupingInDocumentsBar
+    Command='DocumentsBarGrouping:Run'
+    Caption='&Set Grouping In Documents Bar'
+    Image=''
+    Description='Toggle the Documents Bar grouping'
+    Params='Cmd=SetGroupingInDocumentsBar'
+End
+
+#if DEBUG
+PL PLDocumentsBarGrouping:Reload
+    Command='DocumentsBarGrouping:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DocumentsBarGrouping implementation module'
+    Params=''
+End
+
+PL PLDocumentsBarGrouping:Status
+    Command='DocumentsBarGrouping:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DocumentsBarGrouping hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDocumentsBarGrouping Caption='&DocumentsBarGrouping' TopLevel=True
+    Link      MNDocumentsBarGrouping_GetGroupingInDocumentsBar  PLID='PLDocumentsBarGrouping:GetGroupingInDocumentsBar'  End
+    Link      MNDocumentsBarGrouping_SetGroupingInDocumentsBar  PLID='PLDocumentsBarGrouping:SetGroupingInDocumentsBar'  End
+#if DEBUG
+    Separator MNDocumentsBarGrouping_Sep10                              End
+    Tree MNDocumentsBarGrouping_Developer Caption='&Developer'
+        Link  MNDocumentsBarGrouping_Reload PLID='PLDocumentsBarGrouping:Reload' End
+        Link  MNDocumentsBarGrouping_Status PLID='PLDocumentsBarGrouping:Status' End
+    End
+#endif
+End
+
+Insertion MNDocumentsBarGrouping_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_DocumentsBarGrouping OriginalID=MNDocumentsBarGrouping IDSuffix='_1' End
+End
+Insertion MNDocumentsBarGrouping_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DocumentsBarGrouping OriginalID=MNDocumentsBarGrouping IDSuffix='_2' End
+End
+Insertion MNDocumentsBarGrouping_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DocumentsBarGrouping OriginalID=MNDocumentsBarGrouping IDSuffix='_3' End
+End

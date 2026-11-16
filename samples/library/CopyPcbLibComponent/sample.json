@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CopyPcbLibComponent",
+  "title": "Copy the current footprint into a new PcbLib",
+  "summary": "Clones the footprint shown in the active PCB library with all its primitives and registers the copy, under a new name, in a newly created and saved PcbLib. Shows how to move a footprint between libraries.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "create",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "duplicate a footprint into another library",
+    "clone a PCB library component",
+    "create a new PcbLib from code",
+    "register a footprint in a PCB library",
+    "rename a copied footprint"
+  ],
+  "commands": [
+    {
+      "name": "CopyCurrentLibComponent",
+      "description": "Copy the current footprint into a new PCB library",
+      "params": "Name=<footprint name> (default TestComp)|Out=<folder or .PcbLib path> (default: temp folder, file CopyPcbLibComponent.PcbLib)|Overwrite=true (replace an existing Out file)",
+      "readOnly": false
+    }
+  ]
+}

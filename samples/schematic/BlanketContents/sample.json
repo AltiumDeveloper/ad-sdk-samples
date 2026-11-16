@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BlanketContents",
+  "title": "List the items grouped by each blanket on a sheet",
+  "summary": "Reads the blankets of a schematic sheet from the compiled data model and resolves their lines, sheet symbols and net items to live SCH objects; a helper places a blanket through the SCH API.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "what objects are inside a blanket",
+    "find the wires covered by a blanket",
+    "read blankets from the compiled project",
+    "resolve a data model item to a schematic object"
+  ],
+  "commands": [
+    {
+      "name": "ShowBlanket",
+      "description": "Report the items inside each blanket of the focused schematic",
+      "params": "Compile=true|false|force (optional, default true; force compiles even when DM_NeedsCompile is false)",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestBlanket",
+      "description": "Place a blanket around the wires of the current sheet (test setup)",
+      "params": "Rect=x1,y1,x2,y2 (mils, optional)|Margin=<mils> (optional, default 100)",
+      "readOnly": false
+    }
+  ]
+}

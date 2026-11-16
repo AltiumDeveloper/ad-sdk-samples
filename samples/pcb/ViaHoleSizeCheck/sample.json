@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ViaHoleSizeCheck",
+  "title": "Check a picked via against a hole size rule",
+  "summary": "Creates a temporary hole size rule with PCBRuleFactory, adds it to the board, sets absolute or percentage limits and checks one via with ActualCheck, reporting the violation; the rule must be on the board for the check to work.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "check a via drill against min and max limits",
+    "create a design rule in code",
+    "test one object against a DRC rule",
+    "let the user click a via on the board"
+  ],
+  "commands": [
+    {
+      "name": "CheckViaHoleSize",
+      "description": "Check a via against a temporary hole size rule",
+      "params": "X=<mil>|Y=<mil> (optional; else the selected via, else a click from the menu)|MinMil=1|MaxMil=2|MinPercent=20|MaxPercent=80|Percent=true (optional)|AddViolation=false (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ListVias",
+      "description": "List the vias of the board with location and hole size",
+      "params": "Max=20",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestVia",
+      "description": "Place a test via (test setup)",
+      "params": "X=<mil>|Y=<mil> (optional)|HoleMil=10|SizeMil=20",
+      "readOnly": false
+    }
+  ]
+}

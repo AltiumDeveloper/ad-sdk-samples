@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DocumentViewBitmap",
+  "title": "Save the active document view as a bitmap",
+  "summary": "Gets the active document view's window handle and bounds from the SDK and copies its on-screen pixels into a BMP file with GDI BitBlt.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "import-export",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "screenshot the current document",
+    "capture a schematic view to an image",
+    "get the window handle of a document view",
+    "export what the editor shows as BMP"
+  ],
+  "commands": [
+    {
+      "name": "CreateImages",
+      "description": "Save the current document view as a bitmap",
+      "params": "Out=<file or folder> (optional, default: temp folder, file DocumentViewBitmap.bmp)",
+      "readOnly": true
+    }
+  ]
+}

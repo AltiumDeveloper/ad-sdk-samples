@@ -1,0 +1,55 @@
+PL PLProjectParameterRefresh:SetProjectParameter
+    Command='ProjectParameterRefresh:Run'
+    Caption='&Set Project Parameter'
+    Image=''
+    Description='Set a project parameter and refresh the Projects panel'
+    Params='Cmd=SetProjectParameter|Index=0'
+End
+
+PL PLProjectParameterRefresh:ListProjectParameters
+    Command='ProjectParameterRefresh:Run'
+    Caption='&List Project Parameters'
+    Image=''
+    Description='List the parameters of the focused project'
+    Params='Cmd=ListProjectParameters'
+End
+
+#if DEBUG
+PL PLProjectParameterRefresh:Reload
+    Command='ProjectParameterRefresh:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectParameterRefresh implementation module'
+    Params=''
+End
+
+PL PLProjectParameterRefresh:Status
+    Command='ProjectParameterRefresh:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectParameterRefresh hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectParameterRefresh Caption='&ProjectParameterRefresh' TopLevel=True
+    Link      MNProjectParameterRefresh_SetProjectParameter  PLID='PLProjectParameterRefresh:SetProjectParameter'  End
+    Link      MNProjectParameterRefresh_ListProjectParameters  PLID='PLProjectParameterRefresh:ListProjectParameters'  End
+#if DEBUG
+    Separator MNProjectParameterRefresh_Sep10                              End
+    Tree MNProjectParameterRefresh_Developer Caption='&Developer'
+        Link  MNProjectParameterRefresh_Reload PLID='PLProjectParameterRefresh:Reload' End
+        Link  MNProjectParameterRefresh_Status PLID='PLProjectParameterRefresh:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectParameterRefresh_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectParameterRefresh OriginalID=MNProjectParameterRefresh IDSuffix='_1' End
+End
+Insertion MNProjectParameterRefresh_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectParameterRefresh OriginalID=MNProjectParameterRefresh IDSuffix='_2' End
+End
+Insertion MNProjectParameterRefresh_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectParameterRefresh OriginalID=MNProjectParameterRefresh IDSuffix='_3' End
+End

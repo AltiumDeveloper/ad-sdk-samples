@@ -1,0 +1,49 @@
+PL PLEditSchComponent:EditSchLibComponent
+    Command='EditSchComponent:Run'
+    Caption='&Edit Sch Lib Component'
+    Image=''
+    Description='Add a pin to a component''s library symbol and reload it'
+    Params='Cmd=EditSchLibComponent|Designator='
+End
+
+PL PLEditSchComponent:ListSheetComponents
+    Command='EditSchComponent:Run'
+    Caption='&List Sheet Components'
+    Image=''
+    Description='List the components on the current sheet with their library and pin count'
+    Params='Cmd=ListSheetComponents'
+End
+
+#if DEBUG
+PL PLEditSchComponent:Reload
+    Command='EditSchComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the EditSchComponent implementation module'
+    Params=''
+End
+
+PL PLEditSchComponent:Status
+    Command='EditSchComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show EditSchComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNEditSchComponent Caption='&EditSchComponent' TopLevel=True
+    Link      MNEditSchComponent_EditSchLibComponent  PLID='PLEditSchComponent:EditSchLibComponent'  End
+    Link      MNEditSchComponent_ListSheetComponents  PLID='PLEditSchComponent:ListSheetComponents'  End
+#if DEBUG
+    Separator MNEditSchComponent_Sep10                              End
+    Tree MNEditSchComponent_Developer Caption='&Developer'
+        Link  MNEditSchComponent_Reload PLID='PLEditSchComponent:Reload' End
+        Link  MNEditSchComponent_Status PLID='PLEditSchComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNEditSchComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_EditSchComponent OriginalID=MNEditSchComponent IDSuffix='_2' End
+End

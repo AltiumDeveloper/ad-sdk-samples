@@ -1,0 +1,58 @@
+PL PLComponentMoveUndoGroup:MoveComponents
+    Command='ComponentMoveUndoGroup:Run'
+    Caption='&Move Components'
+    Image=''
+    Description='Multiply every component''s X location as one undo step'
+    Params='Cmd=MoveComponents|Factor=2'
+End
+
+PL PLComponentMoveUndoGroup:ComponentPositions
+    Command='ComponentMoveUndoGroup:Run'
+    Caption='&Component Positions'
+    Image=''
+    Description='Summarise the components'' X locations'
+    Params='Cmd=ComponentPositions'
+End
+
+PL PLComponentMoveUndoGroup:UndoLast
+    Command='ComponentMoveUndoGroup:Run'
+    Caption='&Undo Last'
+    Image=''
+    Description='Undo the last PCB edit (test support)'
+    Params='Cmd=UndoLast'
+End
+
+#if DEBUG
+PL PLComponentMoveUndoGroup:Reload
+    Command='ComponentMoveUndoGroup:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ComponentMoveUndoGroup implementation module'
+    Params=''
+End
+
+PL PLComponentMoveUndoGroup:Status
+    Command='ComponentMoveUndoGroup:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ComponentMoveUndoGroup hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNComponentMoveUndoGroup Caption='&ComponentMoveUndoGroup' TopLevel=True
+    Link      MNComponentMoveUndoGroup_MoveComponents  PLID='PLComponentMoveUndoGroup:MoveComponents'  End
+    Link      MNComponentMoveUndoGroup_ComponentPositions  PLID='PLComponentMoveUndoGroup:ComponentPositions'  End
+    Link      MNComponentMoveUndoGroup_UndoLast  PLID='PLComponentMoveUndoGroup:UndoLast'  End
+#if DEBUG
+    Separator MNComponentMoveUndoGroup_Sep10                              End
+    Tree MNComponentMoveUndoGroup_Developer Caption='&Developer'
+        Link  MNComponentMoveUndoGroup_Reload PLID='PLComponentMoveUndoGroup:Reload' End
+        Link  MNComponentMoveUndoGroup_Status PLID='PLComponentMoveUndoGroup:Status' End
+    End
+#endif
+End
+
+Insertion MNComponentMoveUndoGroup_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ComponentMoveUndoGroup OriginalID=MNComponentMoveUndoGroup IDSuffix='_3' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchComponentToImage",
+  "title": "Render each schematic component to an image file",
+  "summary": "Saves a PNG thumbnail of every component on the active schematic sheet with PaintLoadedComponentThumbnail; shows why the typed call overflows and that the caller must free the returned HBITMAP.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "save schematic symbols as PNG",
+    "generate component thumbnails from a sheet",
+    "export a picture of each part on a schematic",
+    "draw a schematic component into a bitmap"
+  ],
+  "commands": [
+    {
+      "name": "GenerateSchCompImages",
+      "description": "Save an image of each component on the sheet",
+      "params": "Out=<folder> (default: temp folder)|Size=<pixels> (default 500)|Part=<part index> (default 0)",
+      "readOnly": true
+    }
+  ]
+}

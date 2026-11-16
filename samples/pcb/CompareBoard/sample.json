@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CompareBoard",
+  "title": "Compare two PCB documents layer by layer",
+  "summary": "Shows how to open two .PcbDoc files, get their boards with GetPCBBoardByPath and compare them with IPCB_PrimitiveComparator.Compare, including the caveat that identical copies can compare as false.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "diff two PCB files",
+    "find differences between two board revisions",
+    "get the board of a PcbDoc that is not the active document",
+    "use the primitive comparator on boards"
+  ],
+  "commands": [
+    {
+      "name": "CompareBoard",
+      "description": "Compare two PCB documents layer by layer",
+      "params": "BoardA=<path to .PcbDoc>|BoardB=<path to .PcbDoc>|Tolerance=<square internal units, default 0>|Show=false (optional) (from the menu without parameters: file dialogs)",
+      "readOnly": false
+    }
+  ]
+}

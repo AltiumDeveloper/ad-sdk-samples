@@ -1,0 +1,49 @@
+PL PLMechanicalLayersEnableAll:EnableAllMechanicalLayers
+    Command='MechanicalLayersEnableAll:Run'
+    Caption='&Enable All Mechanical Layers'
+    Image=''
+    Description='Enable (or disable) every mechanical layer of the board'
+    Params='Cmd=EnableAllMechanicalLayers'
+End
+
+PL PLMechanicalLayersEnableAll:ListMechanicalLayers
+    Command='MechanicalLayersEnableAll:Run'
+    Caption='&List Mechanical Layers'
+    Image=''
+    Description='List the mechanical layers and whether each is enabled'
+    Params='Cmd=ListMechanicalLayers'
+End
+
+#if DEBUG
+PL PLMechanicalLayersEnableAll:Reload
+    Command='MechanicalLayersEnableAll:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the MechanicalLayersEnableAll implementation module'
+    Params=''
+End
+
+PL PLMechanicalLayersEnableAll:Status
+    Command='MechanicalLayersEnableAll:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show MechanicalLayersEnableAll hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNMechanicalLayersEnableAll Caption='&MechanicalLayersEnableAll' TopLevel=True
+    Link      MNMechanicalLayersEnableAll_EnableAllMechanicalLayers  PLID='PLMechanicalLayersEnableAll:EnableAllMechanicalLayers'  End
+    Link      MNMechanicalLayersEnableAll_ListMechanicalLayers  PLID='PLMechanicalLayersEnableAll:ListMechanicalLayers'  End
+#if DEBUG
+    Separator MNMechanicalLayersEnableAll_Sep10                              End
+    Tree MNMechanicalLayersEnableAll_Developer Caption='&Developer'
+        Link  MNMechanicalLayersEnableAll_Reload PLID='PLMechanicalLayersEnableAll:Reload' End
+        Link  MNMechanicalLayersEnableAll_Status PLID='PLMechanicalLayersEnableAll:Status' End
+    End
+#endif
+End
+
+Insertion MNMechanicalLayersEnableAll_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_MechanicalLayersEnableAll OriginalID=MNMechanicalLayersEnableAll IDSuffix='_3' End
+End

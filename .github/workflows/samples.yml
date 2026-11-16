@@ -1,0 +1,133 @@
+# Checks every change to the samples, and publishes the samples index (index.json, llms.txt) as GitHub releases.
+#
+#   check    every push and pull request, forks included: sample.json against schema/, the README sample table.
+#            Needs neither .NET nor Altium Designer.
+#   build    Windows: fetches the Altium Designer SDK assemblies from a private repository, builds every sample in
+#            Debug and Release (warnings are errors), then builds the index from the compiled code
+#            (eng/build-index.mjs --api). Skipped for pull requests from forks, which get no repository secrets.
+#   release  pushes to the default branch: when the index changed, publishes it as a new release index-<date>.<run>
+#            (assets index.json, llms.txt, sample.schema.json, index.schema.json), marked latest. Releases are kept;
+#            the AD SDK documentation build reads them (AGENTS.md, "The samples index").
+#
+# Repository settings it needs (AGENTS.md, "Continuous integration"):
+#   secret   AD_SDK_TOKEN       read access to the private SDK repository (fine-grained token, Contents: read)
+#   variable AD_SDK_REPOSITORY  that repository, owner/name (default AltiumDeveloper/ad-sdk-assemblies)
+#   variable AD_SDK_VERSION     the folder in it to build against (default 26.12): <version>/System/*.dll
+#   variable AD_SDK_REF         the tag of it to check out (default ad-26.12.0.6)
+name: samples
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: samples-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate sample metadata and the README table
+        run: node eng/build-index.mjs --check
+
+  build:
+    needs: check
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: windows-latest
+    env:
+      AD_SDK_VERSION: ${{ vars.AD_SDK_VERSION || '26.12' }}
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the Altium Designer SDK assemblies (private)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.AD_SDK_REPOSITORY || 'AltiumDeveloper/ad-sdk-assemblies' }}
+          ref: ${{ vars.AD_SDK_REF || 'ad-26.12.0.6' }}
+          token: ${{ secrets.AD_SDK_TOKEN }}
+          path: .altium-sdk
+          sparse-checkout: ${{ vars.AD_SDK_VERSION || '26.12' }}
+
+      - name: Point the build at them
+        shell: pwsh
+        run: |
+          $system = Join-Path $env:GITHUB_WORKSPACE ".altium-sdk\$env:AD_SDK_VERSION\System"
+          if (-not (Test-Path (Join-Path $system 'Altium.SDK.dll'))) { throw "Altium.SDK.dll not found in $system" }
+          # Directory.Build.props reads AltiumSystemDir (and ..\X2.runtimeconfig.json for the target framework).
+          "AltiumSystemDir=$system" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build (Debug)
+        run: dotnet build AdSdkSamples.slnx -c Debug -warnaserror
+      - name: Build (Release)
+        run: dotnet build AdSdkSamples.slnx -c Release -warnaserror
+
+      - name: Build the index from the compiled code
+        run: node eng/build-index.mjs --api --out index-out
+
+      # For review (pull requests) and for the release job. Not the persistent copy: that is the release.
+      - name: Upload the index
+        uses: actions/upload-artifact@v4
+        with:
+          name: samples-index
+          path: index-out
+          retention-days: 14
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: samples-index
+          path: index-out
+
+      - name: Publish the index as a release, if it changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          # The newest index release, if any (index releases are the ones tagged index-*).
+          previous=$(gh release list --repo "$repo" --limit 100 --json tagName,createdAt \
+            --jq '[.[] | select(.tagName | startswith("index-"))] | sort_by(.createdAt) | last | .tagName // ""')
+          if [ -n "$previous" ]; then
+            mkdir -p previous
+            gh release download "$previous" --repo "$repo" --pattern index.json --dir previous
+            if cmp -s previous/index.json index-out/index.json; then
+              echo "The index is unchanged since $previous: no release."
+              exit 0
+            fi
+          fi
+          tag="index-$(date -u +%Y.%m.%d).${GITHUB_RUN_NUMBER}"
+          cp index-out/schema/sample.schema.json index-out/schema/index.schema.json index-out/
+          samples=$(node -e "console.log(require('./index-out/index.json').samples.length)")
+          apis=$(node -e "console.log(Object.keys(require('./index-out/index.json').apis).length)")
+          gh release create "$tag" --repo "$repo" --target "$GITHUB_SHA" --latest \
+            --title "Samples index $(date -u +%Y-%m-%d)" \
+            --notes "The samples index built from ${GITHUB_SHA:0:7}: ${samples} samples, ${apis} SDK types and members. Assets follow schema/index.schema.json (schemaVersion in index.json)." \
+            index-out/index.json index-out/llms.txt index-out/sample.schema.json index-out/index.schema.json
+          echo "Published $tag."

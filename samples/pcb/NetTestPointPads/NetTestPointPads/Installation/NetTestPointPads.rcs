@@ -1,0 +1,49 @@
+PL PLNetTestPointPads:CreateTestPoint
+    Command='NetTestPointPads:Run'
+    Caption='&Create Test Point'
+    Image=''
+    Description='Add a bottom test-point pad to every net'
+    Params='Cmd=CreateTestPoint'
+End
+
+PL PLNetTestPointPads:CountTestPointPads
+    Command='NetTestPointPads:Run'
+    Caption='&Count Test Point Pads'
+    Image=''
+    Description='Count the pads flagged as bottom test points (read-back)'
+    Params='Cmd=CountTestPointPads'
+End
+
+#if DEBUG
+PL PLNetTestPointPads:Reload
+    Command='NetTestPointPads:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NetTestPointPads implementation module'
+    Params=''
+End
+
+PL PLNetTestPointPads:Status
+    Command='NetTestPointPads:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NetTestPointPads hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNetTestPointPads Caption='&NetTestPointPads' TopLevel=True
+    Link      MNNetTestPointPads_CreateTestPoint  PLID='PLNetTestPointPads:CreateTestPoint'  End
+    Link      MNNetTestPointPads_CountTestPointPads  PLID='PLNetTestPointPads:CountTestPointPads'  End
+#if DEBUG
+    Separator MNNetTestPointPads_Sep10                              End
+    Tree MNNetTestPointPads_Developer Caption='&Developer'
+        Link  MNNetTestPointPads_Reload PLID='PLNetTestPointPads:Reload' End
+        Link  MNNetTestPointPads_Status PLID='PLNetTestPointPads:Status' End
+    End
+#endif
+End
+
+Insertion MNNetTestPointPads_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_NetTestPointPads OriginalID=MNNetTestPointPads IDSuffix='_3' End
+End

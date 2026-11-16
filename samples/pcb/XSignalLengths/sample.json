@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "XSignalLengths",
+  "title": "Report routed lengths of the xSignals in each class",
+  "summary": "Walks the board's xSignal classes with a class iterator and reports each member pin pair's node count and total, routed and unrouted length from the pin pair manager; also creates an xSignal and assigns it to a class.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "report",
+    "iterate",
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get xSignal lengths on a board",
+    "list pin pairs in each xSignal class",
+    "measure routed and unrouted length of a signal",
+    "create an xSignal between two pins"
+  ],
+  "commands": [
+    {
+      "name": "GetXSignalInfo",
+      "description": "Report the lengths of the xSignals in each xSignal class",
+      "params": "Out=<file or folder> (optional)|Open=true (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestXSignal",
+      "description": "Create an xSignal in a test class (test setup)",
+      "params": "Pins=<U1-1,U2-3> (optional)|Class=<name> (default XSignalLengths_Test)",
+      "readOnly": false
+    }
+  ]
+}

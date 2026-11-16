@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "Pcb3DImage",
+  "title": "Switch a board to 3D and save the view as a bitmap",
+  "summary": "Shows how to run the built-in PCB:SwitchTo3D process, read the board's 3D view state, and capture the view window to a BMP file through its handle and bounds with Win32 GDI.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "import-export",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "take a screenshot of the PCB 3D view",
+    "switch the PCB editor to 3D mode from code",
+    "run a built-in process from an extension",
+    "save the board view as an image"
+  ],
+  "commands": [
+    {
+      "name": "CreatePcb3DImage",
+      "description": "Switch the PCB view to 3D and save it as a bitmap",
+      "params": "Out=<file or folder> (optional, default: temp folder, file Pcb3DImage.bmp)",
+      "readOnly": false
+    }
+  ]
+}

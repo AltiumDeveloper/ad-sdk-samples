@@ -1,0 +1,55 @@
+PL PLLibraryManagersInfo:ListLibraryManagers
+    Command='LibraryManagersInfo:Run'
+    Caption='&List Library Managers'
+    Image=''
+    Description='List integrated libraries, model types and supplier sources'
+    Params='Cmd=ListLibraryManagers'
+End
+
+PL PLLibraryManagersInfo:ListLibraryManagersChooseDevice
+    Command='LibraryManagersInfo:Run'
+    Caption='List Library Managers, &Choose Device Folder...'
+    Image=''
+    Description='Choose a device sheet folder, then list the managers'
+    Params='Cmd=ListLibraryManagers|ChooseDevice=true'
+End
+
+#if DEBUG
+PL PLLibraryManagersInfo:Reload
+    Command='LibraryManagersInfo:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LibraryManagersInfo implementation module'
+    Params=''
+End
+
+PL PLLibraryManagersInfo:Status
+    Command='LibraryManagersInfo:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LibraryManagersInfo hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLibraryManagersInfo Caption='&LibraryManagersInfo' TopLevel=True
+    Link      MNLibraryManagersInfo_ListLibraryManagers  PLID='PLLibraryManagersInfo:ListLibraryManagers'  End
+    Link      MNLibraryManagersInfo_ListLibraryManagersChooseDevice  PLID='PLLibraryManagersInfo:ListLibraryManagersChooseDevice'  End
+#if DEBUG
+    Separator MNLibraryManagersInfo_Sep10                              End
+    Tree MNLibraryManagersInfo_Developer Caption='&Developer'
+        Link  MNLibraryManagersInfo_Reload PLID='PLLibraryManagersInfo:Reload' End
+        Link  MNLibraryManagersInfo_Status PLID='PLLibraryManagersInfo:Status' End
+    End
+#endif
+End
+
+Insertion MNLibraryManagersInfo_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_LibraryManagersInfo OriginalID=MNLibraryManagersInfo IDSuffix='_1' End
+End
+Insertion MNLibraryManagersInfo_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_LibraryManagersInfo OriginalID=MNLibraryManagersInfo IDSuffix='_2' End
+End
+Insertion MNLibraryManagersInfo_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LibraryManagersInfo OriginalID=MNLibraryManagersInfo IDSuffix='_3' End
+End

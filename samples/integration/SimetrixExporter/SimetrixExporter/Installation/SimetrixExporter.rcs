@@ -1,0 +1,49 @@
+PL PLSimetrixExporter:ExportProjectToSimetrix
+    Command='SimetrixExporter:Run'
+    Caption='&Export Project To Simetrix'
+    Image=''
+    Description='Export the focused project via SIMetrixExporter.DLL'
+    Params='Cmd=ExportProjectToSimetrix'
+End
+
+PL PLSimetrixExporter:ExportFileToSimetrix
+    Command='SimetrixExporter:Run'
+    Caption='&Export File To Simetrix'
+    Image=''
+    Description='Export the active schematic or library via SIMetrixExporter.DLL'
+    Params='Cmd=ExportFileToSimetrix'
+End
+
+#if DEBUG
+PL PLSimetrixExporter:Reload
+    Command='SimetrixExporter:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SimetrixExporter implementation module'
+    Params=''
+End
+
+PL PLSimetrixExporter:Status
+    Command='SimetrixExporter:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SimetrixExporter hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSimetrixExporter Caption='&SimetrixExporter' TopLevel=True
+    Link      MNSimetrixExporter_ExportProjectToSimetrix  PLID='PLSimetrixExporter:ExportProjectToSimetrix'  End
+    Link      MNSimetrixExporter_ExportFileToSimetrix  PLID='PLSimetrixExporter:ExportFileToSimetrix'  End
+#if DEBUG
+    Separator MNSimetrixExporter_Sep10                              End
+    Tree MNSimetrixExporter_Developer Caption='&Developer'
+        Link  MNSimetrixExporter_Reload PLID='PLSimetrixExporter:Reload' End
+        Link  MNSimetrixExporter_Status PLID='PLSimetrixExporter:Status' End
+    End
+#endif
+End
+
+Insertion MNSimetrixExporter_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SimetrixExporter OriginalID=MNSimetrixExporter IDSuffix='_2' End
+End

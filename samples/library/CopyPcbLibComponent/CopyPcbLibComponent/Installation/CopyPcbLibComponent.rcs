@@ -1,0 +1,40 @@
+PL PLCopyPcbLibComponent:CopyCurrentLibComponent
+    Command='CopyPcbLibComponent:Run'
+    Caption='&Copy Current Lib Component'
+    Image=''
+    Description='Copy the current footprint into a new PCB library'
+    Params='Cmd=CopyCurrentLibComponent|Name=TestComp'
+End
+
+#if DEBUG
+PL PLCopyPcbLibComponent:Reload
+    Command='CopyPcbLibComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CopyPcbLibComponent implementation module'
+    Params=''
+End
+
+PL PLCopyPcbLibComponent:Status
+    Command='CopyPcbLibComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CopyPcbLibComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCopyPcbLibComponent Caption='&CopyPcbLibComponent' TopLevel=True
+    Link      MNCopyPcbLibComponent_CopyCurrentLibComponent  PLID='PLCopyPcbLibComponent:CopyCurrentLibComponent'  End
+#if DEBUG
+    Separator MNCopyPcbLibComponent_Sep10                              End
+    Tree MNCopyPcbLibComponent_Developer Caption='&Developer'
+        Link  MNCopyPcbLibComponent_Reload PLID='PLCopyPcbLibComponent:Reload' End
+        Link  MNCopyPcbLibComponent_Status PLID='PLCopyPcbLibComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNCopyPcbLibComponent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_CopyPcbLibComponent OriginalID=MNCopyPcbLibComponent IDSuffix='_3' End
+End

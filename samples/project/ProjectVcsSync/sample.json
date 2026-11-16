@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectVcsSync",
+  "title": "Update or commit project documents by VCS status",
+  "summary": "Reads the version control status of each project document through IVcsManager and IVcsProject, and updates out-of-date documents or commits modified ones, as a dry run by default.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "inspect",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "check the SVN or Git status of project files",
+    "commit modified project documents from an extension",
+    "is my project under version control",
+    "update out-of-date documents from the repository"
+  ],
+  "commands": [
+    {
+      "name": "GetProjectVcsStatus",
+      "description": "Report the VCS status of the focused project's documents (read-only)",
+      "params": "List=true (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "SyncProjectVcs",
+      "description": "Update out-of-date and commit modified documents (dry run by default)",
+      "params": "DryRun=true (default; DryRun=false acts)|Message=<text> (default 'Automatically commit changes')",
+      "readOnly": false
+    }
+  ]
+}

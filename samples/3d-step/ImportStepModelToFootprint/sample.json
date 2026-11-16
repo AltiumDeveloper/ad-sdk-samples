@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ImportStepModelToFootprint",
+  "title": "Import a STEP model into the current footprint",
+  "summary": "Creates a 3D component body from a STEP file with ModelFactory_FromFilename, rotates and offsets it, and adds it once to the current footprint of the focused PCB library.",
+  "category": "3d-step",
+  "domain": "library",
+  "task": [
+    "import-export",
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "add a STEP model to a footprint",
+    "attach a 3D body from a step file to a PcbLib footprint",
+    "place a 3D model with rotation and offset",
+    "list the 3D bodies of a footprint"
+  ],
+  "commands": [
+    {
+      "name": "ImportStepModel",
+      "description": "Attach a STEP model to the current footprint as a 3D body",
+      "params": "File=<.step/.stp path> (required)|RotX=0|RotY=0|RotZ=0 (degrees)|X=0|Y=0 (mil, offset from the footprint reference point)|Z=0 (mil, model offset along Z)|Watch=true (second argument of ModelFactory_FromFilename)|Embed=true|false (optional; default: keep the factory's value)",
+      "readOnly": false
+    },
+    {
+      "name": "ListBodies",
+      "description": "List the 3D bodies of the current footprint",
+      "readOnly": true
+    }
+  ]
+}

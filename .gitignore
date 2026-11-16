@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+.vs/
+.vscode/
+.idea/
+*.user
+
+# Machine-specific build settings (the Altium Designer install path)
+local.props
+
+# The samples index is built by CI (eng/build-index.mjs --api --out index-out), never committed
+index-out/
+.altium-sdk/

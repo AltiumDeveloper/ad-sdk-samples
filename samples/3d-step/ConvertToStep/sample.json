@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ConvertToStep",
+  "title": "Convert 3D bodies in a PCB library to generic STEP",
+  "summary": "Walks every footprint of the focused PCB library and replaces each extruded, cylinder or sphere 3D body model with a generic copy made by IPCB_Model.I_ReplicateToGeneric, with a dry-run count first.",
+  "category": "3d-step",
+  "domain": "library",
+  "task": [
+    "iterate",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "convert footprint 3D bodies to generic models",
+    "replace extruded 3D bodies in a PcbLib",
+    "loop over all footprints in a PCB library",
+    "change the model type of component bodies"
+  ],
+  "commands": [
+    {
+      "name": "ConvertToStep",
+      "description": "Convert non-generic 3D bodies of the PcbLib to generic",
+      "params": "DryRun=true (optional: count only)",
+      "readOnly": false
+    },
+    {
+      "name": "AddTestBody",
+      "description": "Add a cylinder 3D body to the current footprint (test setup)",
+      "params": "Radius=<mils, default 20>|Height=<mils, default 50>",
+      "readOnly": false
+    }
+  ]
+}

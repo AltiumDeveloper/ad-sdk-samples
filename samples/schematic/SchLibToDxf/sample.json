@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchLibToDxf",
+  "title": "Export a schematic library to AutoCAD DXF",
+  "summary": "Saves a schematic library under another name and format with SetFileName and DoFileSave, then restores it; shows that DoFileSave honours only the editor's SaveFilters, so a DXF export silently writes the native format.",
+  "category": "schematic",
+  "domain": "library",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "save a SchLib as DXF",
+    "save a document in another format from code",
+    "why does DoFileSave ignore the format",
+    "export a symbol library to AutoCAD"
+  ],
+  "commands": [
+    {
+      "name": "SchLibToDxf",
+      "description": "Attempt the AutoCAD DXF export of a schematic library and report what was written",
+      "params": "SchLibFileName=<path to .SchLib> (default: the focused schematic library)|DXFFileName=<path of the .dxf> (default: <Out>/<library name>.dxf)|Out=<folder> (default: temp folder)|Filter=<save format name> (default 'AutoCAD Files')",
+      "readOnly": false
+    }
+  ]
+}

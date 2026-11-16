@@ -1,0 +1,49 @@
+PL PLPadViaTemplate:GetTemplateName
+    Command='PadViaTemplate:Run'
+    Caption='&Get Template Name'
+    Image=''
+    Description='Report the pad/via template each pad is linked to'
+    Params='Cmd=GetTemplateName|Max=50'
+End
+
+PL PLPadViaTemplate:LinkTestPadTemplate
+    Command='PadViaTemplate:Run'
+    Caption='&Link Test Pad Template'
+    Image=''
+    Description='Create a board template from a pad and link the pad to it (test setup)'
+    Params='Cmd=LinkTestPadTemplate'
+End
+
+#if DEBUG
+PL PLPadViaTemplate:Reload
+    Command='PadViaTemplate:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PadViaTemplate implementation module'
+    Params=''
+End
+
+PL PLPadViaTemplate:Status
+    Command='PadViaTemplate:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PadViaTemplate hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPadViaTemplate Caption='&PadViaTemplate' TopLevel=True
+    Link      MNPadViaTemplate_GetTemplateName  PLID='PLPadViaTemplate:GetTemplateName'  End
+    Link      MNPadViaTemplate_LinkTestPadTemplate  PLID='PLPadViaTemplate:LinkTestPadTemplate'  End
+#if DEBUG
+    Separator MNPadViaTemplate_Sep10                              End
+    Tree MNPadViaTemplate_Developer Caption='&Developer'
+        Link  MNPadViaTemplate_Reload PLID='PLPadViaTemplate:Reload' End
+        Link  MNPadViaTemplate_Status PLID='PLPadViaTemplate:Status' End
+    End
+#endif
+End
+
+Insertion MNPadViaTemplate_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PadViaTemplate OriginalID=MNPadViaTemplate IDSuffix='_3' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "TrackPairDistance",
+  "title": "Measure the distance between every pair of tracks",
+  "summary": "Collects the board's tracks with a board iterator and measures every pair with PrimPrimDistance, reporting the closest touching and non-touching pairs; covers the MaxCoord result and the quadratic cost on AD's main thread.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "find the closest two tracks on a board",
+    "compute clearance between PCB primitives",
+    "check spacing between tracks",
+    "measure distance between two objects on a PCB"
+  ],
+  "commands": [
+    {
+      "name": "ClearanceCheck",
+      "description": "Measure the distance between every pair of tracks",
+      "params": "Tracks=<n> (how many of the board's tracks to measure, default 0 = all)|MaxTracks=<n> (refuse to measure more tracks than this, default 500, 0 = no limit)|SameLayerOnly=true (optional)",
+      "readOnly": true
+    }
+  ]
+}

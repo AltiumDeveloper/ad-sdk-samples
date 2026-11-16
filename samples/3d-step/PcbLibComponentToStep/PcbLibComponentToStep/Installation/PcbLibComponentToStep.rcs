@@ -1,0 +1,40 @@
+PL PLPcbLibComponentToStep:PcbLibCompToStep
+    Command='PcbLibComponentToStep:Run'
+    Caption='&Pcb Lib Comp To Step'
+    Image=''
+    Description='Export each footprint of a PcbLib to STEP via the current board'
+    Params='Cmd=PcbLibCompToStep'
+End
+
+#if DEBUG
+PL PLPcbLibComponentToStep:Reload
+    Command='PcbLibComponentToStep:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbLibComponentToStep implementation module'
+    Params=''
+End
+
+PL PLPcbLibComponentToStep:Status
+    Command='PcbLibComponentToStep:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbLibComponentToStep hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbLibComponentToStep Caption='&PcbLibComponentToStep' TopLevel=True
+    Link      MNPcbLibComponentToStep_PcbLibCompToStep  PLID='PLPcbLibComponentToStep:PcbLibCompToStep'  End
+#if DEBUG
+    Separator MNPcbLibComponentToStep_Sep10                              End
+    Tree MNPcbLibComponentToStep_Developer Caption='&Developer'
+        Link  MNPcbLibComponentToStep_Reload PLID='PLPcbLibComponentToStep:Reload' End
+        Link  MNPcbLibComponentToStep_Status PLID='PLPcbLibComponentToStep:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbLibComponentToStep_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbLibComponentToStep OriginalID=MNPcbLibComponentToStep IDSuffix='_3' End
+End

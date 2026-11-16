@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "FixPcbComponent",
+  "title": "Copy a schematic parameter into PCB comments",
+  "summary": "Matches PCB components to the project's schematic components by designator and copies a schematic parameter into each PCB Comment, and imports component parameters from a CSV table onto the schematic sheets with the right change notifications.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "update PCB component comments from schematic parameters",
+    "import component parameters from a CSV file",
+    "match PCB components to schematic components by designator",
+    "add a hidden parameter to a schematic component",
+    "sync schematic values to the board"
+  ],
+  "commands": [
+    {
+      "name": "FixPcbComponent",
+      "description": "Copy a schematic parameter into the PCB component comments",
+      "params": "Param=<schematic parameter> (default Comment)|DryRun=true (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ImportSchComponentParams",
+      "description": "Import schematic component parameters from a CSV file",
+      "params": "File=<.csv> (dialog from a menu click when missing)|Delimiter=,|;|tab (optional)|Show=false (default true)|DryRun=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

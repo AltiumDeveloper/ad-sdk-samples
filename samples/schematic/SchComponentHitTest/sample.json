@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchComponentHitTest",
+  "title": "Hit-test a schematic click and list component parameters",
+  "summary": "Picks a point on a schematic sheet (interactively or by coordinates), finds the component there with CreateHitTest and lists its parameters with a child iterator.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "find the component at a clicked point",
+    "ask the user to click on a schematic",
+    "read the parameters of a schematic component",
+    "what objects are under this location"
+  ],
+  "commands": [
+    {
+      "name": "CheckComponentProperty",
+      "description": "Click a component and list its parameters",
+      "params": "At=<x,y in mils> (optional; without it the command prompts for a click and only runs from the menu)|Export=true|false (default true)",
+      "readOnly": true
+    },
+    {
+      "name": "ListComponents",
+      "description": "List the components on the current sheet (test helper)",
+      "params": "Max=<n> (default 50)",
+      "readOnly": true
+    }
+  ]
+}

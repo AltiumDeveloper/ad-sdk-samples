@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbComponentTextRotation",
+  "title": "Rotate component designator text on a board",
+  "summary": "Shows how to reach a component's designator and comment text objects, set their rotation for every component inside the modify brackets, and list text angles and autoposition to check the result.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "rotate all designators on a PCB by 90 degrees",
+    "change the angle of component comment text",
+    "list the rotation of component designators",
+    "set designator orientation for every component"
+  ],
+  "commands": [
+    {
+      "name": "RotateComponentText",
+      "description": "Rotate every component's designator (or comment) text to an angle",
+      "params": "Angle=<degrees, default 90>|Target=<Name|Comment, default Name>",
+      "readOnly": false
+    },
+    {
+      "name": "GetComponentTextRotation",
+      "description": "List the rotation of component designator and comment text",
+      "params": "Max=<components to list, default 20, 0 = all>",
+      "readOnly": true
+    }
+  ]
+}

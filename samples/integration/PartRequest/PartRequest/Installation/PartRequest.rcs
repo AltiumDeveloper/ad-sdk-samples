@@ -1,0 +1,46 @@
+PL PLPartRequest:GetPartRequests
+    Command='PartRequest:Run'
+    Caption='&Get Part Requests'
+    Image=''
+    Description='List the current user''s Part Request tasks'
+    Params='Cmd=GetPartRequests'
+End
+
+#if DEBUG
+PL PLPartRequest:Reload
+    Command='PartRequest:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PartRequest implementation module'
+    Params=''
+End
+
+PL PLPartRequest:Status
+    Command='PartRequest:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PartRequest hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPartRequest Caption='&PartRequest' TopLevel=True
+    Link      MNPartRequest_GetPartRequests  PLID='PLPartRequest:GetPartRequests'  End
+#if DEBUG
+    Separator MNPartRequest_Sep10                              End
+    Tree MNPartRequest_Developer Caption='&Developer'
+        Link  MNPartRequest_Reload PLID='PLPartRequest:Reload' End
+        Link  MNPartRequest_Status PLID='PLPartRequest:Status' End
+    End
+#endif
+End
+
+Insertion MNPartRequest_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PartRequest OriginalID=MNPartRequest IDSuffix='_1' End
+End
+Insertion MNPartRequest_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PartRequest OriginalID=MNPartRequest IDSuffix='_2' End
+End
+Insertion MNPartRequest_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PartRequest OriginalID=MNPartRequest IDSuffix='_3' End
+End

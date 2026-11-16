@@ -1,0 +1,40 @@
+PL PLIterateNetLabel:IterateNetLabel
+    Command='IterateNetLabel:Run'
+    Caption='&Iterate Net Label'
+    Image=''
+    Description='List the net labels on the current schematic sheet'
+    Params='Cmd=IterateNetLabel'
+End
+
+#if DEBUG
+PL PLIterateNetLabel:Reload
+    Command='IterateNetLabel:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the IterateNetLabel implementation module'
+    Params=''
+End
+
+PL PLIterateNetLabel:Status
+    Command='IterateNetLabel:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show IterateNetLabel hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNIterateNetLabel Caption='&IterateNetLabel' TopLevel=True
+    Link      MNIterateNetLabel_IterateNetLabel  PLID='PLIterateNetLabel:IterateNetLabel'  End
+#if DEBUG
+    Separator MNIterateNetLabel_Sep10                              End
+    Tree MNIterateNetLabel_Developer Caption='&Developer'
+        Link  MNIterateNetLabel_Reload PLID='PLIterateNetLabel:Reload' End
+        Link  MNIterateNetLabel_Status PLID='PLIterateNetLabel:Status' End
+    End
+#endif
+End
+
+Insertion MNIterateNetLabel_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_IterateNetLabel OriginalID=MNIterateNetLabel IDSuffix='_2' End
+End

@@ -1,0 +1,46 @@
+PL PLPortalUserInfo:GetUserInfo
+    Command='PortalUserInfo:Run'
+    Caption='&Get User Info'
+    Image=''
+    Description='Show the signed-in user of each installed Vault'
+    Params='Cmd=GetUserInfo'
+End
+
+#if DEBUG
+PL PLPortalUserInfo:Reload
+    Command='PortalUserInfo:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PortalUserInfo implementation module'
+    Params=''
+End
+
+PL PLPortalUserInfo:Status
+    Command='PortalUserInfo:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PortalUserInfo hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPortalUserInfo Caption='&PortalUserInfo' TopLevel=True
+    Link      MNPortalUserInfo_GetUserInfo  PLID='PLPortalUserInfo:GetUserInfo'  End
+#if DEBUG
+    Separator MNPortalUserInfo_Sep10                              End
+    Tree MNPortalUserInfo_Developer Caption='&Developer'
+        Link  MNPortalUserInfo_Reload PLID='PLPortalUserInfo:Reload' End
+        Link  MNPortalUserInfo_Status PLID='PLPortalUserInfo:Status' End
+    End
+#endif
+End
+
+Insertion MNPortalUserInfo_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PortalUserInfo OriginalID=MNPortalUserInfo IDSuffix='_1' End
+End
+Insertion MNPortalUserInfo_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PortalUserInfo OriginalID=MNPortalUserInfo IDSuffix='_2' End
+End
+Insertion MNPortalUserInfo_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PortalUserInfo OriginalID=MNPortalUserInfo IDSuffix='_3' End
+End

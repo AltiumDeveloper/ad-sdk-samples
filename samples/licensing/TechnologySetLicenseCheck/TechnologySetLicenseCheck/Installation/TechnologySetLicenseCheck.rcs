@@ -1,0 +1,55 @@
+PL PLTechnologySetLicenseCheck:CheckADLicense
+    Command='TechnologySetLicenseCheck:Run'
+    Caption='&Check AD License'
+    Image=''
+    Description='Check whether the Schematic_Editor technology set is licensed'
+    Params='Cmd=CheckADLicense'
+End
+
+PL PLTechnologySetLicenseCheck:ListTechnologySets
+    Command='TechnologySetLicenseCheck:Run'
+    Caption='&List Technology Sets'
+    Image=''
+    Description='List the technology sets the license reports'
+    Params='Cmd=ListTechnologySets'
+End
+
+#if DEBUG
+PL PLTechnologySetLicenseCheck:Reload
+    Command='TechnologySetLicenseCheck:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the TechnologySetLicenseCheck implementation module'
+    Params=''
+End
+
+PL PLTechnologySetLicenseCheck:Status
+    Command='TechnologySetLicenseCheck:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show TechnologySetLicenseCheck hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNTechnologySetLicenseCheck Caption='&TechnologySetLicenseCheck' TopLevel=True
+    Link      MNTechnologySetLicenseCheck_CheckADLicense  PLID='PLTechnologySetLicenseCheck:CheckADLicense'  End
+    Link      MNTechnologySetLicenseCheck_ListTechnologySets  PLID='PLTechnologySetLicenseCheck:ListTechnologySets'  End
+#if DEBUG
+    Separator MNTechnologySetLicenseCheck_Sep10                              End
+    Tree MNTechnologySetLicenseCheck_Developer Caption='&Developer'
+        Link  MNTechnologySetLicenseCheck_Reload PLID='PLTechnologySetLicenseCheck:Reload' End
+        Link  MNTechnologySetLicenseCheck_Status PLID='PLTechnologySetLicenseCheck:Status' End
+    End
+#endif
+End
+
+Insertion MNTechnologySetLicenseCheck_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_TechnologySetLicenseCheck OriginalID=MNTechnologySetLicenseCheck IDSuffix='_1' End
+End
+Insertion MNTechnologySetLicenseCheck_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_TechnologySetLicenseCheck OriginalID=MNTechnologySetLicenseCheck IDSuffix='_2' End
+End
+Insertion MNTechnologySetLicenseCheck_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_TechnologySetLicenseCheck OriginalID=MNTechnologySetLicenseCheck IDSuffix='_3' End
+End

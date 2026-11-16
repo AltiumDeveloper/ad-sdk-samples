@@ -1,0 +1,49 @@
+PL PLLayerStackInfo:InternalPlaneInfo
+    Command='LayerStackInfo:Run'
+    Caption='&Internal Plane Info'
+    Image=''
+    Description='List the internal plane layers of the current board'
+    Params='Cmd=InternalPlaneInfo'
+End
+
+PL PLLayerStackInfo:DielectricInfo
+    Command='LayerStackInfo:Run'
+    Caption='&Dielectric Info'
+    Image=''
+    Description='List the dielectric layers of the current board'
+    Params='Cmd=DielectricInfo'
+End
+
+#if DEBUG
+PL PLLayerStackInfo:Reload
+    Command='LayerStackInfo:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LayerStackInfo implementation module'
+    Params=''
+End
+
+PL PLLayerStackInfo:Status
+    Command='LayerStackInfo:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LayerStackInfo hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLayerStackInfo Caption='&LayerStackInfo' TopLevel=True
+    Link      MNLayerStackInfo_InternalPlaneInfo  PLID='PLLayerStackInfo:InternalPlaneInfo'  End
+    Link      MNLayerStackInfo_DielectricInfo  PLID='PLLayerStackInfo:DielectricInfo'  End
+#if DEBUG
+    Separator MNLayerStackInfo_Sep10                              End
+    Tree MNLayerStackInfo_Developer Caption='&Developer'
+        Link  MNLayerStackInfo_Reload PLID='PLLayerStackInfo:Reload' End
+        Link  MNLayerStackInfo_Status PLID='PLLayerStackInfo:Status' End
+    End
+#endif
+End
+
+Insertion MNLayerStackInfo_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LayerStackInfo OriginalID=MNLayerStackInfo IDSuffix='_3' End
+End

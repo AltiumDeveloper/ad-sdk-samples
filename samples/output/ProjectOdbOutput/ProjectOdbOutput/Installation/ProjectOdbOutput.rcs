@@ -1,0 +1,46 @@
+PL PLProjectOdbOutput:Generate
+    Command='ProjectOdbOutput:Run'
+    Caption='&Generate'
+    Image=''
+    Description='Generate the focused project''s ODB++ output files'
+    Params='Cmd=Generate'
+End
+
+#if DEBUG
+PL PLProjectOdbOutput:Reload
+    Command='ProjectOdbOutput:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectOdbOutput implementation module'
+    Params=''
+End
+
+PL PLProjectOdbOutput:Status
+    Command='ProjectOdbOutput:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectOdbOutput hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectOdbOutput Caption='&ProjectOdbOutput' TopLevel=True
+    Link      MNProjectOdbOutput_Generate  PLID='PLProjectOdbOutput:Generate'  End
+#if DEBUG
+    Separator MNProjectOdbOutput_Sep10                              End
+    Tree MNProjectOdbOutput_Developer Caption='&Developer'
+        Link  MNProjectOdbOutput_Reload PLID='PLProjectOdbOutput:Reload' End
+        Link  MNProjectOdbOutput_Status PLID='PLProjectOdbOutput:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectOdbOutput_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectOdbOutput OriginalID=MNProjectOdbOutput IDSuffix='_1' End
+End
+Insertion MNProjectOdbOutput_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectOdbOutput OriginalID=MNProjectOdbOutput IDSuffix='_2' End
+End
+Insertion MNProjectOdbOutput_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectOdbOutput OriginalID=MNProjectOdbOutput IDSuffix='_3' End
+End

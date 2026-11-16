@@ -1,0 +1,52 @@
+PL PLDataModelToSchObject:ListVaultComponents
+    Command='DataModelToSchObject:Run'
+    Caption='&List Vault Components'
+    Image=''
+    Description='List the vault components of the focused project via their schematic objects'
+    Params='Cmd=ListVaultComponents'
+End
+
+PL PLDataModelToSchObject:RecolorNetObjects
+    Command='DataModelToSchObject:Run'
+    Caption='&Recolor Net Objects'
+    Image=''
+    Description='Recolour the schematic wires and buses of a compiled net'
+    Params='Cmd=RecolorNetObjects|Net=LEDS[7..0]'
+End
+
+#if DEBUG
+PL PLDataModelToSchObject:Reload
+    Command='DataModelToSchObject:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DataModelToSchObject implementation module'
+    Params=''
+End
+
+PL PLDataModelToSchObject:Status
+    Command='DataModelToSchObject:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DataModelToSchObject hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDataModelToSchObject Caption='&DataModelToSchObject' TopLevel=True
+    Link      MNDataModelToSchObject_ListVaultComponents  PLID='PLDataModelToSchObject:ListVaultComponents'  End
+    Link      MNDataModelToSchObject_RecolorNetObjects  PLID='PLDataModelToSchObject:RecolorNetObjects'  End
+#if DEBUG
+    Separator MNDataModelToSchObject_Sep10                              End
+    Tree MNDataModelToSchObject_Developer Caption='&Developer'
+        Link  MNDataModelToSchObject_Reload PLID='PLDataModelToSchObject:Reload' End
+        Link  MNDataModelToSchObject_Status PLID='PLDataModelToSchObject:Status' End
+    End
+#endif
+End
+
+Insertion MNDataModelToSchObject_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_DataModelToSchObject OriginalID=MNDataModelToSchObject IDSuffix='_1' End
+End
+Insertion MNDataModelToSchObject_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DataModelToSchObject OriginalID=MNDataModelToSchObject IDSuffix='_2' End
+End

@@ -1,0 +1,55 @@
+PL PLProjectBomReport:ProjectBomReport
+    Command='ProjectBomReport:Run'
+    Caption='&Project Bom Report'
+    Image=''
+    Description='Report the components of the focused project as BOM text'
+    Params='Cmd=ProjectBomReport'
+End
+
+PL PLProjectBomReport:Panel
+    Command='ProjectBomReport:Run'
+    Caption='Show &Panel'
+    Image=''
+    Description='Show the ProjectBomReport panel'
+    Params='Cmd=Panel.Show'
+End
+
+#if DEBUG
+PL PLProjectBomReport:Reload
+    Command='ProjectBomReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectBomReport implementation module'
+    Params=''
+End
+
+PL PLProjectBomReport:Status
+    Command='ProjectBomReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectBomReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectBomReport Caption='&ProjectBomReport' TopLevel=True
+    Link      MNProjectBomReport_ProjectBomReport  PLID='PLProjectBomReport:ProjectBomReport'  End
+    Link      MNProjectBomReport_Panel  PLID='PLProjectBomReport:Panel'  End
+#if DEBUG
+    Separator MNProjectBomReport_Sep10                              End
+    Tree MNProjectBomReport_Developer Caption='&Developer'
+        Link  MNProjectBomReport_Reload PLID='PLProjectBomReport:Reload' End
+        Link  MNProjectBomReport_Status PLID='PLProjectBomReport:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectBomReport_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectBomReport OriginalID=MNProjectBomReport IDSuffix='_1' End
+End
+Insertion MNProjectBomReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectBomReport OriginalID=MNProjectBomReport IDSuffix='_2' End
+End
+Insertion MNProjectBomReport_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectBomReport OriginalID=MNProjectBomReport IDSuffix='_3' End
+End

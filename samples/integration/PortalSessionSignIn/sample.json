@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PortalSessionSignIn",
+  "title": "Sign in to the Altium portal with a session ID",
+  "summary": "Signs Altium Designer in to the Altium portal with a session ID obtained outside AD (IDXPAltiumPortal.LoginBySessionID) and reports the sign-in state (LoggedIn, LoggingIn, IsBusy, user name).",
+  "category": "integration",
+  "domain": "system",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "log in to Altium 365 from an extension",
+    "check whether the user is signed in",
+    "use a browser session to sign in Altium Designer",
+    "read the signed-in user name of the portal"
+  ],
+  "commands": [
+    {
+      "name": "Login",
+      "description": "Sign in to the Altium portal with a session ID",
+      "params": "SessionId=<session ID; optional from the menu, which then asks for it in a dialog>",
+      "readOnly": false
+    },
+    {
+      "name": "LoginState",
+      "description": "Show the Altium portal sign-in state",
+      "readOnly": true
+    }
+  ]
+}

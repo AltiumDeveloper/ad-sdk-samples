@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "GetPcbComponentForVariant",
+  "title": "List variant components next to PCB components",
+  "summary": "Reads the current project variant's component variations and alternate library links, walks the PCB components and matches each one to its variation by SourceUniqueId or designator; a helper creates a NotFitted variant.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "find which PCB components are not fitted in a variant",
+    "read the current project variant",
+    "match a PCB component to its schematic component",
+    "create a project variant from code"
+  ],
+  "commands": [
+    {
+      "name": "GetVariantComponent",
+      "description": "List the current variant's component variations and the board's PCB components",
+      "params": "Max=<n> (rows per section, default 50, 0 = all)",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestVariant",
+      "description": "Create a variant with one Not Fitted component and make it current (test setup)",
+      "params": "Variant=<description> (default SampleVariant)",
+      "readOnly": false
+    }
+  ]
+}

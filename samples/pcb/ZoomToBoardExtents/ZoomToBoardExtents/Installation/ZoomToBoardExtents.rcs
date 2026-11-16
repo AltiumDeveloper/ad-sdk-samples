@@ -1,0 +1,40 @@
+PL PLZoomToBoardExtents:ZoomToBoardExtents
+    Command='ZoomToBoardExtents:Run'
+    Caption='&Zoom To Board Extents'
+    Image=''
+    Description='Zoom the PCB view to the board''s bounding rectangle'
+    Params='Cmd=ZoomToBoardExtents'
+End
+
+#if DEBUG
+PL PLZoomToBoardExtents:Reload
+    Command='ZoomToBoardExtents:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ZoomToBoardExtents implementation module'
+    Params=''
+End
+
+PL PLZoomToBoardExtents:Status
+    Command='ZoomToBoardExtents:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ZoomToBoardExtents hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNZoomToBoardExtents Caption='&ZoomToBoardExtents' TopLevel=True
+    Link      MNZoomToBoardExtents_ZoomToBoardExtents  PLID='PLZoomToBoardExtents:ZoomToBoardExtents'  End
+#if DEBUG
+    Separator MNZoomToBoardExtents_Sep10                              End
+    Tree MNZoomToBoardExtents_Developer Caption='&Developer'
+        Link  MNZoomToBoardExtents_Reload PLID='PLZoomToBoardExtents:Reload' End
+        Link  MNZoomToBoardExtents_Status PLID='PLZoomToBoardExtents:Status' End
+    End
+#endif
+End
+
+Insertion MNZoomToBoardExtents_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ZoomToBoardExtents OriginalID=MNZoomToBoardExtents IDSuffix='_3' End
+End

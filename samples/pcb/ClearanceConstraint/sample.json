@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ClearanceConstraint",
+  "title": "Read and change a clearance rule's pair value",
+  "summary": "Shows how to find a design rule on a board with a board iterator, cast it to IPCB_ClearanceConstraint and read or set the clearance for one pair of object kinds, with Gap and Mode reported before and after.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the arc to track clearance of a design rule",
+    "find a clearance rule by name on a PCB",
+    "iterate design rules on a board",
+    "set a per-object clearance in the clearance matrix"
+  ],
+  "commands": [
+    {
+      "name": "ChangeClearance",
+      "description": "Multiply the Arc-to-Track clearance of a clearance rule",
+      "params": "Rule=<rule name, default Clearance>|Factor=<positive number, default 3>",
+      "readOnly": false
+    }
+  ]
+}

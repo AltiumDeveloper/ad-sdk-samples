@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ChangePhysicalSheet",
+  "title": "Cycle the active physical sheet of each schematic",
+  "summary": "Compiles the project, lists its physical documents and uses ILogicalDocument to make each channel of a repeated sheet active in turn, with an optional view notification broadcast.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command",
+    "notification"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "switch between channels of a multi-channel sheet",
+    "list the physical sheets of a repeated schematic",
+    "show each channel of a repeated sheet",
+    "set the active physical document"
+  ],
+  "commands": [
+    {
+      "name": "ListPhysicalSheets",
+      "description": "List the project's physical documents and, for each open schematic, its physical sheets and the active one",
+      "params": "Compile=false (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "CyclePhysicalSheets",
+      "description": "Compile the focused project, open each schematic and make each of its physical sheets active in turn",
+      "params": "Notify=true (optional)|Restore=false (optional)|Compile=false (optional)",
+      "readOnly": false
+    }
+  ]
+}

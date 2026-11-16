@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CamSelectedNetInfo",
+  "title": "List the nets selected in the CAMtastic viewer",
+  "summary": "Identifies the active document and its editor server with IServerDocument.GetKind and GetServerModule to check for a CAMtastic document, and documents that the .NET SDK has no API for CAMtastic net selections.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "check if the active document is a CAM document",
+    "get the kind of the focused document",
+    "read selected nets in CAMtastic",
+    "find which server owns a document"
+  ],
+  "commands": [
+    {
+      "name": "GetSelectedNets",
+      "description": "Report the nets selected in the active CAMtastic document",
+      "readOnly": true
+    }
+  ]
+}

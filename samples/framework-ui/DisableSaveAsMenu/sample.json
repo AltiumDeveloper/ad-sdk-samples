@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DisableSaveAsMenu",
+  "title": "Remove Save As entries from the schematic File menu",
+  "summary": "Uses two Deletion elements in the extension's .rcs, merged at start-up through Updates = 'AdvSch', to remove Save As and Save As Copy from the schematic editor's File menu without any code.",
+  "category": "framework-ui",
+  "domain": "schematic",
+  "task": [
+    "extend-ui",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "hide a menu item in Altium Designer",
+    "delete an entry from a built-in menu with an rcs file",
+    "remove Save As from the File menu",
+    "customize the schematic editor menu from an extension"
+  ],
+  "commands": [
+    {
+      "name": "DisableSaveAs",
+      "description": "Report that Save As is disabled and which schematic File menu entries this extension removes",
+      "readOnly": true
+    }
+  ]
+}

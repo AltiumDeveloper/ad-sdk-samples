@@ -1,0 +1,46 @@
+PL PLLibraryThumbnailImages:GenerateThumbnails
+    Command='LibraryThumbnailImages:Run'
+    Caption='&Generate Thumbnails'
+    Image=''
+    Description='Render PNG thumbnails of every symbol and footprint in library folders'
+    Params='Cmd=GenerateThumbnails'
+End
+
+#if DEBUG
+PL PLLibraryThumbnailImages:Reload
+    Command='LibraryThumbnailImages:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LibraryThumbnailImages implementation module'
+    Params=''
+End
+
+PL PLLibraryThumbnailImages:Status
+    Command='LibraryThumbnailImages:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LibraryThumbnailImages hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLibraryThumbnailImages Caption='&LibraryThumbnailImages' TopLevel=True
+    Link      MNLibraryThumbnailImages_GenerateThumbnails  PLID='PLLibraryThumbnailImages:GenerateThumbnails'  End
+#if DEBUG
+    Separator MNLibraryThumbnailImages_Sep10                              End
+    Tree MNLibraryThumbnailImages_Developer Caption='&Developer'
+        Link  MNLibraryThumbnailImages_Reload PLID='PLLibraryThumbnailImages:Reload' End
+        Link  MNLibraryThumbnailImages_Status PLID='PLLibraryThumbnailImages:Status' End
+    End
+#endif
+End
+
+Insertion MNLibraryThumbnailImages_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_LibraryThumbnailImages OriginalID=MNLibraryThumbnailImages IDSuffix='_1' End
+End
+Insertion MNLibraryThumbnailImages_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_LibraryThumbnailImages OriginalID=MNLibraryThumbnailImages IDSuffix='_2' End
+End
+Insertion MNLibraryThumbnailImages_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LibraryThumbnailImages OriginalID=MNLibraryThumbnailImages IDSuffix='_3' End
+End

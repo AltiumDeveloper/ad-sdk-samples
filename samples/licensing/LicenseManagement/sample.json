@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LicenseManagement",
+  "title": "Read, use and release Altium Designer licenses",
+  "summary": "Shows how to reach ILicenseManager, ISecurityManager and ISecurityServerManager from an extension, read the license and subscription state, and use or release licenses (alf file, name, PLS serial, on-demand) behind a dry-run guard.",
+  "category": "licensing",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "read the current license and subscription expiry",
+    "release a leased license from code",
+    "use an on-demand license from the license server",
+    "load a license file programmatically",
+    "check whether the subscription is current"
+  ],
+  "commands": [
+    {
+      "name": "GetLicenseInfo",
+      "description": "Refresh and show the security manager's license information",
+      "params": "[Refresh=false]",
+      "readOnly": false
+    },
+    {
+      "name": "CheckADLicense",
+      "description": "Show the license manager's state and the .alf files",
+      "params": "[SecurityFolder=<folder with *.alf files; default: derived from the running installation>]",
+      "readOnly": true
+    },
+    {
+      "name": "SecurityServerInfo",
+      "description": "Show the security server manager's state",
+      "readOnly": true
+    },
+    {
+      "name": "ReleaseLicenses",
+      "description": "Release leased licenses (dry run unless Confirm is set)",
+      "params": "Confirm=true|[Names=true]|[AlfFiles=true]|[Files=<a.alf;b.alf>]|[SecurityFolder=<folder>]|[ClearLicenses=true]|[FreeAll=true]|[AisLogout=true]",
+      "readOnly": false
+    },
+    {
+      "name": "UseLicenseFile",
+      "description": "Use a license from an .alf file, then release it (needs File, Server, Confirm)",
+      "params": "File=<path to .alf>|Server=AIS or LicenseServer|Confirm=true|[Keep=true]",
+      "readOnly": false
+    },
+    {
+      "name": "UseLicenseByName",
+      "description": "Use a license by name (needs Name, Confirm)",
+      "params": "Name=<license name>|Confirm=true",
+      "readOnly": false
+    },
+    {
+      "name": "UseLicenseBySerial",
+      "description": "Use a PLS license by serial, then free it (needs Serial, Confirm)",
+      "params": "Serial=<PLS serial number>|Confirm=true|[Keep=true]",
+      "readOnly": false
+    },
+    {
+      "name": "UseOnDemandLicenses",
+      "description": "Lease the on-demand licenses, then return them (needs Confirm)",
+      "params": "Confirm=true|[Force=true]|[Keep=true]",
+      "readOnly": false
+    },
+    {
+      "name": "AddLicenseFile",
+      "description": "Pick and load a standalone .alf file (dialog; needs Confirm)",
+      "params": "Confirm=true|[Replace=true] (menu item passes Confirm=true; interactive only)",
+      "readOnly": false
+    }
+  ]
+}

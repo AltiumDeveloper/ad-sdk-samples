@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ReplacePcbFootprint",
+  "title": "Rename a footprint pattern and refresh its height",
+  "summary": "Renames the footprint pattern of every matching component and copies height and description from a .PcbLib footprint loaded with LoadCompFromLibrary; shows why BeginModify/EndModify must not wrap a Pattern change.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the footprint name of components on a board",
+    "swap R0805 for another footprint",
+    "read a footprint from a PCB library without placing it",
+    "set component height from the library"
+  ],
+  "commands": [
+    {
+      "name": "ReplacePcbFootprint",
+      "description": "Rename a footprint pattern and refresh height and description",
+      "params": "From=<pattern> (default R0805)|To=<pattern> (default R0805-W)|Library=<.PcbLib path> (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ListFootprints",
+      "description": "List the footprint patterns of the board's components",
+      "params": "Pattern=<name> (optional)|Lookup=<footprint> (optional)|Library=<.PcbLib path> (optional)",
+      "readOnly": true
+    }
+  ]
+}

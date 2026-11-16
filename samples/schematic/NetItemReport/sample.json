@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NetItemReport",
+  "title": "Report all nets and net items of the compiled project",
+  "summary": "Compiles the focused project and writes a text report of every net in the flattened document with its properties and net items, resolving each item's schematic handle to the live object.",
+  "category": "schematic",
+  "domain": "project",
+  "task": [
+    "report",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export a netlist report from a schematic project",
+    "list the pins on every net",
+    "get net names after compile",
+    "why does SupportsInterface return false for a net item"
+  ],
+  "commands": [
+    {
+      "name": "GetNetInfo",
+      "description": "Report all nets and net items of the focused project",
+      "params": "Out=<folder>|Open=true|Compile=false",
+      "readOnly": true
+    }
+  ]
+}

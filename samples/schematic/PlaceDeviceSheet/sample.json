@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlaceDeviceSheet",
+  "title": "Place a device sheet or Vault sheet on a schematic",
+  "summary": "Places a device sheet as a sheet symbol by running Sch:CreateSheetSymbolFromSheet without interaction, and starts placing a Vault sheet item revision found by HRID with DM_UseItemRevision.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "create",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a device sheet symbol programmatically",
+    "insert a reusable sheet into a schematic",
+    "find a device sheet file by name",
+    "place a sheet from the workspace by HRID",
+    "run a built-in process without a dialog"
+  ],
+  "commands": [
+    {
+      "name": "PlaceDeviceSheet",
+      "description": "Resolve a device sheet by name and place it as a sheet symbol on the active schematic with Sch:CreateSheetSymbolFromSheet; reports the sheet symbols that appeared",
+      "params": "Name=<device sheet name, required; the menu passes TestDeviceSheet>|X=<mils, default 5000>|Y=<mils, default 5000>|DryRun=<true: resolve only, do not place>",
+      "readOnly": false
+    },
+    {
+      "name": "PlaceSheetFromVault",
+      "description": "Look up a Vault sheet item revision by HRID and start placing it on the active schematic with DM_UseItemRevision",
+      "params": "Hrid=<item revision HRID, required; the menu passes SCH-0001-00021-1>|Vault=<index, default 0>|DryRun=<true: look up only, do not place>",
+      "readOnly": false
+    }
+  ]
+}

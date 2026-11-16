@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "RunScript",
+  "title": "Run a procedure of an existing script",
+  "summary": "Runs a named procedure of a script project or script file from an extension by launching the built-in ScriptingSystem:RunScript process with DXP.Utils.RunCommand; a helper writes a demo script project to try it with.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "run a DelphiScript procedure from an extension",
+    "call a script project from C#",
+    "launch a built-in process with parameters",
+    "execute a .PrjScr script from code"
+  ],
+  "commands": [
+    {
+      "name": "RunScript",
+      "description": "Run a procedure of an existing script. A script or procedure AD cannot find shows a modal error box that blocks AD until OK is clicked",
+      "params": "ProjectName=<path to a .PrjScr>|FileName=<path to a script file>|ProcName=<procedure identifier, required> (ProjectName or FileName required; both allowed, project form runs first)",
+      "readOnly": false
+    },
+    {
+      "name": "WriteDemoScript",
+      "description": "Write a demo script project (RunScriptDemo.PrjScr, RunScriptDemo.pas); deletes an old RunScriptDemo.txt",
+      "params": "Out=<existing folder, default the temp folder>",
+      "readOnly": false
+    }
+  ]
+}

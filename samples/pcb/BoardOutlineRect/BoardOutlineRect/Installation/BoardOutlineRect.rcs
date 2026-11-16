@@ -1,0 +1,49 @@
+PL PLBoardOutlineRect:ReadBoardOutline
+    Command='BoardOutlineRect:Run'
+    Caption='&Read Board Outline'
+    Image=''
+    Description='Read the board outline segments and size'
+    Params='Cmd=ReadBoardOutline'
+End
+
+PL PLBoardOutlineRect:UpdateBoardRegion
+    Command='BoardOutlineRect:Run'
+    Caption='&Update Board Region'
+    Image=''
+    Description='Replace the board outline by a rectangle'
+    Params='Cmd=UpdateBoardRegion'
+End
+
+#if DEBUG
+PL PLBoardOutlineRect:Reload
+    Command='BoardOutlineRect:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BoardOutlineRect implementation module'
+    Params=''
+End
+
+PL PLBoardOutlineRect:Status
+    Command='BoardOutlineRect:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BoardOutlineRect hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBoardOutlineRect Caption='&BoardOutlineRect' TopLevel=True
+    Link      MNBoardOutlineRect_ReadBoardOutline  PLID='PLBoardOutlineRect:ReadBoardOutline'  End
+    Link      MNBoardOutlineRect_UpdateBoardRegion  PLID='PLBoardOutlineRect:UpdateBoardRegion'  End
+#if DEBUG
+    Separator MNBoardOutlineRect_Sep10                              End
+    Tree MNBoardOutlineRect_Developer Caption='&Developer'
+        Link  MNBoardOutlineRect_Reload PLID='PLBoardOutlineRect:Reload' End
+        Link  MNBoardOutlineRect_Status PLID='PLBoardOutlineRect:Status' End
+    End
+#endif
+End
+
+Insertion MNBoardOutlineRect_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BoardOutlineRect OriginalID=MNBoardOutlineRect IDSuffix='_3' End
+End

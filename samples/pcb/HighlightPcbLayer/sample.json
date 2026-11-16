@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "HighlightPcbLayer",
+  "title": "Show one PCB layer in single-layer mode",
+  "summary": "Switches the PCB editor into single-layer mode through IPCB_SystemOptions.SingleLayerMode and makes a chosen layer current with CurrentLayerV7, reading both back; shows that the PCB:SetupPreferences process call has no effect.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "turn on single layer mode from code",
+    "set the current PCB layer",
+    "make the bottom layer active",
+    "change a PCB editor preference programmatically"
+  ],
+  "commands": [
+    {
+      "name": "HighlightLayer",
+      "description": "Turn on single-layer mode and make a layer current",
+      "params": "Layer=<TV6_Layer name or board layer name> (default Top Layer)|Via=Property|Process (default Property)|Off=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

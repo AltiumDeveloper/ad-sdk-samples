@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "GetExtensionVersion",
+  "title": "Look up an installed extension's version",
+  "summary": "Reads Altium Designer's plugin registry through IClient.GetPluginsRegistry: finds an extension by HRID and returns its version, or lists every registered extension with version and status.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "check if an extension is installed",
+    "get the version of a plugin",
+    "list installed extensions",
+    "find a plugin by HRID"
+  ],
+  "commands": [
+    {
+      "name": "GetVersion",
+      "description": "Show the version of an installed extension",
+      "params": "Hrid=<HRID> (default 'Altium Developer')",
+      "readOnly": true
+    },
+    {
+      "name": "ListExtensions",
+      "description": "List the extensions in the plugin registry",
+      "readOnly": true
+    }
+  ]
+}

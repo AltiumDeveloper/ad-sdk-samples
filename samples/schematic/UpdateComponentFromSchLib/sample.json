@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "UpdateComponentFromSchLib",
+  "title": "Reload a placed component from its source SchLib",
+  "summary": "Swaps a placed schematic component for a fresh copy loaded with LoadComponentFromLibrary, from a right-click menu item, keeping position, part, orientation and unique ID; shows the robot-manager bracket and that the copy carries the library symbol's own SourceLibraryName.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "modify",
+    "extend-ui"
+  ],
+  "surface": [
+    "context-menu",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "update a schematic part from the library",
+    "replace a component with the latest symbol",
+    "add an item to the schematic right-click menu",
+    "find the component under the cursor"
+  ],
+  "commands": [
+    {
+      "name": "UpdateComponentFromSchLib",
+      "description": "Reload a placed component from its source SchLib",
+      "params": "Designator=<x> (optional; else the right-click hit, else the one selected component)|LibraryFolders=<folder;folder> (optional)|KeepUniqueId=false (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ComponentInfo",
+      "description": "Report a placed component's library, part, location and unique ID (test helper)",
+      "params": "Designator=<x> (optional; same lookup)",
+      "readOnly": true
+    }
+  ]
+}

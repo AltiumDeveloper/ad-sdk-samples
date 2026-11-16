@@ -1,0 +1,46 @@
+PL PLOutJobGenerateOutputers:GenerateOutputers
+    Command='OutJobGenerateOutputers:Run'
+    Caption='&Generate Outputers'
+    Image=''
+    Description='Generate the files of every outputer in the project''s Output Jobs'
+    Params='Cmd=GenerateOutputers'
+End
+
+#if DEBUG
+PL PLOutJobGenerateOutputers:Reload
+    Command='OutJobGenerateOutputers:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the OutJobGenerateOutputers implementation module'
+    Params=''
+End
+
+PL PLOutJobGenerateOutputers:Status
+    Command='OutJobGenerateOutputers:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show OutJobGenerateOutputers hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNOutJobGenerateOutputers Caption='&OutJobGenerateOutputers' TopLevel=True
+    Link      MNOutJobGenerateOutputers_GenerateOutputers  PLID='PLOutJobGenerateOutputers:GenerateOutputers'  End
+#if DEBUG
+    Separator MNOutJobGenerateOutputers_Sep10                              End
+    Tree MNOutJobGenerateOutputers_Developer Caption='&Developer'
+        Link  MNOutJobGenerateOutputers_Reload PLID='PLOutJobGenerateOutputers:Reload' End
+        Link  MNOutJobGenerateOutputers_Status PLID='PLOutJobGenerateOutputers:Status' End
+    End
+#endif
+End
+
+Insertion MNOutJobGenerateOutputers_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_OutJobGenerateOutputers OriginalID=MNOutJobGenerateOutputers IDSuffix='_1' End
+End
+Insertion MNOutJobGenerateOutputers_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_OutJobGenerateOutputers OriginalID=MNOutJobGenerateOutputers IDSuffix='_2' End
+End
+Insertion MNOutJobGenerateOutputers_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_OutJobGenerateOutputers OriginalID=MNOutJobGenerateOutputers IDSuffix='_3' End
+End

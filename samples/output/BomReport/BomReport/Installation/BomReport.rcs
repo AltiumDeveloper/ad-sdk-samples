@@ -1,0 +1,43 @@
+PL PLBomReport:GenerateBom
+    Command='BomReport:Run'
+    Caption='&Generate Bom'
+    Image=''
+    Description='Build a grouped BOM and write it to a text file'
+    Params='Cmd=GenerateBom|Source=Schema'
+End
+
+#if DEBUG
+PL PLBomReport:Reload
+    Command='BomReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BomReport implementation module'
+    Params=''
+End
+
+PL PLBomReport:Status
+    Command='BomReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BomReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBomReport Caption='&BomReport' TopLevel=True
+    Link      MNBomReport_GenerateBom  PLID='PLBomReport:GenerateBom'  End
+#if DEBUG
+    Separator MNBomReport_Sep10                              End
+    Tree MNBomReport_Developer Caption='&Developer'
+        Link  MNBomReport_Reload PLID='PLBomReport:Reload' End
+        Link  MNBomReport_Status PLID='PLBomReport:Status' End
+    End
+#endif
+End
+
+Insertion MNBomReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_BomReport OriginalID=MNBomReport IDSuffix='_2' End
+End
+Insertion MNBomReport_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BomReport OriginalID=MNBomReport IDSuffix='_3' End
+End

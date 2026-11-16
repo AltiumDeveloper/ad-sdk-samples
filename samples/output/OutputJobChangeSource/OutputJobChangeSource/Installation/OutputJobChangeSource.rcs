@@ -1,0 +1,55 @@
+PL PLOutputJobChangeSource:ChangeOutputJobFile
+    Command='OutputJobChangeSource:Run'
+    Caption='&Change Output Job File'
+    Image=''
+    Description='Redirect an OutJob outputer to another source document'
+    Params='Cmd=ChangeOutputJobFile'
+End
+
+PL PLOutputJobChangeSource:ListOutputJobOutputers
+    Command='OutputJobChangeSource:Run'
+    Caption='&List Output Job Outputers'
+    Image=''
+    Description='List an Output Job''s outputers and their source documents'
+    Params='Cmd=ListOutputJobOutputers'
+End
+
+#if DEBUG
+PL PLOutputJobChangeSource:Reload
+    Command='OutputJobChangeSource:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the OutputJobChangeSource implementation module'
+    Params=''
+End
+
+PL PLOutputJobChangeSource:Status
+    Command='OutputJobChangeSource:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show OutputJobChangeSource hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNOutputJobChangeSource Caption='&OutputJobChangeSource' TopLevel=True
+    Link      MNOutputJobChangeSource_ChangeOutputJobFile  PLID='PLOutputJobChangeSource:ChangeOutputJobFile'  End
+    Link      MNOutputJobChangeSource_ListOutputJobOutputers  PLID='PLOutputJobChangeSource:ListOutputJobOutputers'  End
+#if DEBUG
+    Separator MNOutputJobChangeSource_Sep10                              End
+    Tree MNOutputJobChangeSource_Developer Caption='&Developer'
+        Link  MNOutputJobChangeSource_Reload PLID='PLOutputJobChangeSource:Reload' End
+        Link  MNOutputJobChangeSource_Status PLID='PLOutputJobChangeSource:Status' End
+    End
+#endif
+End
+
+Insertion MNOutputJobChangeSource_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_OutputJobChangeSource OriginalID=MNOutputJobChangeSource IDSuffix='_1' End
+End
+Insertion MNOutputJobChangeSource_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_OutputJobChangeSource OriginalID=MNOutputJobChangeSource IDSuffix='_2' End
+End
+Insertion MNOutputJobChangeSource_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_OutputJobChangeSource OriginalID=MNOutputJobChangeSource IDSuffix='_3' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "FindComponent",
+  "title": "Find a schematic component and zoom to it",
+  "summary": "Iterates the components of the active schematic sheet to find one by designator and centres the view on it by running the SCH:Zoom process with internal coordinates.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "locate a part by designator on a schematic",
+    "zoom the schematic view to a component",
+    "iterate components on the active sheet",
+    "run SCH:Zoom from an extension"
+  ],
+  "commands": [
+    {
+      "name": "FindComponent",
+      "description": "Find a component by designator and zoom to it",
+      "params": "Designator=<text>|Zoom=true|false",
+      "readOnly": true
+    }
+  ]
+}

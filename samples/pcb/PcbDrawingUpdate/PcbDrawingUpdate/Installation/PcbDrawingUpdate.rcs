@@ -1,0 +1,43 @@
+PL PLPcbDrawingUpdate:OpenDrawing
+    Command='PcbDrawingUpdate:Run'
+    Caption='&Open Drawing'
+    Image=''
+    Description='Open a PCB drawing (.PCBDwf) and import changes from its board'
+    Params='Cmd=OpenDrawing|File='
+End
+
+#if DEBUG
+PL PLPcbDrawingUpdate:Reload
+    Command='PcbDrawingUpdate:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbDrawingUpdate implementation module'
+    Params=''
+End
+
+PL PLPcbDrawingUpdate:Status
+    Command='PcbDrawingUpdate:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbDrawingUpdate hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbDrawingUpdate Caption='&PcbDrawingUpdate' TopLevel=True
+    Link      MNPcbDrawingUpdate_OpenDrawing  PLID='PLPcbDrawingUpdate:OpenDrawing'  End
+#if DEBUG
+    Separator MNPcbDrawingUpdate_Sep10                              End
+    Tree MNPcbDrawingUpdate_Developer Caption='&Developer'
+        Link  MNPcbDrawingUpdate_Reload PLID='PLPcbDrawingUpdate:Reload' End
+        Link  MNPcbDrawingUpdate_Status PLID='PLPcbDrawingUpdate:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbDrawingUpdate_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PcbDrawingUpdate OriginalID=MNPcbDrawingUpdate IDSuffix='_1' End
+End
+Insertion MNPcbDrawingUpdate_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbDrawingUpdate OriginalID=MNPcbDrawingUpdate IDSuffix='_3' End
+End

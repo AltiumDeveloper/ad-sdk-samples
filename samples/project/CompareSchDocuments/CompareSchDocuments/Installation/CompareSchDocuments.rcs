@@ -1,0 +1,43 @@
+PL PLCompareSchDocuments:CompareSchFiles
+    Command='CompareSchDocuments:Run'
+    Caption='&Compare Sch Files'
+    Image=''
+    Description='Open the diff viewer on two schematic files'
+    Params='Cmd=CompareSchFiles'
+End
+
+#if DEBUG
+PL PLCompareSchDocuments:Reload
+    Command='CompareSchDocuments:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CompareSchDocuments implementation module'
+    Params=''
+End
+
+PL PLCompareSchDocuments:Status
+    Command='CompareSchDocuments:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CompareSchDocuments hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCompareSchDocuments Caption='&CompareSchDocuments' TopLevel=True
+    Link      MNCompareSchDocuments_CompareSchFiles  PLID='PLCompareSchDocuments:CompareSchFiles'  End
+#if DEBUG
+    Separator MNCompareSchDocuments_Sep10                              End
+    Tree MNCompareSchDocuments_Developer Caption='&Developer'
+        Link  MNCompareSchDocuments_Reload PLID='PLCompareSchDocuments:Reload' End
+        Link  MNCompareSchDocuments_Status PLID='PLCompareSchDocuments:Status' End
+    End
+#endif
+End
+
+Insertion MNCompareSchDocuments_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_CompareSchDocuments OriginalID=MNCompareSchDocuments IDSuffix='_1' End
+End
+Insertion MNCompareSchDocuments_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_CompareSchDocuments OriginalID=MNCompareSchDocuments IDSuffix='_2' End
+End

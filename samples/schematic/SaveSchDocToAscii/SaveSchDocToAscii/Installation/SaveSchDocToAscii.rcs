@@ -1,0 +1,40 @@
+PL PLSaveSchDocToAscii:SaveToAscii
+    Command='SaveSchDocToAscii:Run'
+    Caption='&Save To Ascii'
+    Image=''
+    Description='Save the active schematic in ASCII format'
+    Params='Cmd=SaveToAscii'
+End
+
+#if DEBUG
+PL PLSaveSchDocToAscii:Reload
+    Command='SaveSchDocToAscii:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SaveSchDocToAscii implementation module'
+    Params=''
+End
+
+PL PLSaveSchDocToAscii:Status
+    Command='SaveSchDocToAscii:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SaveSchDocToAscii hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSaveSchDocToAscii Caption='&SaveSchDocToAscii' TopLevel=True
+    Link      MNSaveSchDocToAscii_SaveToAscii  PLID='PLSaveSchDocToAscii:SaveToAscii'  End
+#if DEBUG
+    Separator MNSaveSchDocToAscii_Sep10                              End
+    Tree MNSaveSchDocToAscii_Developer Caption='&Developer'
+        Link  MNSaveSchDocToAscii_Reload PLID='PLSaveSchDocToAscii:Reload' End
+        Link  MNSaveSchDocToAscii_Status PLID='PLSaveSchDocToAscii:Status' End
+    End
+#endif
+End
+
+Insertion MNSaveSchDocToAscii_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SaveSchDocToAscii OriginalID=MNSaveSchDocToAscii IDSuffix='_2' End
+End

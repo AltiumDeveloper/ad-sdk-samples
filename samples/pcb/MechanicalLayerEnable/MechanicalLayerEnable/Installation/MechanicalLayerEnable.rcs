@@ -1,0 +1,49 @@
+PL PLMechanicalLayerEnable:SetLayerVisible
+    Command='MechanicalLayerEnable:Run'
+    Caption='&Set Layer Visible'
+    Image=''
+    Description='Enable a mechanical layer and make it current'
+    Params='Cmd=SetLayerVisible|Layer=3'
+End
+
+PL PLMechanicalLayerEnable:GetLayerState
+    Command='MechanicalLayerEnable:Run'
+    Caption='&Get Layer State'
+    Image=''
+    Description='Show the state of a mechanical layer'
+    Params='Cmd=GetLayerState|Layer=3'
+End
+
+#if DEBUG
+PL PLMechanicalLayerEnable:Reload
+    Command='MechanicalLayerEnable:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the MechanicalLayerEnable implementation module'
+    Params=''
+End
+
+PL PLMechanicalLayerEnable:Status
+    Command='MechanicalLayerEnable:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show MechanicalLayerEnable hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNMechanicalLayerEnable Caption='&MechanicalLayerEnable' TopLevel=True
+    Link      MNMechanicalLayerEnable_SetLayerVisible  PLID='PLMechanicalLayerEnable:SetLayerVisible'  End
+    Link      MNMechanicalLayerEnable_GetLayerState  PLID='PLMechanicalLayerEnable:GetLayerState'  End
+#if DEBUG
+    Separator MNMechanicalLayerEnable_Sep10                              End
+    Tree MNMechanicalLayerEnable_Developer Caption='&Developer'
+        Link  MNMechanicalLayerEnable_Reload PLID='PLMechanicalLayerEnable:Reload' End
+        Link  MNMechanicalLayerEnable_Status PLID='PLMechanicalLayerEnable:Status' End
+    End
+#endif
+End
+
+Insertion MNMechanicalLayerEnable_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_MechanicalLayerEnable OriginalID=MNMechanicalLayerEnable IDSuffix='_3' End
+End

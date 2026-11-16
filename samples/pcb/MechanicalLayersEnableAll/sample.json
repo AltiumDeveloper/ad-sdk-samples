@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "MechanicalLayersEnableAll",
+  "title": "Enable all mechanical layers of the board",
+  "summary": "Shows how to reach every mechanical layer of a board, including disabled ones, through the layer stack and switch MechLayerEnabled on or off, and why MechanicalLayerIterator alone cannot enable a layer.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "configure",
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "turn on every mechanical layer of a PCB",
+    "list mechanical layers and whether they are enabled",
+    "MechanicalLayerIterator skips disabled layers",
+    "disable all mechanical layers on a board"
+  ],
+  "commands": [
+    {
+      "name": "EnableAllMechanicalLayers",
+      "description": "Enable (or disable) every mechanical layer of the board",
+      "params": "Enabled=true|false (optional, default true)",
+      "readOnly": false
+    },
+    {
+      "name": "ListMechanicalLayers",
+      "description": "List the mechanical layers and whether each is enabled",
+      "readOnly": true
+    }
+  ]
+}

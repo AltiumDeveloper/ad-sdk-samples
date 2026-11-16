@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The sample's code: [HotCommand] methods. Shared framework sources: Directory.Build.targets. -->
+  <PropertyGroup>
+    <SampleRole>Impl</SampleRole>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- The Output Job template travels inside the assembly: under hot reload the Impl is loaded from bytes, so
+         Assembly.Location is empty and a file looked up "next to the DLL" cannot be found. -->
+    <EmbeddedResource Include="Gerber.OutJob" LogicalName="GenerateGerber.Gerber.OutJob" />
+  </ItemGroup>
+</Project>

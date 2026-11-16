@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "OutputJobGenerate",
+  "title": "Run every Output Job medium of the focused project",
+  "summary": "Walks the media of the focused project's Output Jobs and launches WorkspaceManager:GenerateReport or WorkspaceManager:Print for each with DXP.Utils.RunCommand, reporting the files written; shows the real TypeString values and which launch route actually generates.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "generate outputs from an OutJob",
+    "run an output job from an extension",
+    "publish an output container to PDF",
+    "call WorkspaceManager GenerateReport from code",
+    "list the output media of an OutJob"
+  ],
+  "commands": [
+    {
+      "name": "RunOutputJobs",
+      "description": "For every OutJob of the focused project: open and show it, then launch the process of each output medium whose TypeString is in Types (and whose name is Medium, if given); report the launched processes with their parameter strings and the files written under Out",
+      "params": "Out=<folder> (default <temp>\\OutputJobGenerate)|Types=Generate Files (';'-separated TypeString values; 'Print' and 'PDF' are opt-in)|Medium=<medium name>|Route=RunCommand|MessageRouter|Launcher|EditProperties=False",
+      "readOnly": false
+    },
+    {
+      "name": "ListOutputMedia",
+      "description": "List the OutJobs of the focused project and each output medium's Name, TypeString and OutputPath",
+      "readOnly": true
+    }
+  ]
+}

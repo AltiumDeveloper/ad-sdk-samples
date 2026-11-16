@@ -1,0 +1,40 @@
+PL PLCamSelectedNetInfo:GetSelectedNets
+    Command='CamSelectedNetInfo:Run'
+    Caption='&Get Selected Nets'
+    Image=''
+    Description='Report the nets selected in the active CAMtastic document'
+    Params='Cmd=GetSelectedNets'
+End
+
+#if DEBUG
+PL PLCamSelectedNetInfo:Reload
+    Command='CamSelectedNetInfo:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CamSelectedNetInfo implementation module'
+    Params=''
+End
+
+PL PLCamSelectedNetInfo:Status
+    Command='CamSelectedNetInfo:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CamSelectedNetInfo hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCamSelectedNetInfo Caption='&CamSelectedNetInfo' TopLevel=True
+    Link      MNCamSelectedNetInfo_GetSelectedNets  PLID='PLCamSelectedNetInfo:GetSelectedNets'  End
+#if DEBUG
+    Separator MNCamSelectedNetInfo_Sep10                              End
+    Tree MNCamSelectedNetInfo_Developer Caption='&Developer'
+        Link  MNCamSelectedNetInfo_Reload PLID='PLCamSelectedNetInfo:Reload' End
+        Link  MNCamSelectedNetInfo_Status PLID='PLCamSelectedNetInfo:Status' End
+    End
+#endif
+End
+
+Insertion MNCamSelectedNetInfo_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_CamSelectedNetInfo OriginalID=MNCamSelectedNetInfo IDSuffix='_1' End
+End

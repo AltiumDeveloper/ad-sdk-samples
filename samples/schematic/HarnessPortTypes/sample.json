@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "HarnessPortTypes",
+  "title": "List harness ports of the focused sheet via the UDM",
+  "summary": "Reads the ports of the focused sheet from the compiled data model, resolves each handle to the live SCH port and prints the harness type of every harness port, reporting each drawn port once.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get the harness type of a port",
+    "which ports on a sheet belong to a harness",
+    "resolve a DM_SchHandle to a schematic object",
+    "why does DM_Ports return duplicates"
+  ],
+  "commands": [
+    {
+      "name": "GetHarness",
+      "description": "List the harness ports of the focused sheet",
+      "readOnly": false
+    }
+  ]
+}

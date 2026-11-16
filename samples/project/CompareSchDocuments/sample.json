@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CompareSchDocuments",
+  "title": "Open the diff viewer on two schematic files",
+  "summary": "Launches the built-in WorkspaceManager:Difference process with DXP.Utils.RunCommand so Altium Designer opens two schematic sheets and lists their differences, with input checks and error handling around a call that returns no result.",
+  "category": "project",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "compare two schematic sheets",
+    "show differences between two SchDoc files",
+    "run a built-in Altium process from code",
+    "launch a server process with parameters"
+  ],
+  "commands": [
+    {
+      "name": "CompareSchFiles",
+      "description": "Open the diff viewer on two schematic files",
+      "params": "Document1=<path to .SchDoc>|Document2=<path to .SchDoc> (from the menu without parameters: file pickers)",
+      "readOnly": true
+    }
+  ]
+}

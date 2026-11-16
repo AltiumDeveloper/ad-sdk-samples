@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NetWireVertices",
+  "title": "List wire vertex coordinates of a named net",
+  "summary": "Compiles the focused project, resolves each netlist line of a named net to its schematic wire and lists the wire's vertices in millimetres.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get the coordinates of wires on a net",
+    "find schematic wires belonging to a net",
+    "go from a compiled net to the wire objects",
+    "read wire points in mm"
+  ],
+  "commands": [
+    {
+      "name": "GetWireVertices",
+      "description": "List the vertices of the wires of a net",
+      "params": "Net=<name> (without it: list the nets that have lines)|Out=<file or folder> (optional)|Open=true (optional)|Base=1 (default) or 0 (vertex index base)",
+      "readOnly": true
+    }
+  ]
+}

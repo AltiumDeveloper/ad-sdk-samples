@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "TestNotification",
+  "title": "Broadcast a custom vault state-transition notification",
+  "summary": "Shows how to subclass DXP.BaseNotification, implement a dispatch-only notification interface with fixed DispIds, and broadcast it synchronously or asynchronously, with a read-back of what AD called on the object.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "react",
+    "extend-ui"
+  ],
+  "surface": [
+    "notification",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "send a custom notification to Altium Designer",
+    "implement IValidateStateTransitionNotification",
+    "broadcast a notification asynchronously",
+    "subclass BaseNotification with DispId"
+  ],
+  "commands": [
+    {
+      "name": "BroadCast",
+      "description": "Create a ValidateStateTransitionNotification and broadcast it: Mode=async (IClient.BroadcastNotificationAsynchronously, the default) or Mode=sync (IClient.BroadcastNotification); returns the notification's number and state",
+      "params": "Type=<notification type, default empty>|Mode=async|sync (default async)|Confirm (flag, required for the vault types altium.dxp.validatestatetransition / altium.dxp.validatestatetransitionex)",
+      "readOnly": true
+    },
+    {
+      "name": "NotificationStatus",
+      "description": "Report the last notification broadcast: number, mode, type, Valid, Note, the members callers invoked on it and the services SupportsService was asked for",
+      "params": "Reset (flag, optional: forgets the last notification and restarts the numbering)",
+      "readOnly": true
+    }
+  ]
+}

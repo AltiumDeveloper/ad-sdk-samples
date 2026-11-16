@@ -1,0 +1,49 @@
+PL PLBoardUniqueId:GetUniqueId
+    Command='BoardUniqueId:Run'
+    Caption='&Get Unique Id'
+    Image=''
+    Description='Show the unique ID of the current board'
+    Params='Cmd=GetUniqueId'
+End
+
+PL PLBoardUniqueId:SetUniqueId
+    Command='BoardUniqueId:Run'
+    Caption='&Set Unique Id'
+    Image=''
+    Description='Set the unique ID of the current board'
+    Params='Cmd=SetUniqueId|UniqueId='
+End
+
+#if DEBUG
+PL PLBoardUniqueId:Reload
+    Command='BoardUniqueId:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BoardUniqueId implementation module'
+    Params=''
+End
+
+PL PLBoardUniqueId:Status
+    Command='BoardUniqueId:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BoardUniqueId hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBoardUniqueId Caption='&BoardUniqueId' TopLevel=True
+    Link      MNBoardUniqueId_GetUniqueId  PLID='PLBoardUniqueId:GetUniqueId'  End
+    Link      MNBoardUniqueId_SetUniqueId  PLID='PLBoardUniqueId:SetUniqueId'  End
+#if DEBUG
+    Separator MNBoardUniqueId_Sep10                              End
+    Tree MNBoardUniqueId_Developer Caption='&Developer'
+        Link  MNBoardUniqueId_Reload PLID='PLBoardUniqueId:Reload' End
+        Link  MNBoardUniqueId_Status PLID='PLBoardUniqueId:Status' End
+    End
+#endif
+End
+
+Insertion MNBoardUniqueId_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BoardUniqueId OriginalID=MNBoardUniqueId IDSuffix='_3' End
+End

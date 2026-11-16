@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbSelectionPanel",
+  "title": "Panel view on PCB documents listing selected primitives",
+  "summary": "Attaches a per-document panel view to a PCB with IServerDocument.AddView, lists the selected primitives on selection-change view notifications, and registers the SDK's DXP.NotificationHandler for document activation.",
+  "category": "framework-ui",
+  "domain": "pcb",
+  "task": [
+    "react",
+    "inspect",
+    "extend-ui"
+  ],
+  "surface": [
+    "panel",
+    "notification"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "list selected objects on a board",
+    "react to selection changes in the PCB editor",
+    "add a panel view to a document",
+    "handle DocumentActivating notifications",
+    "register a notification handler in C#"
+  ],
+  "commands": [
+    {
+      "name": "ShowSelection",
+      "description": "List the selected primitives of the focused PCB, as text",
+      "readOnly": true
+    },
+    {
+      "name": "AttachView",
+      "description": "Add the per-document panel view to the focused PCB document",
+      "readOnly": true
+    },
+    {
+      "name": "Listen",
+      "description": "Register or unregister the notification handler (DXP.NotificationHandler), or report what it received",
+      "params": "State=on|off|status (default status)|AutoAttach=true (optional, with State=on)|Reset=true (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "SelectTest",
+      "description": "Test setup: select the first Count primitives of a kind through IPCB_Primitive.Selected, or deselect all",
+      "params": "Kind=<TObjectId name, default Pad>|Count=<n, default 3>, or Clear=true",
+      "readOnly": false
+    },
+    {
+      "name": "Notification.View",
+      "description": "Called by the shim for view notification codes 3 (selection changed) and 42 (update views): logs the selected primitives",
+      "params": "set by the shim",
+      "readOnly": true
+    },
+    {
+      "name": "Notification.Document",
+      "description": "Called by the shim on DocumentActivating: with AutoAttach on, attaches the panel view to the activated PCB document",
+      "params": "set by the shim",
+      "readOnly": true
+    }
+  ]
+}

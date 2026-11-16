@@ -1,0 +1,47 @@
+<Project>
+  <!--
+    Shared build settings for every sample. Derived from the
+    Altium.Designer.Extension.Templates 1.0.1 template's Directory.Build.props.
+
+    A sample's projects only say which part they are:
+      samples/<Category>/<Name>/<Name>/<Name>.csproj            <SampleRole>Shim</SampleRole> + <ExtensionGuid>
+      samples/<Category>/<Name>/<Name>.Impl/<Name>.Impl.csproj  <SampleRole>Impl</SampleRole>
+    Directory.Build.targets adds the shared framework sources, the hot reload package and the Altium references.
+
+    Machine-specific settings go in local.props (git-ignored), e.g. AltiumSystemDir.
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)local.props" Condition="Exists('$(MSBuildThisFileDirectory)local.props')" />
+
+  <PropertyGroup>
+    <AdSamplesRoot>$(MSBuildThisFileDirectory)</AdSamplesRoot>
+    <AltiumSystemDir Condition="'$(AltiumSystemDir)' == ''">C:\Program Files\Altium\AD26\System</AltiumSystemDir>
+    <!-- Optional. Empty: tools\deploy.ps1 finds the Extensions folder of the installation that AltiumSystemDir belongs to. -->
+    <AltiumExtensionsDir Condition="'$(AltiumExtensionsDir)' == ''"></AltiumExtensionsDir>
+
+    <!-- Target exactly the .NET version Altium Designer hosts, read from X2.runtimeconfig.json next to the System folder.
+         Without that file the build warns and assumes net10.0-windows: the SDK assemblies these samples are built
+         against reference .NET 10, so an older target cannot compile them. -->
+    <_AltiumRuntimeConfig>$([System.IO.Path]::Combine($(AltiumSystemDir), '..', 'X2.runtimeconfig.json'))</_AltiumRuntimeConfig>
+    <_AltiumHostedTfm Condition="'$(AltiumTargetFramework)' == '' and Exists('$(_AltiumRuntimeConfig)')">$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(_AltiumRuntimeConfig)')), '"tfm"\s*:\s*"(net[0-9.]+)(-[A-Za-z]+)?"').Groups[1].Value)</_AltiumHostedTfm>
+    <AltiumTargetFramework Condition="'$(AltiumTargetFramework)' == '' and '$(_AltiumHostedTfm)' != ''">$(_AltiumHostedTfm)-windows</AltiumTargetFramework>
+    <_AltiumTfmFallback Condition="'$(AltiumTargetFramework)' == ''">true</_AltiumTfmFallback>
+    <AltiumTargetFramework Condition="'$(AltiumTargetFramework)' == ''">net10.0-windows</AltiumTargetFramework>
+
+    <TargetFramework>$(AltiumTargetFramework)</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- Altium.SDK references WindowsBase from the WindowsDesktop framework. -->
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+
+    <!-- Loaded into AD as plugins: copy dependencies and write a deps.json, but never ship a runtimeconfig.json. -->
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <Deterministic>true</Deterministic>
+    <!-- Samples share one solution: keep their obj/bin apart and builds incremental. -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>

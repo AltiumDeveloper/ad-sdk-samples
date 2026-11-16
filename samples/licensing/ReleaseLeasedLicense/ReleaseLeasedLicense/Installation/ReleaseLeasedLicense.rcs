@@ -1,0 +1,55 @@
+PL PLReleaseLeasedLicense:ListLicenseFiles
+    Command='ReleaseLeasedLicense:Run'
+    Caption='&List License Files'
+    Image=''
+    Description='List the current licences and the .alf files in the security folder'
+    Params='Cmd=ListLicenseFiles'
+End
+
+PL PLReleaseLeasedLicense:ReleaseLicense
+    Command='ReleaseLeasedLicense:Run'
+    Caption='&Release License'
+    Image=''
+    Description='Release the leased licences (dry run unless Confirm is set)'
+    Params='Cmd=ReleaseLicense'
+End
+
+#if DEBUG
+PL PLReleaseLeasedLicense:Reload
+    Command='ReleaseLeasedLicense:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ReleaseLeasedLicense implementation module'
+    Params=''
+End
+
+PL PLReleaseLeasedLicense:Status
+    Command='ReleaseLeasedLicense:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ReleaseLeasedLicense hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNReleaseLeasedLicense Caption='&ReleaseLeasedLicense' TopLevel=True
+    Link      MNReleaseLeasedLicense_ListLicenseFiles  PLID='PLReleaseLeasedLicense:ListLicenseFiles'  End
+    Link      MNReleaseLeasedLicense_ReleaseLicense  PLID='PLReleaseLeasedLicense:ReleaseLicense'  End
+#if DEBUG
+    Separator MNReleaseLeasedLicense_Sep10                              End
+    Tree MNReleaseLeasedLicense_Developer Caption='&Developer'
+        Link  MNReleaseLeasedLicense_Reload PLID='PLReleaseLeasedLicense:Reload' End
+        Link  MNReleaseLeasedLicense_Status PLID='PLReleaseLeasedLicense:Status' End
+    End
+#endif
+End
+
+Insertion MNReleaseLeasedLicense_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ReleaseLeasedLicense OriginalID=MNReleaseLeasedLicense IDSuffix='_1' End
+End
+Insertion MNReleaseLeasedLicense_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ReleaseLeasedLicense OriginalID=MNReleaseLeasedLicense IDSuffix='_2' End
+End
+Insertion MNReleaseLeasedLicense_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ReleaseLeasedLicense OriginalID=MNReleaseLeasedLicense IDSuffix='_3' End
+End

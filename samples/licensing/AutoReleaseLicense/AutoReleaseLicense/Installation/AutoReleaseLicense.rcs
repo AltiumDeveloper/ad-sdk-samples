@@ -1,0 +1,73 @@
+PL PLAutoReleaseLicense:StartAutoRelease
+    Command='AutoReleaseLicense:Run'
+    Caption='&Start Auto Release'
+    Image=''
+    Description='Start returning leased licences after user inactivity (dry run unless DryRun=false)'
+    Params='Cmd=StartAutoRelease|IdleSeconds=30'
+End
+
+PL PLAutoReleaseLicense:StopAutoRelease
+    Command='AutoReleaseLicense:Run'
+    Caption='&Stop Auto Release'
+    Image=''
+    Description='Stop the inactivity watcher and remove the input hooks'
+    Params='Cmd=StopAutoRelease'
+End
+
+PL PLAutoReleaseLicense:AutoReleaseStatus
+    Command='AutoReleaseLicense:Run'
+    Caption='&Auto Release Status'
+    Image=''
+    Description='Show the inactivity watcher''s state'
+    Params='Cmd=AutoReleaseStatus'
+End
+
+PL PLAutoReleaseLicense:ReleaseLicensesNow
+    Command='AutoReleaseLicense:Run'
+    Caption='&Release Licenses Now'
+    Image=''
+    Description='Return leased licences once (dry run unless DryRun=false)'
+    Params='Cmd=ReleaseLicensesNow'
+End
+
+#if DEBUG
+PL PLAutoReleaseLicense:Reload
+    Command='AutoReleaseLicense:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the AutoReleaseLicense implementation module'
+    Params=''
+End
+
+PL PLAutoReleaseLicense:Status
+    Command='AutoReleaseLicense:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show AutoReleaseLicense hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNAutoReleaseLicense Caption='&AutoReleaseLicense' TopLevel=True
+    Link      MNAutoReleaseLicense_StartAutoRelease  PLID='PLAutoReleaseLicense:StartAutoRelease'  End
+    Link      MNAutoReleaseLicense_StopAutoRelease  PLID='PLAutoReleaseLicense:StopAutoRelease'  End
+    Link      MNAutoReleaseLicense_AutoReleaseStatus  PLID='PLAutoReleaseLicense:AutoReleaseStatus'  End
+    Link      MNAutoReleaseLicense_ReleaseLicensesNow  PLID='PLAutoReleaseLicense:ReleaseLicensesNow'  End
+#if DEBUG
+    Separator MNAutoReleaseLicense_Sep10                              End
+    Tree MNAutoReleaseLicense_Developer Caption='&Developer'
+        Link  MNAutoReleaseLicense_Reload PLID='PLAutoReleaseLicense:Reload' End
+        Link  MNAutoReleaseLicense_Status PLID='PLAutoReleaseLicense:Status' End
+    End
+#endif
+End
+
+Insertion MNAutoReleaseLicense_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_AutoReleaseLicense OriginalID=MNAutoReleaseLicense IDSuffix='_1' End
+End
+Insertion MNAutoReleaseLicense_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_AutoReleaseLicense OriginalID=MNAutoReleaseLicense IDSuffix='_2' End
+End
+Insertion MNAutoReleaseLicense_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_AutoReleaseLicense OriginalID=MNAutoReleaseLicense IDSuffix='_3' End
+End

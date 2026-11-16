@@ -1,0 +1,49 @@
+PL PLSchDifferentialPair:PlaceDiffPairDirective
+    Command='SchDifferentialPair:Run'
+    Caption='&Place Diff Pair Directive'
+    Image=''
+    Description='Place a DIFFPAIR parameter set on the current sheet'
+    Params='Cmd=PlaceDiffPairDirective'
+End
+
+PL PLSchDifferentialPair:ListParameterSets
+    Command='SchDifferentialPair:Run'
+    Caption='&List Parameter Sets'
+    Image=''
+    Description='List the parameter sets on the current sheet'
+    Params='Cmd=ListParameterSets'
+End
+
+#if DEBUG
+PL PLSchDifferentialPair:Reload
+    Command='SchDifferentialPair:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchDifferentialPair implementation module'
+    Params=''
+End
+
+PL PLSchDifferentialPair:Status
+    Command='SchDifferentialPair:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchDifferentialPair hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchDifferentialPair Caption='&SchDifferentialPair' TopLevel=True
+    Link      MNSchDifferentialPair_PlaceDiffPairDirective  PLID='PLSchDifferentialPair:PlaceDiffPairDirective'  End
+    Link      MNSchDifferentialPair_ListParameterSets  PLID='PLSchDifferentialPair:ListParameterSets'  End
+#if DEBUG
+    Separator MNSchDifferentialPair_Sep10                              End
+    Tree MNSchDifferentialPair_Developer Caption='&Developer'
+        Link  MNSchDifferentialPair_Reload PLID='PLSchDifferentialPair:Reload' End
+        Link  MNSchDifferentialPair_Status PLID='PLSchDifferentialPair:Status' End
+    End
+#endif
+End
+
+Insertion MNSchDifferentialPair_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchDifferentialPair OriginalID=MNSchDifferentialPair IDSuffix='_2' End
+End

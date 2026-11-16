@@ -1,0 +1,32 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LibraryManagersInfo",
+  "title": "List library, model type and supplier managers",
+  "summary": "Gets the integrated library, model type, device sheet and supplier managers from EDP.Utils and lists available libraries, registered model types and supplier sources with 0-based index loops. Documents that the supplier listing throws.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "list available libraries",
+    "which model types are registered",
+    "get supplier sources",
+    "open the device sheet folder picker",
+    "get the integrated library manager"
+  ],
+  "commands": [
+    {
+      "name": "ListLibraryManagers",
+      "description": "List integrated libraries, model types and supplier sources; ChooseDevice=true first opens the device sheet folder picker (menu only)",
+      "params": "ChooseDevice=<flag, default off; interactive only> | Max=<n, default 50: entries listed per section>",
+      "readOnly": true
+    }
+  ]
+}

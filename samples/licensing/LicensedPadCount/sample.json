@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LicensedPadCount",
+  "title": "Gate a command behind a technology-set license",
+  "summary": "Shows how an extension checks IServerSecurity.IsTechnologySetSupported on its own server module before running a command, with a filtered PCB board iterator that counts pads as the gated work.",
+  "category": "licensing",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "check if a license feature is available before running a command",
+    "only allow an extension command when licensed",
+    "count pads on a board",
+    "get IServerSecurity from my extension's server module"
+  ],
+  "commands": [
+    {
+      "name": "CountPads",
+      "description": "Count the pads of the current board if a technology set is licensed",
+      "params": "TechnologySet=<name> (optional, default: the extension's server name, LicensedPadCount); Server=<name> (optional, default LicensedPadCount: the server module that supplies IServerSecurity)",
+      "readOnly": true
+    },
+    {
+      "name": "CheckLicense",
+      "description": "Check whether a technology set is licensed (addition)",
+      "params": "TechnologySet=<name> (optional, default LicensedPadCount); Server=<name> (optional, default LicensedPadCount: the server module that supplies IServerSecurity)",
+      "readOnly": true
+    }
+  ]
+}

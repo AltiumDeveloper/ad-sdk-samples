@@ -1,0 +1,46 @@
+PL PLVariantDisplayOptions:GetVariantOptions
+    Command='VariantDisplayOptions:Run'
+    Caption='&Get Variant Options'
+    Image=''
+    Description='Report the workspace''s variant display options'
+    Params='Cmd=GetVariantOptions'
+End
+
+#if DEBUG
+PL PLVariantDisplayOptions:Reload
+    Command='VariantDisplayOptions:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the VariantDisplayOptions implementation module'
+    Params=''
+End
+
+PL PLVariantDisplayOptions:Status
+    Command='VariantDisplayOptions:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show VariantDisplayOptions hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNVariantDisplayOptions Caption='&VariantDisplayOptions' TopLevel=True
+    Link      MNVariantDisplayOptions_GetVariantOptions  PLID='PLVariantDisplayOptions:GetVariantOptions'  End
+#if DEBUG
+    Separator MNVariantDisplayOptions_Sep10                              End
+    Tree MNVariantDisplayOptions_Developer Caption='&Developer'
+        Link  MNVariantDisplayOptions_Reload PLID='PLVariantDisplayOptions:Reload' End
+        Link  MNVariantDisplayOptions_Status PLID='PLVariantDisplayOptions:Status' End
+    End
+#endif
+End
+
+Insertion MNVariantDisplayOptions_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_VariantDisplayOptions OriginalID=MNVariantDisplayOptions IDSuffix='_1' End
+End
+Insertion MNVariantDisplayOptions_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_VariantDisplayOptions OriginalID=MNVariantDisplayOptions IDSuffix='_2' End
+End
+Insertion MNVariantDisplayOptions_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_VariantDisplayOptions OriginalID=MNVariantDisplayOptions IDSuffix='_3' End
+End

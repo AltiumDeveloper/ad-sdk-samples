@@ -1,0 +1,48 @@
+PL PLDisableSaveAsMenu:DisableSaveAs
+    Command='DisableSaveAsMenu:Run'
+    Caption='&Disable Save As'
+    Image=''
+    Description='Report that Save As is disabled and which schematic File menu entries this extension removes'
+    Params='Cmd=DisableSaveAs'
+End
+
+#if DEBUG
+PL PLDisableSaveAsMenu:Reload
+    Command='DisableSaveAsMenu:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DisableSaveAsMenu implementation module'
+    Params=''
+End
+
+PL PLDisableSaveAsMenu:Status
+    Command='DisableSaveAsMenu:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DisableSaveAsMenu hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDisableSaveAsMenu Caption='&DisableSaveAsMenu' TopLevel=True
+    Link      MNDisableSaveAsMenu_DisableSaveAs  PLID='PLDisableSaveAsMenu:DisableSaveAs'  End
+#if DEBUG
+    Separator MNDisableSaveAsMenu_Sep10                              End
+    Tree MNDisableSaveAsMenu_Developer Caption='&Developer'
+        Link  MNDisableSaveAsMenu_Reload PLID='PLDisableSaveAsMenu:Reload' End
+        Link  MNDisableSaveAsMenu_Status PLID='PLDisableSaveAsMenu:Status' End
+    End
+#endif
+End
+
+Insertion MNDisableSaveAsMenu_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DisableSaveAsMenu OriginalID=MNDisableSaveAsMenu IDSuffix='_2' End
+End
+
+// The point of the sample: remove two links from the schematic editor's File menu. MNSchematic_File is defined in
+// AD's System\advsch.rcs, where MNSchematic_File90 links PLWorkspaceManager:SaveDocumentAs and
+// MNSchematic_File100 links PLWorkspaceManager:SaveDocumentAsCopy. Same element form as the Deletion lines in
+// advsch.rcs. Applied at the start-up menu merge (Updates = 'AdvSch' in the .ins): needs an AD restart.
+// Each element has its own ID.
+Deletion MCDisableSaveAsMenu_1 TargetID='MNSchematic_File' DeleteID='MNSchematic_File90'  End
+Deletion MCDisableSaveAsMenu_2 TargetID='MNSchematic_File' DeleteID='MNSchematic_File100' End

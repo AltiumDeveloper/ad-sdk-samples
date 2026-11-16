@@ -1,0 +1,40 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SavePcbAsAscii",
+  "title": "Save the active PCB as ASCII without changing its state",
+  "summary": "Saves a copy of the active PCB in the PCB ASCII File format with DoFileSave inside BeginRecoverySave/EndRecoverySave and restores the document's file name, Modified flag and date; closes the save's message box from a background thread.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export a board as ASCII PcbDoc",
+    "save a copy of a document without renaming it",
+    "save a PCB in another file format",
+    "keep the modified flag after saving"
+  ],
+  "commands": [
+    {
+      "name": "SaveAsAscii",
+      "description": "Save a copy of the PCB as ASCII",
+      "params": "Out=<folder or .PcbDoc file> (default temp folder)|AutoDismiss=false (optional)|DialogTitle=<title> (default Information)",
+      "readOnly": true
+    },
+    {
+      "name": "DocumentState",
+      "description": "Show the PCB document's file name, Modified flag and date",
+      "readOnly": true
+    },
+    {
+      "name": "SetModified",
+      "description": "Set the PCB document's Modified flag (test setup)",
+      "params": "Modified=true|false (default true)",
+      "readOnly": false
+    }
+  ]
+}

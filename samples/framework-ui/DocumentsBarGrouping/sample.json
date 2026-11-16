@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DocumentsBarGrouping",
+  "title": "Read and toggle the Documents Bar grouping mode",
+  "summary": "Reads and changes how the Documents Bar groups open documents (by document kind or by project) through IClientAPI_Interface, then broadcasts a system-preferences-changed notification.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "group document tabs by project",
+    "change how open documents are grouped",
+    "broadcast a system preferences changed notification",
+    "get the client UI API from IClient"
+  ],
+  "commands": [
+    {
+      "name": "GetGroupingInDocumentsBar",
+      "description": "Show the Documents Bar grouping",
+      "readOnly": true
+    },
+    {
+      "name": "SetGroupingInDocumentsBar",
+      "description": "Toggle the Documents Bar grouping",
+      "params": "Mode=Toggle|ByDocKind|ByProject|None (default Toggle)",
+      "readOnly": false
+    }
+  ]
+}

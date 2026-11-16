@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbLibAssignStepModels",
+  "title": "Assign STEP models to footprints by name match",
+  "summary": "Opens PCB libraries from code, replaces each footprint's 3D bodies with a body loaded from a STEP file whose name matches the footprint, places it at the reference point, and saves and closes the libraries.",
+  "category": "3d-step",
+  "domain": "library",
+  "task": [
+    "modify",
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "batch assign 3D models to footprints from a folder",
+    "match step files to footprint names",
+    "replace component bodies in a PcbLib and save it",
+    "open a PCB library from code and save it"
+  ],
+  "commands": [
+    {
+      "name": "AssignStepModels",
+      "description": "Assign STEP models to PcbLib footprints by name prefix",
+      "params": "Libs=<.PcbLib>[;<.PcbLib>...] (required)|StepFolder=<folder with .step/.stp files> (required)|RotX=0|RotY=0|RotZ=0 (degrees)|Z=0 (mil)|Subfolders (flag: search subfolders)|KeepExisting (flag: keep the existing 3D bodies)",
+      "readOnly": false
+    },
+    {
+      "name": "ListBodies",
+      "description": "List the 3D bodies of each footprint of a PcbLib (read-back)",
+      "params": "Lib=<.PcbLib> (required)",
+      "readOnly": true
+    }
+  ]
+}

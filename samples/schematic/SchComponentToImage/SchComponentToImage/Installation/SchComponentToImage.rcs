@@ -1,0 +1,40 @@
+PL PLSchComponentToImage:GenerateSchCompImages
+    Command='SchComponentToImage:Run'
+    Caption='&Generate Sch Comp Images'
+    Image=''
+    Description='Save an image of each component on the sheet'
+    Params='Cmd=GenerateSchCompImages'
+End
+
+#if DEBUG
+PL PLSchComponentToImage:Reload
+    Command='SchComponentToImage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchComponentToImage implementation module'
+    Params=''
+End
+
+PL PLSchComponentToImage:Status
+    Command='SchComponentToImage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchComponentToImage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchComponentToImage Caption='&SchComponentToImage' TopLevel=True
+    Link      MNSchComponentToImage_GenerateSchCompImages  PLID='PLSchComponentToImage:GenerateSchCompImages'  End
+#if DEBUG
+    Separator MNSchComponentToImage_Sep10                              End
+    Tree MNSchComponentToImage_Developer Caption='&Developer'
+        Link  MNSchComponentToImage_Reload PLID='PLSchComponentToImage:Reload' End
+        Link  MNSchComponentToImage_Status PLID='PLSchComponentToImage:Status' End
+    End
+#endif
+End
+
+Insertion MNSchComponentToImage_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchComponentToImage OriginalID=MNSchComponentToImage IDSuffix='_2' End
+End

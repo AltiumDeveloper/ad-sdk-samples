@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DielectricLossTangent",
+  "title": "Read the dielectric loss tangent (Df) of each layer",
+  "summary": "Shows how to iterate the dielectric layers of a board's master layer stack and read each layer's material, dielectric constant and loss tangent through the typed IPCB_DielectricLayer properties.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get Dk and Df of the layer stack",
+    "list dielectric layers and their materials",
+    "read the loss tangent of a PCB core",
+    "iterate layers of a given class in the stackup"
+  ],
+  "commands": [
+    {
+      "name": "GetDfValue",
+      "description": "List the dielectric layers with their loss tangent (Df)",
+      "params": "Out=<file> (optional)",
+      "readOnly": true
+    }
+  ]
+}

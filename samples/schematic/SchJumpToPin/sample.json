@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchJumpToPin",
+  "title": "Jump to a component pin in the schematic",
+  "summary": "Finds a pin of a placed component with schematic iterators, then zooms to it with the undocumented Sch:CrossProbeNotify process or selects it; documents what the cross-probe does and that it fails silently.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "zoom to a pin on a schematic sheet",
+    "cross-probe a component pin from code",
+    "select a pin by component designator",
+    "find pin 2 of U3",
+    "run a built-in process with RunCommand"
+  ],
+  "commands": [
+    {
+      "name": "JumpToPin",
+      "description": "Jump to a component pin (cross-probe, or select it with Method=Select)",
+      "params": "Designator=<text> (default HDR3)|Pin=<pin designator> (default 8)|Method=CrossProbe|Select (default CrossProbe)",
+      "readOnly": false
+    }
+  ]
+}

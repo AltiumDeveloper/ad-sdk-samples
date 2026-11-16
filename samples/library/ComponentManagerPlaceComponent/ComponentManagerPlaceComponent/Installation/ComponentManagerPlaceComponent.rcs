@@ -1,0 +1,70 @@
+PL PLComponentManagerPlaceComponent:PlaceSchComponent
+    Command='ComponentManagerPlaceComponent:Run'
+    Caption='&Place Sch Component'
+    Image=''
+    Description='Download a component''s libraries and place its symbol'
+    Params='Cmd=PlaceSchComponent'
+End
+
+PL PLComponentManagerPlaceComponent:PlacePcbComponent
+    Command='ComponentManagerPlaceComponent:Run'
+    Caption='&Place Pcb Component'
+    Image=''
+    Description='Download a component''s PcbLib and place its footprint'
+    Params='Cmd=PlacePcbComponent'
+End
+
+PL PLComponentManagerPlaceComponent:StartTestServer
+    Command='ComponentManagerPlaceComponent:Run'
+    Caption='&Start Test Server'
+    Image=''
+    Description='Start a local stub component server (test setup)'
+    Params='Cmd=StartTestServer'
+End
+
+PL PLComponentManagerPlaceComponent:StopTestServer
+    Command='ComponentManagerPlaceComponent:Run'
+    Caption='&Stop Test Server'
+    Image=''
+    Description='Stop the local stub component server'
+    Params='Cmd=StopTestServer'
+End
+
+#if DEBUG
+PL PLComponentManagerPlaceComponent:Reload
+    Command='ComponentManagerPlaceComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ComponentManagerPlaceComponent implementation module'
+    Params=''
+End
+
+PL PLComponentManagerPlaceComponent:Status
+    Command='ComponentManagerPlaceComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ComponentManagerPlaceComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNComponentManagerPlaceComponent Caption='&ComponentManagerPlaceComponent' TopLevel=True
+    Link      MNComponentManagerPlaceComponent_PlaceSchComponent  PLID='PLComponentManagerPlaceComponent:PlaceSchComponent'  End
+    Link      MNComponentManagerPlaceComponent_PlacePcbComponent  PLID='PLComponentManagerPlaceComponent:PlacePcbComponent'  End
+    Link      MNComponentManagerPlaceComponent_StartTestServer  PLID='PLComponentManagerPlaceComponent:StartTestServer'  End
+    Link      MNComponentManagerPlaceComponent_StopTestServer  PLID='PLComponentManagerPlaceComponent:StopTestServer'  End
+#if DEBUG
+    Separator MNComponentManagerPlaceComponent_Sep10                              End
+    Tree MNComponentManagerPlaceComponent_Developer Caption='&Developer'
+        Link  MNComponentManagerPlaceComponent_Reload PLID='PLComponentManagerPlaceComponent:Reload' End
+        Link  MNComponentManagerPlaceComponent_Status PLID='PLComponentManagerPlaceComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNComponentManagerPlaceComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ComponentManagerPlaceComponent OriginalID=MNComponentManagerPlaceComponent IDSuffix='_2' End
+End
+Insertion MNComponentManagerPlaceComponent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ComponentManagerPlaceComponent OriginalID=MNComponentManagerPlaceComponent IDSuffix='_3' End
+End

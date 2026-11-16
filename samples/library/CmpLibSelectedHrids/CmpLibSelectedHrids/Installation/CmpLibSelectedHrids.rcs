@@ -1,0 +1,40 @@
+PL PLCmpLibSelectedHrids:GetSelectedComponents
+    Command='CmpLibSelectedHrids:Run'
+    Caption='&Get Selected Components'
+    Image=''
+    Description='List the HRIDs of the components selected in the active CmpLib'
+    Params='Cmd=GetSelectedComponents'
+End
+
+#if DEBUG
+PL PLCmpLibSelectedHrids:Reload
+    Command='CmpLibSelectedHrids:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CmpLibSelectedHrids implementation module'
+    Params=''
+End
+
+PL PLCmpLibSelectedHrids:Status
+    Command='CmpLibSelectedHrids:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CmpLibSelectedHrids hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCmpLibSelectedHrids Caption='&CmpLibSelectedHrids' TopLevel=True
+    Link      MNCmpLibSelectedHrids_GetSelectedComponents  PLID='PLCmpLibSelectedHrids:GetSelectedComponents'  End
+#if DEBUG
+    Separator MNCmpLibSelectedHrids_Sep10                              End
+    Tree MNCmpLibSelectedHrids_Developer Caption='&Developer'
+        Link  MNCmpLibSelectedHrids_Reload PLID='PLCmpLibSelectedHrids:Reload' End
+        Link  MNCmpLibSelectedHrids_Status PLID='PLCmpLibSelectedHrids:Status' End
+    End
+#endif
+End
+
+Insertion MNCmpLibSelectedHrids_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_CmpLibSelectedHrids OriginalID=MNCmpLibSelectedHrids IDSuffix='_1' End
+End

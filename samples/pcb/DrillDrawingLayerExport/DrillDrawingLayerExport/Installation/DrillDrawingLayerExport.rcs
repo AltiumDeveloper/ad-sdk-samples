@@ -1,0 +1,49 @@
+PL PLDrillDrawingLayerExport:ExportDrillDrawing
+    Command='DrillDrawingLayerExport:Run'
+    Caption='&Export Drill Drawing'
+    Image=''
+    Description='Export the primitives of the drill drawing layer to a text file'
+    Params='Cmd=ExportDrillDrawing'
+End
+
+PL PLDrillDrawingLayerExport:AddTestText
+    Command='DrillDrawingLayerExport:Run'
+    Caption='&Add Test Text'
+    Image=''
+    Description='Place a text on the drill drawing layer (test setup)'
+    Params='Cmd=AddTestText'
+End
+
+#if DEBUG
+PL PLDrillDrawingLayerExport:Reload
+    Command='DrillDrawingLayerExport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DrillDrawingLayerExport implementation module'
+    Params=''
+End
+
+PL PLDrillDrawingLayerExport:Status
+    Command='DrillDrawingLayerExport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DrillDrawingLayerExport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDrillDrawingLayerExport Caption='&DrillDrawingLayerExport' TopLevel=True
+    Link      MNDrillDrawingLayerExport_ExportDrillDrawing  PLID='PLDrillDrawingLayerExport:ExportDrillDrawing'  End
+    Link      MNDrillDrawingLayerExport_AddTestText  PLID='PLDrillDrawingLayerExport:AddTestText'  End
+#if DEBUG
+    Separator MNDrillDrawingLayerExport_Sep10                              End
+    Tree MNDrillDrawingLayerExport_Developer Caption='&Developer'
+        Link  MNDrillDrawingLayerExport_Reload PLID='PLDrillDrawingLayerExport:Reload' End
+        Link  MNDrillDrawingLayerExport_Status PLID='PLDrillDrawingLayerExport:Status' End
+    End
+#endif
+End
+
+Insertion MNDrillDrawingLayerExport_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DrillDrawingLayerExport OriginalID=MNDrillDrawingLayerExport IDSuffix='_3' End
+End

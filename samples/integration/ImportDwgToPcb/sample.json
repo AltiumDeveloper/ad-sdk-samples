@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ImportDwgToPcb",
+  "title": "Import a DWG/DXF file into a new PCB document",
+  "summary": "Creates a new PCB document, runs the built-in PCB:Import process on it for an AutoCAD DWG/DXF file (the user confirms AD's import dialog), counts the primitives added and saves the board as a PcbDoc.",
+  "category": "integration",
+  "domain": "pcb",
+  "task": [
+    "import-export",
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "import an AutoCAD drawing into a board",
+    "load a DXF outline into a new PcbDoc",
+    "run PCB:Import from an extension",
+    "create and save a new PCB document from code"
+  ],
+  "commands": [
+    {
+      "name": "ImportDwg",
+      "description": "Import a DWG/DXF file into a new PCB document and save it",
+      "params": "File=<.dwg or .dxf path, required>|Out=<folder or .PcbDoc path> (default temp folder, named after File)|Overwrite=true (optional)|Silent=false (optional, default true: passes Silent=True|TestMode=True, which do not suppress the import dialog)",
+      "readOnly": false
+    }
+  ]
+}

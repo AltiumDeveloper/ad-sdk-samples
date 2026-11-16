@@ -1,0 +1,69 @@
+{{#commands}}
+PL PL{{Name}}:{{Command}}
+    Command='{{Name}}:Run'
+    Caption='{{Caption}}'
+    Image=''
+    Description='{{CommandDescription}}'
+    Params='Cmd={{Command}}{{Params}}'
+End
+
+{{/commands}}
+{{#panel}}
+PL PL{{Name}}:Panel
+    Command='{{Name}}:Run'
+    Caption='Show &Panel'
+    Image=''
+    Description='Show the {{Name}} panel'
+    Params='Cmd=Panel.Show'
+End
+
+{{/panel}}
+#if DEBUG
+PL PL{{Name}}:Reload
+    Command='{{Name}}:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the {{Name}} implementation module'
+    Params=''
+End
+
+PL PL{{Name}}:Status
+    Command='{{Name}}:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show {{Name}} hot reload status'
+    Params=''
+End
+#endif
+
+Tree MN{{Name}} Caption='{{MenuCaption}}' TopLevel=True
+{{#commands}}
+    Link      MN{{Name}}_{{Command}}  PLID='PL{{Name}}:{{Command}}'  End
+{{/commands}}
+{{#panel}}
+    Link      MN{{Name}}_Panel  PLID='PL{{Name}}:Panel'  End
+{{/panel}}
+#if DEBUG
+    Separator MN{{Name}}_Sep10                              End
+    Tree MN{{Name}}_Developer Caption='&Developer'
+        Link  MN{{Name}}_Reload PLID='PL{{Name}}:Reload' End
+        Link  MN{{Name}}_Status PLID='PL{{Name}}:Status' End
+    End
+#endif
+End
+
+{{#menu.noDocument}}
+Insertion MN{{Name}}_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_{{Name}} OriginalID=MN{{Name}} IDSuffix='_1' End
+End
+{{/menu.noDocument}}
+{{#menu.sch}}
+Insertion MN{{Name}}_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_{{Name}} OriginalID=MN{{Name}} IDSuffix='_2' End
+End
+{{/menu.sch}}
+{{#menu.pcb}}
+Insertion MN{{Name}}_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_{{Name}} OriginalID=MN{{Name}} IDSuffix='_3' End
+End
+{{/menu.pcb}}

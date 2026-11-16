@@ -1,0 +1,55 @@
+PL PLOutJobCreateOutputer:CreateOutputer
+    Command='OutJobCreateOutputer:Run'
+    Caption='&Create Outputer'
+    Image=''
+    Description='Add an outputer to an Output Job'
+    Params='Cmd=CreateOutputer'
+End
+
+PL PLOutJobCreateOutputer:ListOutputers
+    Command='OutJobCreateOutputer:Run'
+    Caption='&List Outputers'
+    Image=''
+    Description='List an Output Job''s media and outputers'
+    Params='Cmd=ListOutputers'
+End
+
+#if DEBUG
+PL PLOutJobCreateOutputer:Reload
+    Command='OutJobCreateOutputer:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the OutJobCreateOutputer implementation module'
+    Params=''
+End
+
+PL PLOutJobCreateOutputer:Status
+    Command='OutJobCreateOutputer:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show OutJobCreateOutputer hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNOutJobCreateOutputer Caption='&OutJobCreateOutputer' TopLevel=True
+    Link      MNOutJobCreateOutputer_CreateOutputer  PLID='PLOutJobCreateOutputer:CreateOutputer'  End
+    Link      MNOutJobCreateOutputer_ListOutputers  PLID='PLOutJobCreateOutputer:ListOutputers'  End
+#if DEBUG
+    Separator MNOutJobCreateOutputer_Sep10                              End
+    Tree MNOutJobCreateOutputer_Developer Caption='&Developer'
+        Link  MNOutJobCreateOutputer_Reload PLID='PLOutJobCreateOutputer:Reload' End
+        Link  MNOutJobCreateOutputer_Status PLID='PLOutJobCreateOutputer:Status' End
+    End
+#endif
+End
+
+Insertion MNOutJobCreateOutputer_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_OutJobCreateOutputer OriginalID=MNOutJobCreateOutputer IDSuffix='_1' End
+End
+Insertion MNOutJobCreateOutputer_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_OutJobCreateOutputer OriginalID=MNOutJobCreateOutputer IDSuffix='_2' End
+End
+Insertion MNOutJobCreateOutputer_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_OutJobCreateOutputer OriginalID=MNOutJobCreateOutputer IDSuffix='_3' End
+End

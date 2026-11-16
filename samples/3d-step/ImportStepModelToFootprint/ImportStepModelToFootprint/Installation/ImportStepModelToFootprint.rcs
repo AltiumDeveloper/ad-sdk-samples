@@ -1,0 +1,49 @@
+PL PLImportStepModelToFootprint:ImportStepModel
+    Command='ImportStepModelToFootprint:Run'
+    Caption='&Import Step Model'
+    Image=''
+    Description='Attach a STEP model to the current footprint as a 3D body'
+    Params='Cmd=ImportStepModel|File='
+End
+
+PL PLImportStepModelToFootprint:ListBodies
+    Command='ImportStepModelToFootprint:Run'
+    Caption='&List Bodies'
+    Image=''
+    Description='List the 3D bodies of the current footprint'
+    Params='Cmd=ListBodies'
+End
+
+#if DEBUG
+PL PLImportStepModelToFootprint:Reload
+    Command='ImportStepModelToFootprint:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ImportStepModelToFootprint implementation module'
+    Params=''
+End
+
+PL PLImportStepModelToFootprint:Status
+    Command='ImportStepModelToFootprint:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ImportStepModelToFootprint hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNImportStepModelToFootprint Caption='&ImportStepModelToFootprint' TopLevel=True
+    Link      MNImportStepModelToFootprint_ImportStepModel  PLID='PLImportStepModelToFootprint:ImportStepModel'  End
+    Link      MNImportStepModelToFootprint_ListBodies  PLID='PLImportStepModelToFootprint:ListBodies'  End
+#if DEBUG
+    Separator MNImportStepModelToFootprint_Sep10                              End
+    Tree MNImportStepModelToFootprint_Developer Caption='&Developer'
+        Link  MNImportStepModelToFootprint_Reload PLID='PLImportStepModelToFootprint:Reload' End
+        Link  MNImportStepModelToFootprint_Status PLID='PLImportStepModelToFootprint:Status' End
+    End
+#endif
+End
+
+Insertion MNImportStepModelToFootprint_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ImportStepModelToFootprint OriginalID=MNImportStepModelToFootprint IDSuffix='_3' End
+End

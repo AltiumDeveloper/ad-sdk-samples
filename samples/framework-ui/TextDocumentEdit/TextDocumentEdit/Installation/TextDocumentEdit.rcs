@@ -1,0 +1,46 @@
+PL PLTextDocumentEdit:ReplaceText
+    Command='TextDocumentEdit:Run'
+    Caption='&Replace Text'
+    Image=''
+    Description='Create a text document and replace text line by line'
+    Params='Cmd=ReplaceText'
+End
+
+#if DEBUG
+PL PLTextDocumentEdit:Reload
+    Command='TextDocumentEdit:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the TextDocumentEdit implementation module'
+    Params=''
+End
+
+PL PLTextDocumentEdit:Status
+    Command='TextDocumentEdit:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show TextDocumentEdit hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNTextDocumentEdit Caption='&TextDocumentEdit' TopLevel=True
+    Link      MNTextDocumentEdit_ReplaceText  PLID='PLTextDocumentEdit:ReplaceText'  End
+#if DEBUG
+    Separator MNTextDocumentEdit_Sep10                              End
+    Tree MNTextDocumentEdit_Developer Caption='&Developer'
+        Link  MNTextDocumentEdit_Reload PLID='PLTextDocumentEdit:Reload' End
+        Link  MNTextDocumentEdit_Status PLID='PLTextDocumentEdit:Status' End
+    End
+#endif
+End
+
+Insertion MNTextDocumentEdit_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_TextDocumentEdit OriginalID=MNTextDocumentEdit IDSuffix='_1' End
+End
+Insertion MNTextDocumentEdit_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_TextDocumentEdit OriginalID=MNTextDocumentEdit IDSuffix='_2' End
+End
+Insertion MNTextDocumentEdit_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_TextDocumentEdit OriginalID=MNTextDocumentEdit IDSuffix='_3' End
+End

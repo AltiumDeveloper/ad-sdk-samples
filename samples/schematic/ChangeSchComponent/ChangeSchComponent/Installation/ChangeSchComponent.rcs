@@ -1,0 +1,49 @@
+PL PLChangeSchComponent:ChangeSchComponent
+    Command='ChangeSchComponent:Run'
+    Caption='&Change Sch Component'
+    Image=''
+    Description='Replace every component on the current sheet with a library component'
+    Params='Cmd=ChangeSchComponent'
+End
+
+PL PLChangeSchComponent:ListSheetComponents
+    Command='ChangeSchComponent:Run'
+    Caption='&List Sheet Components'
+    Image=''
+    Description='List the components on the current sheet'
+    Params='Cmd=ListSheetComponents'
+End
+
+#if DEBUG
+PL PLChangeSchComponent:Reload
+    Command='ChangeSchComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ChangeSchComponent implementation module'
+    Params=''
+End
+
+PL PLChangeSchComponent:Status
+    Command='ChangeSchComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ChangeSchComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNChangeSchComponent Caption='&ChangeSchComponent' TopLevel=True
+    Link      MNChangeSchComponent_ChangeSchComponent  PLID='PLChangeSchComponent:ChangeSchComponent'  End
+    Link      MNChangeSchComponent_ListSheetComponents  PLID='PLChangeSchComponent:ListSheetComponents'  End
+#if DEBUG
+    Separator MNChangeSchComponent_Sep10                              End
+    Tree MNChangeSchComponent_Developer Caption='&Developer'
+        Link  MNChangeSchComponent_Reload PLID='PLChangeSchComponent:Reload' End
+        Link  MNChangeSchComponent_Status PLID='PLChangeSchComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNChangeSchComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ChangeSchComponent OriginalID=MNChangeSchComponent IDSuffix='_2' End
+End

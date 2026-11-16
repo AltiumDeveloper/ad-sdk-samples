@@ -1,0 +1,40 @@
+PL PLSchJumpToPin:JumpToPin
+    Command='SchJumpToPin:Run'
+    Caption='&Jump To Pin'
+    Image=''
+    Description='Jump to a component pin (cross-probe)'
+    Params='Cmd=JumpToPin'
+End
+
+#if DEBUG
+PL PLSchJumpToPin:Reload
+    Command='SchJumpToPin:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchJumpToPin implementation module'
+    Params=''
+End
+
+PL PLSchJumpToPin:Status
+    Command='SchJumpToPin:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchJumpToPin hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchJumpToPin Caption='&SchJumpToPin' TopLevel=True
+    Link      MNSchJumpToPin_JumpToPin  PLID='PLSchJumpToPin:JumpToPin'  End
+#if DEBUG
+    Separator MNSchJumpToPin_Sep10                              End
+    Tree MNSchJumpToPin_Developer Caption='&Developer'
+        Link  MNSchJumpToPin_Reload PLID='PLSchJumpToPin:Reload' End
+        Link  MNSchJumpToPin_Status PLID='PLSchJumpToPin:Status' End
+    End
+#endif
+End
+
+Insertion MNSchJumpToPin_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchJumpToPin OriginalID=MNSchJumpToPin IDSuffix='_2' End
+End

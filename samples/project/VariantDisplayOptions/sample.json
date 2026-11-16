@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "VariantDisplayOptions",
+  "title": "Read the workspace's variant display options",
+  "summary": "Reads every getter of EDP.IVariantOption from the workspace preferences: how schematic and PCB documents show components that a variant does not fit or alters.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "how are not-fitted components drawn",
+    "read variant display preferences",
+    "get the schematic variant graphics setting",
+    "check variant text and cross options"
+  ],
+  "commands": [
+    {
+      "name": "GetVariantOptions",
+      "description": "Report the workspace's variant display options",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+<Project>
+  <!--
+    Turns a one-line sample project into a full template-style extension part (see Directory.Build.props).
+
+    Conventions (no per-sample configuration):
+      SampleName   = the shim project name (the Impl project name without ".Impl"). Server, process, menu and pipe name.
+      SampleDir    = the folder holding <Name>\ and <Name>.Impl\.
+      Panel        = <Name>.Impl\Ui\PanelContent.cs exists  -> shim gets Panel.cs, PanelInfo; Impl gets PanelHost.
+      Outputer     = <Name>\Installation\<Name>.out exists   -> shim gets ReportOutput.cs ("Report" command).
+  -->
+  <PropertyGroup Condition="'$(SampleRole)' != ''">
+    <SampleName Condition="'$(SampleName)' == '' and '$(SampleRole)' == 'Shim'">$(MSBuildProjectName)</SampleName>
+    <SampleName Condition="'$(SampleName)' == '' and '$(SampleRole)' == 'Impl'">$(MSBuildProjectName.Substring(0, $([MSBuild]::Subtract($(MSBuildProjectName.Length), 5))))</SampleName>
+    <SampleDir>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..'))\</SampleDir>
+    <SampleHasPanel Condition="Exists('$(SampleDir)$(SampleName).Impl\Ui\PanelContent.cs')">true</SampleHasPanel>
+    <SampleHasOutputer Condition="Exists('$(SampleDir)$(SampleName)\Installation\$(SampleName).out')">true</SampleHasOutputer>
+    <DefineConstants Condition="'$(SampleHasPanel)' == 'true'">$(DefineConstants);SAMPLE_PANEL</DefineConstants>
+    <DefineConstants Condition="'$(SampleHasOutputer)' == 'true'">$(DefineConstants);SAMPLE_OUTPUTER</DefineConstants>
+    <UseAltiumSdk>true</UseAltiumSdk>
+    <_FrameworkDir>$(AdSamplesRoot)framework\</_FrameworkDir>
+    <_SampleInfoFile>$(IntermediateOutputPath)SampleInfo.g.cs</_SampleInfoFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(SampleRole)' == 'Shim'">
+    <RootNamespace>CSharpPlugin</RootNamespace>
+    <AssemblyName>$(SampleName)</AssemblyName>
+    <!-- Folder AD loads the extension from (tools\deploy.ps1): <Extensions folder>\<SampleName>. -->
+    <ExtensionFolderName>$(SampleName)</ExtensionFolderName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(SampleRole)' == 'Impl'">
+    <RootNamespace>AdSamples.$(SampleName)</RootNamespace>
+    <AssemblyName>$(SampleName).Impl</AssemblyName>
+  </PropertyGroup>
+
+  <!-- Altium SDK assemblies are always provided by the running AD instance: reference, never copy. -->
+  <ItemGroup Condition="'$(UseAltiumSdk)' == 'true'">
+    <Reference Include="Altium.SDK">
+      <HintPath>$(AltiumSystemDir)\Altium.SDK.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Altium.SDK.Interfaces">
+      <HintPath>$(AltiumSystemDir)\Altium.SDK.Interfaces.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- ===== Shim ===== -->
+  <ItemGroup Condition="'$(SampleRole)' == 'Shim'">
+    <!-- Debug-only hot reload host, compiled into the shim as source. Release builds contain none of it. -->
+    <PackageReference Include="Altium.Designer.HotReload" Version="1.0.1" PrivateAssets="all" />
+    <!-- HotModule="true": hot-reloaded from its build output in Debug, a normal reference otherwise. -->
+    <ProjectReference Include="$(SampleDir)$(SampleName).Impl\$(SampleName).Impl.csproj" HotModule="true" />
+
+    <Compile Include="$(_FrameworkDir)shim\PluginServerModule.cs;$(_FrameworkDir)shim\Commands.cs;$(_FrameworkDir)shim\Implementation.cs" Link="Framework\%(Filename)%(Extension)" />
+    <Compile Include="$(_FrameworkDir)shim\Panel.cs" Link="Framework\Panel.cs" Condition="'$(SampleHasPanel)' == 'true'" />
+    <Compile Include="$(_FrameworkDir)shim\ReportOutput.cs" Link="Framework\ReportOutput.cs" Condition="'$(SampleHasOutputer)' == 'true'" />
+
+    <InstallationFile Include="Installation\*.ins;Installation\*.rcs;Installation\*.out" />
+    <UpToDateCheckInput Include="@(InstallationFile)" />
+  </ItemGroup>
+
+  <!-- ===== Impl ===== -->
+  <ItemGroup Condition="'$(SampleRole)' == 'Impl'">
+    <Compile Include="$(_FrameworkDir)impl\*.cs" Exclude="$(_FrameworkDir)impl\Panel*.cs" Link="Framework\%(Filename)%(Extension)" />
+    <Compile Include="$(_FrameworkDir)impl\Panel*.cs" Link="Framework\%(Filename)%(Extension)" Condition="'$(SampleHasPanel)' == 'true'" />
+  </ItemGroup>
+
+  <!-- SampleInfo.g.cs: the sample's name, for the shared sources. A static item (written before CoreCompile), so that
+       tools reading the project's Compile items (code analysis) see it too. -->
+  <ItemGroup Condition="'$(SampleRole)' != ''">
+    <Compile Include="$(_SampleInfoFile)" />
+    <FileWrites Include="$(_SampleInfoFile)" />
+  </ItemGroup>
+  <Target Name="GenerateSampleInfo" BeforeTargets="CoreCompile" Condition="'$(SampleRole)' != ''">
+    <PropertyGroup>
+      <_SampleInfoNamespaceOpen Condition="'$(SampleRole)' == 'Impl'">namespace AdSamples {</_SampleInfoNamespaceOpen>
+      <_SampleInfoNamespaceClose Condition="'$(SampleRole)' == 'Impl'">}</_SampleInfoNamespaceClose>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(_SampleInfoFile)" Overwrite="true" WriteOnlyWhenDifferent="true"
+                      Lines="// &lt;auto-generated/&gt; by Directory.Build.targets;$(_SampleInfoNamespaceOpen);internal static class SampleInfo;{;    public const string Name = &quot;$(SampleName)&quot;%3B;    public const string PanelName = &quot;$(SampleName)Panel&quot;%3B;    public const string PanelHostKey = &quot;$(SampleName).PanelHost&quot;%3B;    public const string InvokeKey = &quot;$(SampleName).Invoke&quot;%3B;};$(_SampleInfoNamespaceClose)" />
+  </Target>
+
+  <!--
+    Copy Installation\*.ins/.rcs/.out to the shim output. Lines between "#if DEBUG" and "#endif" are kept in Debug
+    and dropped otherwise; AD always gets CRLF line endings. (From the template's shim project.)
+  -->
+  <Target Name="CopyInstallationFiles" AfterTargets="Build" Condition="'$(SampleRole)' == 'Shim'"
+          Inputs="@(InstallationFile);$(MSBuildProjectFullPath)"
+          Outputs="@(InstallationFile->'$(OutDir)%(Filename)%(Extension)')">
+    <PropertyGroup>
+      <_DebugBlock Condition="'$(Configuration)' == 'Debug'">(?m)^[ \t]*#(if DEBUG|endif)[ \t]*(\r?\n|\z)</_DebugBlock>
+      <_DebugBlock Condition="'$(Configuration)' != 'Debug'">(?ms)^[ \t]*#if DEBUG[ \t]*\r?\n.*?^[ \t]*#endif[ \t]*(\r?\n|\z)</_DebugBlock>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(OutDir)%(InstallationFile.Filename)%(InstallationFile.Extension)"
+                      Lines="$([System.Text.RegularExpressions.Regex]::Replace($([System.Text.RegularExpressions.Regex]::Replace($([System.IO.File]::ReadAllText('%(InstallationFile.FullPath)')), '$(_DebugBlock)', '')), '\r?\n', '&#13;&#10;'))"
+                      Overwrite="true" WriteOnlyWhenDifferent="true" />
+    <Error Condition="$([System.Text.RegularExpressions.Regex]::IsMatch($([System.IO.File]::ReadAllText('$(OutDir)%(InstallationFile.Filename)%(InstallationFile.Extension)')), '(?m)^[ \t]*#(if|else|endif)\b'))"
+           File="%(InstallationFile.FullPath)"
+           Text="Unmatched #if DEBUG / #endif in %(InstallationFile.Filename)%(InstallationFile.Extension): every '#if DEBUG' line needs an '#endif' line." />
+  </Target>
+
+  <Target Name="AltiumTargetFrameworkWarning" BeforeTargets="CoreCompile" Condition="'$(_AltiumTfmFallback)' == 'true'">
+    <Warning Text="Could not read the .NET version Altium Designer hosts from $(_AltiumRuntimeConfig): building for $(AltiumTargetFramework). Set AltiumSystemDir (local.props) to the System folder of the installation." />
+  </Target>
+</Project>

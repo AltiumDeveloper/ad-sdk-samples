@@ -1,0 +1,40 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "RemoveParamFromProject",
+  "title": "Remove all parameters from the focused project",
+  "summary": "Removes every project-level parameter by index in a reverse loop, and shows how to list, add and update project parameters with the DM_* parameter members of IDXPProject.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "delete project parameters",
+    "clear all parameters of a project",
+    "add or update a project parameter",
+    "list project-level parameters"
+  ],
+  "commands": [
+    {
+      "name": "RemoveParamFromProject",
+      "description": "Remove all parameters from the focused project",
+      "readOnly": false
+    },
+    {
+      "name": "ListProjectParameters",
+      "description": "List the parameters of the focused project",
+      "readOnly": true
+    },
+    {
+      "name": "AddProjectParameter",
+      "description": "Add or update a parameter of the focused project",
+      "params": "Name=<name> (required)|Value=<text> (default empty)",
+      "readOnly": false
+    }
+  ]
+}

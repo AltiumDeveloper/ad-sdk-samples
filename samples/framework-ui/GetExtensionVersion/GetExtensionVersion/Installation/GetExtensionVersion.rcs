@@ -1,0 +1,55 @@
+PL PLGetExtensionVersion:GetVersion
+    Command='GetExtensionVersion:Run'
+    Caption='&Get Version'
+    Image=''
+    Description='Show the version of an installed extension'
+    Params='Cmd=GetVersion|Hrid=Altium Developer'
+End
+
+PL PLGetExtensionVersion:ListExtensions
+    Command='GetExtensionVersion:Run'
+    Caption='&List Extensions'
+    Image=''
+    Description='List the extensions in the plugin registry'
+    Params='Cmd=ListExtensions'
+End
+
+#if DEBUG
+PL PLGetExtensionVersion:Reload
+    Command='GetExtensionVersion:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the GetExtensionVersion implementation module'
+    Params=''
+End
+
+PL PLGetExtensionVersion:Status
+    Command='GetExtensionVersion:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show GetExtensionVersion hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNGetExtensionVersion Caption='&GetExtensionVersion' TopLevel=True
+    Link      MNGetExtensionVersion_GetVersion  PLID='PLGetExtensionVersion:GetVersion'  End
+    Link      MNGetExtensionVersion_ListExtensions  PLID='PLGetExtensionVersion:ListExtensions'  End
+#if DEBUG
+    Separator MNGetExtensionVersion_Sep10                              End
+    Tree MNGetExtensionVersion_Developer Caption='&Developer'
+        Link  MNGetExtensionVersion_Reload PLID='PLGetExtensionVersion:Reload' End
+        Link  MNGetExtensionVersion_Status PLID='PLGetExtensionVersion:Status' End
+    End
+#endif
+End
+
+Insertion MNGetExtensionVersion_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_GetExtensionVersion OriginalID=MNGetExtensionVersion IDSuffix='_1' End
+End
+Insertion MNGetExtensionVersion_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_GetExtensionVersion OriginalID=MNGetExtensionVersion IDSuffix='_2' End
+End
+Insertion MNGetExtensionVersion_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_GetExtensionVersion OriginalID=MNGetExtensionVersion IDSuffix='_3' End
+End

@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "VaultItemSearchByHrid",
+  "title": "Show Vault Explorer and search vault items by HRID",
+  "summary": "Searches the items of an installed Vault by HRID pattern with IEDMS_Vault.SearchItems and lists each hit's HRID, description and creator; optionally shows a panel by name. Shows the option and flag sets and how to read the asynchronous result.",
+  "category": "integration",
+  "domain": "library",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "search workspace items by ID",
+    "find components in Altium 365 with a wildcard",
+    "open a panel by name from code",
+    "wait for an EDMS request result"
+  ],
+  "commands": [
+    {
+      "name": "BrowseVault",
+      "description": "Show Vault Explorer and search vault items by HRID",
+      "params": "Hrid=<item HRID, required>|Vault=<index, default 0>|Max=<count, default 100>|Timeout=<seconds, default 30>|ShowPanel=true|false (default: true from the menu, false on the pipe)|Panel=<panel name, default Vault Explorer>",
+      "readOnly": true
+    }
+  ]
+}

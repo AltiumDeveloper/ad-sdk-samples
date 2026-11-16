@@ -1,0 +1,40 @@
+PL PLBoardPadsInArea:CountPadsInArea
+    Command='BoardPadsInArea:Run'
+    Caption='&Count Pads In Area'
+    Image=''
+    Description='Count the pads in a rectangle with a spatial iterator'
+    Params='Cmd=CountPadsInArea'
+End
+
+#if DEBUG
+PL PLBoardPadsInArea:Reload
+    Command='BoardPadsInArea:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BoardPadsInArea implementation module'
+    Params=''
+End
+
+PL PLBoardPadsInArea:Status
+    Command='BoardPadsInArea:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BoardPadsInArea hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBoardPadsInArea Caption='&BoardPadsInArea' TopLevel=True
+    Link      MNBoardPadsInArea_CountPadsInArea  PLID='PLBoardPadsInArea:CountPadsInArea'  End
+#if DEBUG
+    Separator MNBoardPadsInArea_Sep10                              End
+    Tree MNBoardPadsInArea_Developer Caption='&Developer'
+        Link  MNBoardPadsInArea_Reload PLID='PLBoardPadsInArea:Reload' End
+        Link  MNBoardPadsInArea_Status PLID='PLBoardPadsInArea:Status' End
+    End
+#endif
+End
+
+Insertion MNBoardPadsInArea_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BoardPadsInArea OriginalID=MNBoardPadsInArea IDSuffix='_3' End
+End

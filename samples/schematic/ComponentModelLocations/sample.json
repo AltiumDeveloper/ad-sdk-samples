@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ComponentModelLocations",
+  "title": "Report library and model file locations of sheet parts",
+  "summary": "Walks the compiled parts of a schematic sheet and their model implementations, and queries the integrated library manager for where each symbol and model data file is found, as a text report.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "which library does a schematic part come from",
+    "list footprint and 3D models linked to each component",
+    "find the file a component model is loaded from",
+    "iterate parts and implementations in the design model"
+  ],
+  "commands": [
+    {
+      "name": "PartLibraryReport",
+      "description": "Report library and model file locations of the parts on the focused sheet",
+      "params": "Out=<file or folder> (optional)|Open=true (optional)|Compile=false (optional, default true)",
+      "readOnly": true
+    }
+  ]
+}

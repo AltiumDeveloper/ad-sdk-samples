@@ -1,0 +1,55 @@
+PL PLProjectVariantAlternatePart:CreateVariantComponent
+    Command='ProjectVariantAlternatePart:Run'
+    Caption='&Create Variant Component'
+    Image=''
+    Description='Give every component an alternate part in a project variant'
+    Params='Cmd=CreateVariantComponent'
+End
+
+PL PLProjectVariantAlternatePart:ListVariantAlternates
+    Command='ProjectVariantAlternatePart:Run'
+    Caption='&List Variant Alternates'
+    Image=''
+    Description='List the component variations of a project variant'
+    Params='Cmd=ListVariantAlternates'
+End
+
+#if DEBUG
+PL PLProjectVariantAlternatePart:Reload
+    Command='ProjectVariantAlternatePart:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectVariantAlternatePart implementation module'
+    Params=''
+End
+
+PL PLProjectVariantAlternatePart:Status
+    Command='ProjectVariantAlternatePart:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectVariantAlternatePart hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectVariantAlternatePart Caption='&ProjectVariantAlternatePart' TopLevel=True
+    Link      MNProjectVariantAlternatePart_CreateVariantComponent  PLID='PLProjectVariantAlternatePart:CreateVariantComponent'  End
+    Link      MNProjectVariantAlternatePart_ListVariantAlternates  PLID='PLProjectVariantAlternatePart:ListVariantAlternates'  End
+#if DEBUG
+    Separator MNProjectVariantAlternatePart_Sep10                              End
+    Tree MNProjectVariantAlternatePart_Developer Caption='&Developer'
+        Link  MNProjectVariantAlternatePart_Reload PLID='PLProjectVariantAlternatePart:Reload' End
+        Link  MNProjectVariantAlternatePart_Status PLID='PLProjectVariantAlternatePart:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectVariantAlternatePart_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectVariantAlternatePart OriginalID=MNProjectVariantAlternatePart IDSuffix='_1' End
+End
+Insertion MNProjectVariantAlternatePart_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectVariantAlternatePart OriginalID=MNProjectVariantAlternatePart IDSuffix='_2' End
+End
+Insertion MNProjectVariantAlternatePart_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectVariantAlternatePart OriginalID=MNProjectVariantAlternatePart IDSuffix='_3' End
+End

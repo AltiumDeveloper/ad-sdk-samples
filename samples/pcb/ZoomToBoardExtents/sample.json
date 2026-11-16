@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ZoomToBoardExtents",
+  "title": "Zoom the PCB view to the board extents",
+  "summary": "Reads the current board's BoundingRectangle and zooms the PCB editor onto it with GraphicalView_ZoomOnRect, reporting the viewport before and after; the rectangle covers all objects, not only the outline.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "fit the whole board in the view",
+    "zoom the PCB editor to a rectangle",
+    "get the bounding box of a board",
+    "read the visible area of the PCB view"
+  ],
+  "commands": [
+    {
+      "name": "ZoomToBoardExtents",
+      "description": "Zoom the PCB view to the board's bounding rectangle",
+      "readOnly": true
+    }
+  ]
+}

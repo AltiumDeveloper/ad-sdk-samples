@@ -1,0 +1,12 @@
+# Normalise text to LF in the repository; check out with the platform default.
+* text=auto
+
+# Altium Designer installation files and PowerShell scripts: always CRLF.
+*.ins text eol=crlf
+*.rcs text eol=crlf
+*.out text eol=crlf
+*.ps1 text eol=crlf
+
+# Data the samples read as files.
+*.step binary
+*.OutJob binary

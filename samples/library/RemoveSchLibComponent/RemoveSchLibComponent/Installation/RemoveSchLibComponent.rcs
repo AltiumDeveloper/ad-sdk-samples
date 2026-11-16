@@ -1,0 +1,40 @@
+PL PLRemoveSchLibComponent:RemoveComponent
+    Command='RemoveSchLibComponent:Run'
+    Caption='&Remove Component'
+    Image=''
+    Description='Delete a named component from the active schematic library'
+    Params='Cmd=RemoveComponent|Name='
+End
+
+#if DEBUG
+PL PLRemoveSchLibComponent:Reload
+    Command='RemoveSchLibComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the RemoveSchLibComponent implementation module'
+    Params=''
+End
+
+PL PLRemoveSchLibComponent:Status
+    Command='RemoveSchLibComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show RemoveSchLibComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNRemoveSchLibComponent Caption='&RemoveSchLibComponent' TopLevel=True
+    Link      MNRemoveSchLibComponent_RemoveComponent  PLID='PLRemoveSchLibComponent:RemoveComponent'  End
+#if DEBUG
+    Separator MNRemoveSchLibComponent_Sep10                              End
+    Tree MNRemoveSchLibComponent_Developer Caption='&Developer'
+        Link  MNRemoveSchLibComponent_Reload PLID='PLRemoveSchLibComponent:Reload' End
+        Link  MNRemoveSchLibComponent_Status PLID='PLRemoveSchLibComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNRemoveSchLibComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_RemoveSchLibComponent OriginalID=MNRemoveSchLibComponent IDSuffix='_2' End
+End

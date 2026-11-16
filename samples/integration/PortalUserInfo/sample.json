@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PortalUserInfo",
+  "title": "Read the signed-in user of each installed Vault",
+  "summary": "Lists every installed Vault (workspace) with the signed-in user's full name and GUID from IEDMS_Vault.GetUserDetails, and optionally the server manager's user from IEDMS_DXPServerManager.GetUserInfo.",
+  "category": "integration",
+  "domain": "system",
+  "task": [
+    "inspect",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get the current user's name in Altium 365",
+    "list installed workspaces and who is signed in",
+    "read the user GUID of a workspace",
+    "find which workspaces I am logged in to"
+  ],
+  "commands": [
+    {
+      "name": "GetUserInfo",
+      "description": "Show the signed-in user of each installed Vault",
+      "params": "Vault=<index, optional: only that Vault>|Server=<true: also the server manager's user, optional>",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+PL PLPadSolderMask:ChangePadSolderMask
+    Command='PadSolderMask:Run'
+    Caption='&Change Pad Solder Mask'
+    Image=''
+    Description='Set manual per-side solder mask on pads named M3'
+    Params='Cmd=ChangePadSolderMask|Pad=M3'
+End
+
+PL PLPadSolderMask:ShowPadSolderMask
+    Command='PadSolderMask:Run'
+    Caption='&Show Pad Solder Mask'
+    Image=''
+    Description='Show the solder mask settings of pads named M3'
+    Params='Cmd=ShowPadSolderMask|Pad=M3'
+End
+
+#if DEBUG
+PL PLPadSolderMask:Reload
+    Command='PadSolderMask:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PadSolderMask implementation module'
+    Params=''
+End
+
+PL PLPadSolderMask:Status
+    Command='PadSolderMask:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PadSolderMask hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPadSolderMask Caption='&PadSolderMask' TopLevel=True
+    Link      MNPadSolderMask_ChangePadSolderMask  PLID='PLPadSolderMask:ChangePadSolderMask'  End
+    Link      MNPadSolderMask_ShowPadSolderMask  PLID='PLPadSolderMask:ShowPadSolderMask'  End
+#if DEBUG
+    Separator MNPadSolderMask_Sep10                              End
+    Tree MNPadSolderMask_Developer Caption='&Developer'
+        Link  MNPadSolderMask_Reload PLID='PLPadSolderMask:Reload' End
+        Link  MNPadSolderMask_Status PLID='PLPadSolderMask:Status' End
+    End
+#endif
+End
+
+Insertion MNPadSolderMask_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PadSolderMask OriginalID=MNPadSolderMask IDSuffix='_3' End
+End

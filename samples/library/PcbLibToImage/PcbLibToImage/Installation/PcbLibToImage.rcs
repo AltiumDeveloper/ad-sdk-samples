@@ -1,0 +1,40 @@
+PL PLPcbLibToImage:GenerateImage
+    Command='PcbLibToImage:Run'
+    Caption='&Generate Image'
+    Image=''
+    Description='Export the footprints of a PCB library as PNG images'
+    Params='Cmd=GenerateImage'
+End
+
+#if DEBUG
+PL PLPcbLibToImage:Reload
+    Command='PcbLibToImage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbLibToImage implementation module'
+    Params=''
+End
+
+PL PLPcbLibToImage:Status
+    Command='PcbLibToImage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbLibToImage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbLibToImage Caption='&PcbLibToImage' TopLevel=True
+    Link      MNPcbLibToImage_GenerateImage  PLID='PLPcbLibToImage:GenerateImage'  End
+#if DEBUG
+    Separator MNPcbLibToImage_Sep10                              End
+    Tree MNPcbLibToImage_Developer Caption='&Developer'
+        Link  MNPcbLibToImage_Reload PLID='PLPcbLibToImage:Reload' End
+        Link  MNPcbLibToImage_Status PLID='PLPcbLibToImage:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbLibToImage_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbLibToImage OriginalID=MNPcbLibToImage IDSuffix='_3' End
+End

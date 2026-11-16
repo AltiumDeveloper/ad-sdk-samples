@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SupplierPreference",
+  "title": "Toggle a supplier import parameter's visibility",
+  "summary": "Toggles the Visible flag of a supplier import parameter in the IntegratedLibrary options with IOptionsReader and IOptionsWriter, and reports what ISupplierManager returns for it; a second command lists both views.",
+  "category": "integration",
+  "domain": "supply-chain",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change a stored preference of an Altium Designer server",
+    "read and write options with the options manager",
+    "list supplier import parameters",
+    "make an imported supplier parameter visible"
+  ],
+  "commands": [
+    {
+      "name": "SupplierPreference",
+      "description": "Toggle the Visible flag of a supplier import parameter (append it visible when missing), flush, and report the options and supplier manager values",
+      "params": "Name=<import parameter, default Category>",
+      "readOnly": false
+    },
+    {
+      "name": "ListSupplierImportParameters",
+      "description": "List the supplier import parameters from the options store and from ISupplierManager",
+      "params": "[Raw=true]",
+      "readOnly": true
+    }
+  ]
+}

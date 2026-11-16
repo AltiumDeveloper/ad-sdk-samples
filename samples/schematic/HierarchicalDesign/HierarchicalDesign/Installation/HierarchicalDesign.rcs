@@ -1,0 +1,43 @@
+PL PLHierarchicalDesign:GetAllComponents
+    Command='HierarchicalDesign:Run'
+    Caption='&Get All Components'
+    Image=''
+    Description='List the physical designators of the compiled project'
+    Params='Cmd=GetAllComponents'
+End
+
+#if DEBUG
+PL PLHierarchicalDesign:Reload
+    Command='HierarchicalDesign:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the HierarchicalDesign implementation module'
+    Params=''
+End
+
+PL PLHierarchicalDesign:Status
+    Command='HierarchicalDesign:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show HierarchicalDesign hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNHierarchicalDesign Caption='&HierarchicalDesign' TopLevel=True
+    Link      MNHierarchicalDesign_GetAllComponents  PLID='PLHierarchicalDesign:GetAllComponents'  End
+#if DEBUG
+    Separator MNHierarchicalDesign_Sep10                              End
+    Tree MNHierarchicalDesign_Developer Caption='&Developer'
+        Link  MNHierarchicalDesign_Reload PLID='PLHierarchicalDesign:Reload' End
+        Link  MNHierarchicalDesign_Status PLID='PLHierarchicalDesign:Status' End
+    End
+#endif
+End
+
+Insertion MNHierarchicalDesign_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_HierarchicalDesign OriginalID=MNHierarchicalDesign IDSuffix='_2' End
+End
+Insertion MNHierarchicalDesign_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_HierarchicalDesign OriginalID=MNHierarchicalDesign IDSuffix='_3' End
+End

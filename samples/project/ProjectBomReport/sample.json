@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectBomReport",
+  "title": "Report components of the focused project as a BOM text",
+  "summary": "Iterates the components of every schematic sheet of the focused project with ISch_Iterator and reports footprint, parameters, pins and source-library parameters (IIntegratedLibraryManager), shown in a panel or written to a file.",
+  "category": "project",
+  "domain": "bom",
+  "task": [
+    "report",
+    "iterate"
+  ],
+  "surface": [
+    "command",
+    "panel"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "list all components in a project with their parameters",
+    "iterate schematic components and pins",
+    "find a component in its source library",
+    "write a component report to a text file",
+    "show a report in a custom panel"
+  ],
+  "commands": [
+    {
+      "name": "ProjectBomReport",
+      "description": "Report the components of the focused project as BOM text (pipe: returned; menu or panel: shown in the panel)",
+      "params": "Linkage=true|false (default true)|Out=<file or folder> (optional)",
+      "readOnly": true
+    }
+  ]
+}

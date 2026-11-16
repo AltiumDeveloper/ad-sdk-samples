@@ -1,0 +1,26 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'ImportPcbFromOutputDir'
+    EditorExePath     = 'ImportPcbFromOutputDir.DLL'
+    EditorDescription = 'Open the PcbDoc next to an output job''s export folder'
+    Version           = 'Version 1.0.0.0'
+    Date              = '11/13/2026'
+    HelpAboutInfo     = 'Altium Designer SDK sample.'
+    Copyright         = 'Copyright Altium Limited'
+    // Merge this extension's menus at startup. Without it, AD merges them only when the server first starts,
+    // after the menu bar is built: no top-level menu.
+    Updates           = 'AdvSch'
+End
+
+// Generic, stable processes. Features are [HotCommand] methods reached through Run with Cmd=<Name>.
+// "#if DEBUG" blocks are kept in Debug builds only (Directory.Build.targets).
+Command Name = 'Run'    LongSummary = 'Run a command of ImportPcbFromOutputDir (Params: Cmd=<Name>|...)' End
+// A process with its own parameter string (FileImportProcess.cs). It runs the FileImportDirectory
+// command like Run does. OutputHandler entries for a document kind could name it; this sample registers
+// no document kind, so it declares no OutputHandler (README, Notes).
+Command Name = 'FileImportDirectory' LongSummary = 'Open the .PcbDoc of an output job''s base folder (Params: BaseExportPath=<path>)' End
+#if DEBUG
+Command Name = 'Reload' LongSummary = 'Reload the ImportPcbFromOutputDir implementation module'        End
+Command Name = 'Status' LongSummary = 'Show ImportPcbFromOutputDir hot reload status'                  End
+#endif

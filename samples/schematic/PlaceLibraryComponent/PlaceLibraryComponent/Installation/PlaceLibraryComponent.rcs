@@ -1,0 +1,49 @@
+PL PLPlaceLibraryComponent:PlaceComponent
+    Command='PlaceLibraryComponent:Run'
+    Caption='&Place Component'
+    Image=''
+    Description='Place a library component with models and parameters'
+    Params='Cmd=PlaceComponent'
+End
+
+PL PLPlaceLibraryComponent:PlacePart
+    Command='PlaceLibraryComponent:Run'
+    Caption='&Place Part'
+    Image=''
+    Description='Place one part of a multi-part component'
+    Params='Cmd=PlacePart|PartID=2'
+End
+
+#if DEBUG
+PL PLPlaceLibraryComponent:Reload
+    Command='PlaceLibraryComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlaceLibraryComponent implementation module'
+    Params=''
+End
+
+PL PLPlaceLibraryComponent:Status
+    Command='PlaceLibraryComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlaceLibraryComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlaceLibraryComponent Caption='&PlaceLibraryComponent' TopLevel=True
+    Link      MNPlaceLibraryComponent_PlaceComponent  PLID='PLPlaceLibraryComponent:PlaceComponent'  End
+    Link      MNPlaceLibraryComponent_PlacePart  PLID='PLPlaceLibraryComponent:PlacePart'  End
+#if DEBUG
+    Separator MNPlaceLibraryComponent_Sep10                              End
+    Tree MNPlaceLibraryComponent_Developer Caption='&Developer'
+        Link  MNPlaceLibraryComponent_Reload PLID='PLPlaceLibraryComponent:Reload' End
+        Link  MNPlaceLibraryComponent_Status PLID='PLPlaceLibraryComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNPlaceLibraryComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PlaceLibraryComponent OriginalID=MNPlaceLibraryComponent IDSuffix='_2' End
+End

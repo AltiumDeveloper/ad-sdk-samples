@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "OutJobGenerateOutputers",
+  "title": "Generate the files of every outputer in an Output Job",
+  "summary": "Opens each OutJob of the focused project and calls IOutputer.DM_Generate_OutputFiles on its outputers one by one, reporting success and the generated file names, with a dry run and a filter by generator.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "run all outputs of an OutJob from code",
+    "generate NC drill files from an output job",
+    "list the outputers of the project's output jobs",
+    "get the file names an output generated"
+  ],
+  "commands": [
+    {
+      "name": "GenerateOutputers",
+      "description": "For every OutJob of the focused project (optionally filtered by Job): open it (Show=true also shows it) and call DM_Generate_OutputFiles on each outputer (optionally filtered by Generator); report per outputer the success flag and returned file names, then the files new or changed under the project folder. DryRun=true lists the outputers only.",
+      "params": "Job=<part of the OutJob file name>|Generator=<';'-separated generator names or outputer descriptions>|Show=true|DryRun=true (all optional; default: every outputer of every OutJob, not shown)",
+      "readOnly": false
+    }
+  ]
+}

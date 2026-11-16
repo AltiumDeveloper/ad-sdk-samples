@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "RunExternalProcess",
+  "title": "Run an external program and wait for it to exit",
+  "summary": "Starts an external program from an extension command with System.Diagnostics.Process, captures its stdout and stderr, and waits a bounded time, killing the process tree on timeout so Altium Designer is never blocked indefinitely.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "launch an exe from Altium Designer",
+    "call a command-line tool and capture its output",
+    "run a process with a timeout from an extension",
+    "start cmd.exe from a plugin"
+  ],
+  "commands": [
+    {
+      "name": "RunExternalProcess",
+      "description": "Run an external program and wait for it to exit",
+      "params": "Exe=<path or name, required>|Args=<arguments>|Timeout=<seconds, 1-600, default 30>|WorkDir=<existing folder>",
+      "readOnly": false
+    }
+  ]
+}

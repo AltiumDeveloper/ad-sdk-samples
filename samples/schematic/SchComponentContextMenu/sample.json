@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchComponentContextMenu",
+  "title": "Context menu item for the schematic component under the cursor",
+  "summary": "Adds a schematic right-click menu item whose GetState shows it only over a component, and reports the designator of the component found with PopupMenuHitTest.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "extend-ui",
+    "inspect"
+  ],
+  "surface": [
+    "context-menu",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "add an item to the schematic right-click menu",
+    "show a menu item only when right-clicking a component",
+    "get the component under the right-click",
+    "control menu item visibility with a GetState procedure"
+  ],
+  "commands": [
+    {
+      "name": "ComponentUnderContextMenu",
+      "description": "Report the designator of the first component in the right-click hit list, with the hit-object and context-menu component counts",
+      "readOnly": true
+    }
+  ]
+}

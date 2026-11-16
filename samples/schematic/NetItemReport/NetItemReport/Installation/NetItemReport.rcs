@@ -1,0 +1,40 @@
+PL PLNetItemReport:GetNetInfo
+    Command='NetItemReport:Run'
+    Caption='&Get Net Info'
+    Image=''
+    Description='Report all nets and net items of the focused project'
+    Params='Cmd=GetNetInfo'
+End
+
+#if DEBUG
+PL PLNetItemReport:Reload
+    Command='NetItemReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NetItemReport implementation module'
+    Params=''
+End
+
+PL PLNetItemReport:Status
+    Command='NetItemReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NetItemReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNetItemReport Caption='&NetItemReport' TopLevel=True
+    Link      MNNetItemReport_GetNetInfo  PLID='PLNetItemReport:GetNetInfo'  End
+#if DEBUG
+    Separator MNNetItemReport_Sep10                              End
+    Tree MNNetItemReport_Developer Caption='&Developer'
+        Link  MNNetItemReport_Reload PLID='PLNetItemReport:Reload' End
+        Link  MNNetItemReport_Status PLID='PLNetItemReport:Status' End
+    End
+#endif
+End
+
+Insertion MNNetItemReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_NetItemReport OriginalID=MNNetItemReport IDSuffix='_2' End
+End

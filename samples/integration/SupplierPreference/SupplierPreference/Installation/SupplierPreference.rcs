@@ -1,0 +1,55 @@
+PL PLSupplierPreference:SupplierPreference
+    Command='SupplierPreference:Run'
+    Caption='&Supplier Preference'
+    Image=''
+    Description='Toggle the Visible flag of a supplier import parameter'
+    Params='Cmd=SupplierPreference|Name=Category'
+End
+
+PL PLSupplierPreference:ListSupplierImportParameters
+    Command='SupplierPreference:Run'
+    Caption='&List Supplier Import Parameters'
+    Image=''
+    Description='List the supplier import parameter preferences'
+    Params='Cmd=ListSupplierImportParameters'
+End
+
+#if DEBUG
+PL PLSupplierPreference:Reload
+    Command='SupplierPreference:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SupplierPreference implementation module'
+    Params=''
+End
+
+PL PLSupplierPreference:Status
+    Command='SupplierPreference:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SupplierPreference hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSupplierPreference Caption='&SupplierPreference' TopLevel=True
+    Link      MNSupplierPreference_SupplierPreference  PLID='PLSupplierPreference:SupplierPreference'  End
+    Link      MNSupplierPreference_ListSupplierImportParameters  PLID='PLSupplierPreference:ListSupplierImportParameters'  End
+#if DEBUG
+    Separator MNSupplierPreference_Sep10                              End
+    Tree MNSupplierPreference_Developer Caption='&Developer'
+        Link  MNSupplierPreference_Reload PLID='PLSupplierPreference:Reload' End
+        Link  MNSupplierPreference_Status PLID='PLSupplierPreference:Status' End
+    End
+#endif
+End
+
+Insertion MNSupplierPreference_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SupplierPreference OriginalID=MNSupplierPreference IDSuffix='_1' End
+End
+Insertion MNSupplierPreference_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SupplierPreference OriginalID=MNSupplierPreference IDSuffix='_2' End
+End
+Insertion MNSupplierPreference_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_SupplierPreference OriginalID=MNSupplierPreference IDSuffix='_3' End
+End

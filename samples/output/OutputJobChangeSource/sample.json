@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "OutputJobChangeSource",
+  "title": "Redirect an outputer's source document in an OutJob",
+  "summary": "Opens an .OutJob as IWSM_OutputJobDocument, finds an outputer by name and points it at another source document with IOutputer.DM_SetDocumentPath, then marks the job modified and optionally saves it.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "modify",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the data source of an output",
+    "point a schematic print at another sheet",
+    "set the document path of an OutJob output",
+    "list outputs of an output job with their documents"
+  ],
+  "commands": [
+    {
+      "name": "ChangeOutputJobFile",
+      "description": "Open the OutJob, set the source document of every outputer whose DM_ViewName equals Outputer, mark the job modified, optionally save; report each document path before and after",
+      "params": "OutJob=<path, required>|Source=<document, required>|Outputer=Schematic Prints|Save=False|BeginModify=False",
+      "readOnly": false
+    },
+    {
+      "name": "ListOutputJobOutputers",
+      "description": "List the OutJob's outputers: DM_ViewName, DM_GeneratorName, DM_GetDocumentKind, DM_GetDocumentPath",
+      "params": "OutJob=<path, required>",
+      "readOnly": true
+    }
+  ]
+}

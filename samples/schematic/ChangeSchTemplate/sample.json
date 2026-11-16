@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ChangeSchTemplate",
+  "title": "Apply a schematic sheet template to the active sheet",
+  "summary": "Applies a .SchDot sheet template to the active schematic by running the built-in Sch:ChangeCurrentTemplate process, resolving template names against the template folder from the workspace preferences.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "modify",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the title block of a schematic sheet",
+    "set a .SchDot template on a sheet",
+    "find the schematic templates folder",
+    "run a built-in Altium process from an extension"
+  ],
+  "commands": [
+    {
+      "name": "ChangeTemplate",
+      "description": "Apply a sheet template to the active schematic; returns the template file name before and after",
+      "params": "Template=<file name in the schematic template folder, or full path of a .SchDot> (default A4.SchDot)|Silent=<true|false> (default true; false only from the AD menu)",
+      "readOnly": false
+    }
+  ]
+}

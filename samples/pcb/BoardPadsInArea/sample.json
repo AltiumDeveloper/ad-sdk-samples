@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BoardPadsInArea",
+  "title": "Count pads in an area with a spatial iterator",
+  "summary": "Sets up a spatial iterator with pad, layer and area filters to count the pads in a rectangle given in millimetres, and shows that AddFilter_Area returns objects that overlap the rectangle, not only those inside it.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "find pads inside a rectangle",
+    "query PCB objects in a region",
+    "use a spatial iterator",
+    "convert millimetres to PCB coordinates",
+    "count pads near a location"
+  ],
+  "commands": [
+    {
+      "name": "CountPadsInArea",
+      "description": "Count the pads in a rectangle with a spatial iterator",
+      "params": "X1=<mm>|Y1=<mm>|X2=<mm>|Y2=<mm> (corners, default -1000,-1000 to 2000,2000)|FromOrigin (optional flag: values are offsets from the board origin)",
+      "readOnly": true
+    }
+  ]
+}

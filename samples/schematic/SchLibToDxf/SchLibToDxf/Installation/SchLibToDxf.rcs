@@ -1,0 +1,43 @@
+PL PLSchLibToDxf:SchLibToDxf
+    Command='SchLibToDxf:Run'
+    Caption='&Sch Lib To Dxf'
+    Image=''
+    Description='Attempt the AutoCAD DXF export of a schematic library and report what was written'
+    Params='Cmd=SchLibToDxf'
+End
+
+#if DEBUG
+PL PLSchLibToDxf:Reload
+    Command='SchLibToDxf:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchLibToDxf implementation module'
+    Params=''
+End
+
+PL PLSchLibToDxf:Status
+    Command='SchLibToDxf:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchLibToDxf hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchLibToDxf Caption='&SchLibToDxf' TopLevel=True
+    Link      MNSchLibToDxf_SchLibToDxf  PLID='PLSchLibToDxf:SchLibToDxf'  End
+#if DEBUG
+    Separator MNSchLibToDxf_Sep10                              End
+    Tree MNSchLibToDxf_Developer Caption='&Developer'
+        Link  MNSchLibToDxf_Reload PLID='PLSchLibToDxf:Reload' End
+        Link  MNSchLibToDxf_Status PLID='PLSchLibToDxf:Status' End
+    End
+#endif
+End
+
+Insertion MNSchLibToDxf_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SchLibToDxf OriginalID=MNSchLibToDxf IDSuffix='_1' End
+End
+Insertion MNSchLibToDxf_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchLibToDxf OriginalID=MNSchLibToDxf IDSuffix='_2' End
+End

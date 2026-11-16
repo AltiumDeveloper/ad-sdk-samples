@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BoardPadCount",
+  "title": "Count the pads of the current board",
+  "summary": "Creates a board iterator with object, layer and method filters, walks every pad on the current board and returns the count; compares AddFilter_AllLayers with AddFilter_LayerSet_2 and no layer filter.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "count pads on a board",
+    "iterate all pads of a PCB",
+    "use a board iterator with filters",
+    "how many pads does my PCB have"
+  ],
+  "commands": [
+    {
+      "name": "CountPads",
+      "description": "Count the pads on the current board",
+      "params": "LayerFilter=All|Partition|None (optional, default All)",
+      "readOnly": true
+    }
+  ]
+}

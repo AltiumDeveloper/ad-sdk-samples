@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The sample's code: [HotCommand] methods. Shared framework sources: Directory.Build.targets. -->
+  <PropertyGroup>
+    <SampleRole>Impl</SampleRole>
+  </PropertyGroup>
+</Project>

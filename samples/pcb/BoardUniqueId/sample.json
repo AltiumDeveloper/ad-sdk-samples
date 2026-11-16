@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BoardUniqueId",
+  "title": "Read and write a board's unique ID",
+  "summary": "Reads the current board's UniqueId and assigns a new one inside a PreProcess/BeginModify bracket, with the ID passed as a command parameter.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get the board unique id",
+    "change the PCB unique identifier",
+    "set a property on the board object",
+    "generate a new unique id for a board"
+  ],
+  "commands": [
+    {
+      "name": "GetUniqueId",
+      "description": "Show the unique ID of the current board",
+      "readOnly": true
+    },
+    {
+      "name": "SetUniqueId",
+      "description": "Set the unique ID of the current board",
+      "params": "UniqueId=<text>",
+      "readOnly": false
+    }
+  ]
+}

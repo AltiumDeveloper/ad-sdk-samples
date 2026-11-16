@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchBusNetReport",
+  "title": "List every bus and its member net names",
+  "summary": "Walks the data model of every open project down to the buses of each schematic sheet and lists the net name of each bus wire.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "get the nets of a bus",
+    "list buses on schematic sheets",
+    "find bus member net names",
+    "report buses in all open projects"
+  ],
+  "commands": [
+    {
+      "name": "GetBusInfo",
+      "description": "List the compiled buses of every schematic and their member nets",
+      "params": "Compile=true|false (optional, default true)|Out=<file or folder> (optional)|Open=true (optional)",
+      "readOnly": true
+    }
+  ]
+}

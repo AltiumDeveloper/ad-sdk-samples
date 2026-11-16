@@ -1,0 +1,40 @@
+PL PLBoardOutlineSize:GetPcbSize
+    Command='BoardOutlineSize:Run'
+    Caption='&Get Pcb Size'
+    Image=''
+    Description='Report the board outline width and height'
+    Params='Cmd=GetPcbSize'
+End
+
+#if DEBUG
+PL PLBoardOutlineSize:Reload
+    Command='BoardOutlineSize:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BoardOutlineSize implementation module'
+    Params=''
+End
+
+PL PLBoardOutlineSize:Status
+    Command='BoardOutlineSize:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BoardOutlineSize hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBoardOutlineSize Caption='&BoardOutlineSize' TopLevel=True
+    Link      MNBoardOutlineSize_GetPcbSize  PLID='PLBoardOutlineSize:GetPcbSize'  End
+#if DEBUG
+    Separator MNBoardOutlineSize_Sep10                              End
+    Tree MNBoardOutlineSize_Developer Caption='&Developer'
+        Link  MNBoardOutlineSize_Reload PLID='PLBoardOutlineSize:Reload' End
+        Link  MNBoardOutlineSize_Status PLID='PLBoardOutlineSize:Status' End
+    End
+#endif
+End
+
+Insertion MNBoardOutlineSize_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BoardOutlineSize OriginalID=MNBoardOutlineSize IDSuffix='_3' End
+End

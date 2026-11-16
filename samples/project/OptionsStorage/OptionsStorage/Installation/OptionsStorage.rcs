@@ -1,0 +1,64 @@
+PL PLOptionsStorage:AddUserParameter
+    Command='OptionsStorage:Run'
+    Caption='&Add User Parameter'
+    Image=''
+    Description='Add a user parameter to the focused project''s options'
+    Params='Cmd=AddUserParameter|Section=MySection|Key=UserName|Value=Allen'
+End
+
+PL PLOptionsStorage:ReadUserParameter
+    Command='OptionsStorage:Run'
+    Caption='&Read User Parameter'
+    Image=''
+    Description='Read a user parameter from the focused project''s options'
+    Params='Cmd=ReadUserParameter|Section=MySection|Key=UserName'
+End
+
+PL PLOptionsStorage:DeleteUserParameter
+    Command='OptionsStorage:Run'
+    Caption='&Delete User Parameter'
+    Image=''
+    Description='Delete a user parameter from the focused project''s options'
+    Params='Cmd=DeleteUserParameter|Section=MySection|Key=UserName'
+End
+
+#if DEBUG
+PL PLOptionsStorage:Reload
+    Command='OptionsStorage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the OptionsStorage implementation module'
+    Params=''
+End
+
+PL PLOptionsStorage:Status
+    Command='OptionsStorage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show OptionsStorage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNOptionsStorage Caption='&OptionsStorage' TopLevel=True
+    Link      MNOptionsStorage_AddUserParameter  PLID='PLOptionsStorage:AddUserParameter'  End
+    Link      MNOptionsStorage_ReadUserParameter  PLID='PLOptionsStorage:ReadUserParameter'  End
+    Link      MNOptionsStorage_DeleteUserParameter  PLID='PLOptionsStorage:DeleteUserParameter'  End
+#if DEBUG
+    Separator MNOptionsStorage_Sep10                              End
+    Tree MNOptionsStorage_Developer Caption='&Developer'
+        Link  MNOptionsStorage_Reload PLID='PLOptionsStorage:Reload' End
+        Link  MNOptionsStorage_Status PLID='PLOptionsStorage:Status' End
+    End
+#endif
+End
+
+Insertion MNOptionsStorage_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_OptionsStorage OriginalID=MNOptionsStorage IDSuffix='_1' End
+End
+Insertion MNOptionsStorage_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_OptionsStorage OriginalID=MNOptionsStorage IDSuffix='_2' End
+End
+Insertion MNOptionsStorage_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_OptionsStorage OriginalID=MNOptionsStorage IDSuffix='_3' End
+End

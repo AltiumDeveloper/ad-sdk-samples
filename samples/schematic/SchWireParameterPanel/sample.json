@@ -1,0 +1,51 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchWireParameterPanel",
+  "title": "Show wire parameters from a panel on every view update",
+  "summary": "Unhides every wire parameter on a schematic sheet through nested iterators, from a command, a dockable panel, or automatically after each edit via a registered notification handler and a per-document view added with AddView; documents the view codes AD actually sends.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "react",
+    "modify",
+    "extend-ui"
+  ],
+  "surface": [
+    "panel",
+    "notification"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "run code after every schematic edit",
+    "attach a view to a schematic document",
+    "receive document activated notifications in C#",
+    "make hidden wire parameters visible",
+    "iterate the parameters of each wire"
+  ],
+  "commands": [
+    {
+      "name": "ShowPanel",
+      "description": "Open the wire parameter panel (lists the current sheet's wire parameters and the AutoShow state)",
+      "readOnly": true
+    },
+    {
+      "name": "ListWireParameters",
+      "description": "List the wire parameters of the current sheet with their hidden / draw / selected state (read-back helper)",
+      "params": "Max=<n, default 50>",
+      "readOnly": true
+    },
+    {
+      "name": "ShowWireParameters",
+      "description": "Unhide and select every wire parameter of the current sheet; returns how many were changed",
+      "params": "Select=true|false (default true)",
+      "readOnly": false
+    },
+    {
+      "name": "AutoShow",
+      "description": "Switch the automatic mode (notification handler, per-document view, ShowWireParameters on view code 6) on or off, or report it with the notifications received",
+      "params": "State=on|off|status (default status)",
+      "readOnly": true
+    }
+  ]
+}

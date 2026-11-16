@@ -1,0 +1,50 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ComponentManagerPlaceComponent",
+  "title": "Place a server-managed component on SCH or PCB",
+  "summary": "Downloads a component's SchLib and PcbLib over HTTP, places the symbol or footprint from those files, and stamps the placed symbol with server metadata as parameters plus a current footprint model link. Includes a local stub server to try it.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "create",
+    "modify",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a component from a SchLib file at a point",
+    "place a footprint from a PcbLib file on a board",
+    "download a library and place a part",
+    "add parameters to a placed schematic component",
+    "link a footprint model to a schematic symbol"
+  ],
+  "commands": [
+    {
+      "name": "PlaceSchComponent",
+      "description": "Download a component's libraries and place its symbol",
+      "params": "Url=<server URL>|SessionId=<session>|ComponentId=<id> (all three required unless StartTestServer is running and Url is omitted)|Out=<cache folder> (default <temp>\\ComponentManager)|X=<mil>|Y=<mil> (default 1000,1000)|Interactive (menu default; refused on the pipe)|Part=<n> (optional)|Timeout=<s> (default 30)",
+      "readOnly": false
+    },
+    {
+      "name": "PlacePcbComponent",
+      "description": "Download a component's PcbLib and place its footprint",
+      "params": "Url=<server URL>|SessionId=<session>|ComponentId=<id> (as PlaceSchComponent)|Out=<cache folder>|X=<mil>|Y=<mil> (from the board origin; default the centre of the board outline)|Interactive (menu default; refused on the pipe)|Timeout=<s>",
+      "readOnly": false
+    },
+    {
+      "name": "StartTestServer",
+      "description": "Start a local stub component server (test setup)",
+      "params": "SchLib=<full path>|PcbLib=<full path> (required)|LibRef=<symbol>|Footprint=<footprint> (default: from a component of the active sheet or board)|Id=<id> (default CM-TEST-1)|LibraryPath=<text> (default the SchLib file name)|FootprintPath=<text>|ComponentType=<text>|AssembleTech=<text>|Params=Name:Type:Value;... |Port=<n> (default 0 = any free port)",
+      "readOnly": true
+    },
+    {
+      "name": "StopTestServer",
+      "description": "Stop the local stub component server",
+      "readOnly": true
+    }
+  ]
+}

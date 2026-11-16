@@ -1,0 +1,46 @@
+PL PLGridFilterForm:ShowUI
+    Command='GridFilterForm:Run'
+    Caption='&Show UI'
+    Image=''
+    Description='Show a customer grid filtered by code'
+    Params='Cmd=ShowUI'
+End
+
+#if DEBUG
+PL PLGridFilterForm:Reload
+    Command='GridFilterForm:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the GridFilterForm implementation module'
+    Params=''
+End
+
+PL PLGridFilterForm:Status
+    Command='GridFilterForm:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show GridFilterForm hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNGridFilterForm Caption='&GridFilterForm' TopLevel=True
+    Link      MNGridFilterForm_ShowUI  PLID='PLGridFilterForm:ShowUI'  End
+#if DEBUG
+    Separator MNGridFilterForm_Sep10                              End
+    Tree MNGridFilterForm_Developer Caption='&Developer'
+        Link  MNGridFilterForm_Reload PLID='PLGridFilterForm:Reload' End
+        Link  MNGridFilterForm_Status PLID='PLGridFilterForm:Status' End
+    End
+#endif
+End
+
+Insertion MNGridFilterForm_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_GridFilterForm OriginalID=MNGridFilterForm IDSuffix='_1' End
+End
+Insertion MNGridFilterForm_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_GridFilterForm OriginalID=MNGridFilterForm IDSuffix='_2' End
+End
+Insertion MNGridFilterForm_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_GridFilterForm OriginalID=MNGridFilterForm IDSuffix='_3' End
+End

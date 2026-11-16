@@ -1,0 +1,118 @@
+PL PLLicenseManagement:GetLicenseInfo
+    Command='LicenseManagement:Run'
+    Caption='&Get License Info'
+    Image=''
+    Description='Refresh and show the security manager''s license information'
+    Params='Cmd=GetLicenseInfo'
+End
+
+PL PLLicenseManagement:CheckADLicense
+    Command='LicenseManagement:Run'
+    Caption='&Check ADLicense'
+    Image=''
+    Description='Show the license manager''s state and the .alf files'
+    Params='Cmd=CheckADLicense'
+End
+
+PL PLLicenseManagement:SecurityServerInfo
+    Command='LicenseManagement:Run'
+    Caption='&Security Server Info'
+    Image=''
+    Description='Show the security server manager''s state'
+    Params='Cmd=SecurityServerInfo'
+End
+
+PL PLLicenseManagement:ReleaseLicenses
+    Command='LicenseManagement:Run'
+    Caption='&Release Licenses'
+    Image=''
+    Description='Release leased licenses (dry run unless Confirm is set)'
+    Params='Cmd=ReleaseLicenses'
+End
+
+PL PLLicenseManagement:UseLicenseFile
+    Command='LicenseManagement:Run'
+    Caption='&Use License File'
+    Image=''
+    Description='Use a license from an .alf file, then release it (needs File, Server, Confirm)'
+    Params='Cmd=UseLicenseFile'
+End
+
+PL PLLicenseManagement:UseLicenseByName
+    Command='LicenseManagement:Run'
+    Caption='&Use License By Name'
+    Image=''
+    Description='Use a license by name (needs Name, Confirm)'
+    Params='Cmd=UseLicenseByName'
+End
+
+PL PLLicenseManagement:UseLicenseBySerial
+    Command='LicenseManagement:Run'
+    Caption='&Use License By Serial'
+    Image=''
+    Description='Use a PLS license by serial, then free it (needs Serial, Confirm)'
+    Params='Cmd=UseLicenseBySerial'
+End
+
+PL PLLicenseManagement:UseOnDemandLicenses
+    Command='LicenseManagement:Run'
+    Caption='&Use On Demand Licenses'
+    Image=''
+    Description='Lease the on-demand licenses, then return them (needs Confirm)'
+    Params='Cmd=UseOnDemandLicenses'
+End
+
+PL PLLicenseManagement:AddLicenseFile
+    Command='LicenseManagement:Run'
+    Caption='&Add License File'
+    Image=''
+    Description='Pick and load a standalone .alf file (opens a file dialog)'
+    Params='Cmd=AddLicenseFile|Confirm=true'
+End
+
+#if DEBUG
+PL PLLicenseManagement:Reload
+    Command='LicenseManagement:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LicenseManagement implementation module'
+    Params=''
+End
+
+PL PLLicenseManagement:Status
+    Command='LicenseManagement:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LicenseManagement hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLicenseManagement Caption='&LicenseManagement' TopLevel=True
+    Link      MNLicenseManagement_GetLicenseInfo  PLID='PLLicenseManagement:GetLicenseInfo'  End
+    Link      MNLicenseManagement_CheckADLicense  PLID='PLLicenseManagement:CheckADLicense'  End
+    Link      MNLicenseManagement_SecurityServerInfo  PLID='PLLicenseManagement:SecurityServerInfo'  End
+    Link      MNLicenseManagement_ReleaseLicenses  PLID='PLLicenseManagement:ReleaseLicenses'  End
+    Link      MNLicenseManagement_UseLicenseFile  PLID='PLLicenseManagement:UseLicenseFile'  End
+    Link      MNLicenseManagement_UseLicenseByName  PLID='PLLicenseManagement:UseLicenseByName'  End
+    Link      MNLicenseManagement_UseLicenseBySerial  PLID='PLLicenseManagement:UseLicenseBySerial'  End
+    Link      MNLicenseManagement_UseOnDemandLicenses  PLID='PLLicenseManagement:UseOnDemandLicenses'  End
+    Link      MNLicenseManagement_AddLicenseFile  PLID='PLLicenseManagement:AddLicenseFile'  End
+#if DEBUG
+    Separator MNLicenseManagement_Sep10                              End
+    Tree MNLicenseManagement_Developer Caption='&Developer'
+        Link  MNLicenseManagement_Reload PLID='PLLicenseManagement:Reload' End
+        Link  MNLicenseManagement_Status PLID='PLLicenseManagement:Status' End
+    End
+#endif
+End
+
+Insertion MNLicenseManagement_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_LicenseManagement OriginalID=MNLicenseManagement IDSuffix='_1' End
+End
+Insertion MNLicenseManagement_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_LicenseManagement OriginalID=MNLicenseManagement IDSuffix='_2' End
+End
+Insertion MNLicenseManagement_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LicenseManagement OriginalID=MNLicenseManagement IDSuffix='_3' End
+End

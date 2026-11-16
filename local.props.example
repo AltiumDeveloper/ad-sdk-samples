@@ -1,0 +1,6 @@
+<Project>
+  <!-- Copy to local.props (git-ignored) and point AltiumSystemDir at the System folder of your Altium Designer. -->
+  <PropertyGroup>
+    <AltiumSystemDir>C:\Program Files\Altium\AD26\System</AltiumSystemDir>
+  </PropertyGroup>
+</Project>

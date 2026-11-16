@@ -1,0 +1,73 @@
+PL PLNavigationProvider:RegisterProvider
+    Command='NavigationProvider:Run'
+    Caption='&Register Provider'
+    Image=''
+    Description='Register the navigation provider for a URL protocol'
+    Params='Cmd=RegisterProvider|Protocol=npdemo'
+End
+
+PL PLNavigationProvider:TriggerNavigation
+    Command='NavigationProvider:Run'
+    Caption='&Trigger Navigation'
+    Image=''
+    Description='Navigate to a URL of the protocol and report the provider call'
+    Params='Cmd=TriggerNavigation|Url=npdemo://test'
+End
+
+PL PLNavigationProvider:ProviderStatus
+    Command='NavigationProvider:Run'
+    Caption='&Provider Status'
+    Image=''
+    Description='Show the registration and the calls the provider received'
+    Params='Cmd=ProviderStatus'
+End
+
+PL PLNavigationProvider:UnregisterProvider
+    Command='NavigationProvider:Run'
+    Caption='&Unregister Provider'
+    Image=''
+    Description='Unregister the navigation provider'
+    Params='Cmd=UnregisterProvider'
+End
+
+#if DEBUG
+PL PLNavigationProvider:Reload
+    Command='NavigationProvider:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NavigationProvider implementation module'
+    Params=''
+End
+
+PL PLNavigationProvider:Status
+    Command='NavigationProvider:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NavigationProvider hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNavigationProvider Caption='&NavigationProvider' TopLevel=True
+    Link      MNNavigationProvider_RegisterProvider  PLID='PLNavigationProvider:RegisterProvider'  End
+    Link      MNNavigationProvider_TriggerNavigation  PLID='PLNavigationProvider:TriggerNavigation'  End
+    Link      MNNavigationProvider_ProviderStatus  PLID='PLNavigationProvider:ProviderStatus'  End
+    Link      MNNavigationProvider_UnregisterProvider  PLID='PLNavigationProvider:UnregisterProvider'  End
+#if DEBUG
+    Separator MNNavigationProvider_Sep10                              End
+    Tree MNNavigationProvider_Developer Caption='&Developer'
+        Link  MNNavigationProvider_Reload PLID='PLNavigationProvider:Reload' End
+        Link  MNNavigationProvider_Status PLID='PLNavigationProvider:Status' End
+    End
+#endif
+End
+
+Insertion MNNavigationProvider_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_NavigationProvider OriginalID=MNNavigationProvider IDSuffix='_1' End
+End
+Insertion MNNavigationProvider_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_NavigationProvider OriginalID=MNNavigationProvider IDSuffix='_2' End
+End
+Insertion MNNavigationProvider_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_NavigationProvider OriginalID=MNNavigationProvider IDSuffix='_3' End
+End

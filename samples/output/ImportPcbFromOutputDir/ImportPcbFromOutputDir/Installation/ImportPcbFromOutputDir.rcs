@@ -1,0 +1,57 @@
+// Calls the sample's own process (not Run), so a click shows that AD finds it. A menu has no export folder to pass:
+// without BaseExportPath the command reports that one is needed.
+PL PLImportPcbFromOutputDir:FileImportDirectory
+    Command='ImportPcbFromOutputDir:FileImportDirectory'
+    Caption='&File Import Directory'
+    Image=''
+    Description='Open the .PcbDoc of an output job''s base folder'
+    Params=''
+End
+
+PL PLImportPcbFromOutputDir:CheckDocumentKind
+    Command='ImportPcbFromOutputDir:Run'
+    Caption='&Check Document Kind'
+    Image=''
+    Description='Report whether the focused project holds a document of a kind'
+    Params='Cmd=CheckDocumentKind|Kind=Extension_CAM350'
+End
+
+#if DEBUG
+PL PLImportPcbFromOutputDir:Reload
+    Command='ImportPcbFromOutputDir:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ImportPcbFromOutputDir implementation module'
+    Params=''
+End
+
+PL PLImportPcbFromOutputDir:Status
+    Command='ImportPcbFromOutputDir:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ImportPcbFromOutputDir hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNImportPcbFromOutputDir Caption='&ImportPcbFromOutputDir' TopLevel=True
+    Link      MNImportPcbFromOutputDir_FileImportDirectory  PLID='PLImportPcbFromOutputDir:FileImportDirectory'  End
+    Link      MNImportPcbFromOutputDir_CheckDocumentKind  PLID='PLImportPcbFromOutputDir:CheckDocumentKind'  End
+#if DEBUG
+    Separator MNImportPcbFromOutputDir_Sep10                              End
+    Tree MNImportPcbFromOutputDir_Developer Caption='&Developer'
+        Link  MNImportPcbFromOutputDir_Reload PLID='PLImportPcbFromOutputDir:Reload' End
+        Link  MNImportPcbFromOutputDir_Status PLID='PLImportPcbFromOutputDir:Status' End
+    End
+#endif
+End
+
+Insertion MNImportPcbFromOutputDir_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ImportPcbFromOutputDir OriginalID=MNImportPcbFromOutputDir IDSuffix='_1' End
+End
+Insertion MNImportPcbFromOutputDir_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ImportPcbFromOutputDir OriginalID=MNImportPcbFromOutputDir IDSuffix='_2' End
+End
+Insertion MNImportPcbFromOutputDir_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ImportPcbFromOutputDir OriginalID=MNImportPcbFromOutputDir IDSuffix='_3' End
+End

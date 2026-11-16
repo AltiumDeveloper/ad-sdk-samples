@@ -1,0 +1,40 @@
+PL PLFindComponent:FindComponent
+    Command='FindComponent:Run'
+    Caption='&Find Component'
+    Image=''
+    Description='Find a component by designator and zoom to it'
+    Params='Cmd=FindComponent|Designator=C4'
+End
+
+#if DEBUG
+PL PLFindComponent:Reload
+    Command='FindComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the FindComponent implementation module'
+    Params=''
+End
+
+PL PLFindComponent:Status
+    Command='FindComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show FindComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNFindComponent Caption='&FindComponent' TopLevel=True
+    Link      MNFindComponent_FindComponent  PLID='PLFindComponent:FindComponent'  End
+#if DEBUG
+    Separator MNFindComponent_Sep10                              End
+    Tree MNFindComponent_Developer Caption='&Developer'
+        Link  MNFindComponent_Reload PLID='PLFindComponent:Reload' End
+        Link  MNFindComponent_Status PLID='PLFindComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNFindComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_FindComponent OriginalID=MNFindComponent IDSuffix='_2' End
+End

@@ -1,0 +1,46 @@
+PL PLProjectCreateWithSchematic:CreateProject
+    Command='ProjectCreateWithSchematic:Run'
+    Caption='&Create Project'
+    Image=''
+    Description='Create a PCB project with a blank schematic'
+    Params='Cmd=CreateProject'
+End
+
+#if DEBUG
+PL PLProjectCreateWithSchematic:Reload
+    Command='ProjectCreateWithSchematic:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectCreateWithSchematic implementation module'
+    Params=''
+End
+
+PL PLProjectCreateWithSchematic:Status
+    Command='ProjectCreateWithSchematic:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectCreateWithSchematic hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectCreateWithSchematic Caption='&ProjectCreateWithSchematic' TopLevel=True
+    Link      MNProjectCreateWithSchematic_CreateProject  PLID='PLProjectCreateWithSchematic:CreateProject'  End
+#if DEBUG
+    Separator MNProjectCreateWithSchematic_Sep10                              End
+    Tree MNProjectCreateWithSchematic_Developer Caption='&Developer'
+        Link  MNProjectCreateWithSchematic_Reload PLID='PLProjectCreateWithSchematic:Reload' End
+        Link  MNProjectCreateWithSchematic_Status PLID='PLProjectCreateWithSchematic:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectCreateWithSchematic_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectCreateWithSchematic OriginalID=MNProjectCreateWithSchematic IDSuffix='_1' End
+End
+Insertion MNProjectCreateWithSchematic_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectCreateWithSchematic OriginalID=MNProjectCreateWithSchematic IDSuffix='_2' End
+End
+Insertion MNProjectCreateWithSchematic_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectCreateWithSchematic OriginalID=MNProjectCreateWithSchematic IDSuffix='_3' End
+End

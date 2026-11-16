@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchChildDocumentCount",
+  "title": "Compile the project and count a sheet's child documents",
+  "summary": "Compiles the project of the focused schematic with DM_Compile and reports the sheet's child documents in the hierarchy, with their names and the count before and after the compile.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "how many child sheets does a schematic have",
+    "compile a project from code",
+    "walk the sheet hierarchy",
+    "list the sub-sheets of a top sheet"
+  ],
+  "commands": [
+    {
+      "name": "CountChild",
+      "description": "Compile the project and count the child documents of the focused schematic",
+      "params": "Compile=true|false (optional, default true)",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+PL PLCreateSchComponent:CreateSchComponent
+    Command='CreateSchComponent:Run'
+    Caption='&Create Sch Component'
+    Image=''
+    Description='Create a component with one pin in the current schematic library'
+    Params='Cmd=CreateSchComponent'
+End
+
+PL PLCreateSchComponent:ListComponents
+    Command='CreateSchComponent:Run'
+    Caption='&List Components'
+    Image=''
+    Description='List the components of the current schematic library'
+    Params='Cmd=ListComponents'
+End
+
+#if DEBUG
+PL PLCreateSchComponent:Reload
+    Command='CreateSchComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CreateSchComponent implementation module'
+    Params=''
+End
+
+PL PLCreateSchComponent:Status
+    Command='CreateSchComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CreateSchComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCreateSchComponent Caption='&CreateSchComponent' TopLevel=True
+    Link      MNCreateSchComponent_CreateSchComponent  PLID='PLCreateSchComponent:CreateSchComponent'  End
+    Link      MNCreateSchComponent_ListComponents  PLID='PLCreateSchComponent:ListComponents'  End
+#if DEBUG
+    Separator MNCreateSchComponent_Sep10                              End
+    Tree MNCreateSchComponent_Developer Caption='&Developer'
+        Link  MNCreateSchComponent_Reload PLID='PLCreateSchComponent:Reload' End
+        Link  MNCreateSchComponent_Status PLID='PLCreateSchComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNCreateSchComponent_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_CreateSchComponent OriginalID=MNCreateSchComponent IDSuffix='_2' End
+End

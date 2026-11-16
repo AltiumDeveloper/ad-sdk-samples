@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "GridFilterForm",
+  "title": "Show a data grid with programmatic filters in a form",
+  "summary": "Opens a modal WinForms form owned by the Altium Designer window, with a data-bound grid filtered by code through DataView.RowFilter, and returns the same results as text when called without UI.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "extend-ui"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "open a WinForms dialog from an extension",
+    "show a modal form owned by Altium Designer",
+    "filter a DataGridView in code",
+    "get the main window handle for a dialog owner"
+  ],
+  "commands": [
+    {
+      "name": "ShowUI",
+      "description": "Show a customer grid filtered by code",
+      "params": "Filter=<None|Custom|Simple|Like|TwoField|Between|OnlyGrids|Group|List> (optional; also a description or an index 0-8)",
+      "readOnly": true
+    }
+  ]
+}

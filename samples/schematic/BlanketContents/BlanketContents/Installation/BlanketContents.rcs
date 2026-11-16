@@ -1,0 +1,49 @@
+PL PLBlanketContents:ShowBlanket
+    Command='BlanketContents:Run'
+    Caption='&Show Blanket'
+    Image=''
+    Description='Report the items inside each blanket of the focused schematic'
+    Params='Cmd=ShowBlanket'
+End
+
+PL PLBlanketContents:AddTestBlanket
+    Command='BlanketContents:Run'
+    Caption='&Add Test Blanket'
+    Image=''
+    Description='Place a blanket around the wires of the current sheet (test setup)'
+    Params='Cmd=AddTestBlanket'
+End
+
+#if DEBUG
+PL PLBlanketContents:Reload
+    Command='BlanketContents:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BlanketContents implementation module'
+    Params=''
+End
+
+PL PLBlanketContents:Status
+    Command='BlanketContents:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BlanketContents hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBlanketContents Caption='&BlanketContents' TopLevel=True
+    Link      MNBlanketContents_ShowBlanket  PLID='PLBlanketContents:ShowBlanket'  End
+    Link      MNBlanketContents_AddTestBlanket  PLID='PLBlanketContents:AddTestBlanket'  End
+#if DEBUG
+    Separator MNBlanketContents_Sep10                              End
+    Tree MNBlanketContents_Developer Caption='&Developer'
+        Link  MNBlanketContents_Reload PLID='PLBlanketContents:Reload' End
+        Link  MNBlanketContents_Status PLID='PLBlanketContents:Status' End
+    End
+#endif
+End
+
+Insertion MNBlanketContents_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_BlanketContents OriginalID=MNBlanketContents IDSuffix='_2' End
+End

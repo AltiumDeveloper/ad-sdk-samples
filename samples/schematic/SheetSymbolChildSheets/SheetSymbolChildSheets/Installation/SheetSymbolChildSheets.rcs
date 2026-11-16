@@ -1,0 +1,40 @@
+PL PLSheetSymbolChildSheets:ShowChildSheet
+    Command='SheetSymbolChildSheets:Run'
+    Caption='&Show Child Sheet'
+    Image=''
+    Description='List the sheet symbols of the focused schematic and their child sheets'
+    Params='Cmd=ShowChildSheet|Compile=true'
+End
+
+#if DEBUG
+PL PLSheetSymbolChildSheets:Reload
+    Command='SheetSymbolChildSheets:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SheetSymbolChildSheets implementation module'
+    Params=''
+End
+
+PL PLSheetSymbolChildSheets:Status
+    Command='SheetSymbolChildSheets:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SheetSymbolChildSheets hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSheetSymbolChildSheets Caption='&SheetSymbolChildSheets' TopLevel=True
+    Link      MNSheetSymbolChildSheets_ShowChildSheet  PLID='PLSheetSymbolChildSheets:ShowChildSheet'  End
+#if DEBUG
+    Separator MNSheetSymbolChildSheets_Sep10                              End
+    Tree MNSheetSymbolChildSheets_Developer Caption='&Developer'
+        Link  MNSheetSymbolChildSheets_Reload PLID='PLSheetSymbolChildSheets:Reload' End
+        Link  MNSheetSymbolChildSheets_Status PLID='PLSheetSymbolChildSheets:Status' End
+    End
+#endif
+End
+
+Insertion MNSheetSymbolChildSheets_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SheetSymbolChildSheets OriginalID=MNSheetSymbolChildSheets IDSuffix='_2' End
+End

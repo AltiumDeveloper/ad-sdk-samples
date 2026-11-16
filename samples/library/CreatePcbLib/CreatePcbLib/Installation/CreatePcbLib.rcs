@@ -1,0 +1,43 @@
+PL PLCreatePcbLib:CreatePcbLib
+    Command='CreatePcbLib:Run'
+    Caption='&Create Pcb Lib'
+    Image=''
+    Description='Create a PcbLib with a footprint and an extruded 3D body'
+    Params='Cmd=CreatePcbLib'
+End
+
+#if DEBUG
+PL PLCreatePcbLib:Reload
+    Command='CreatePcbLib:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CreatePcbLib implementation module'
+    Params=''
+End
+
+PL PLCreatePcbLib:Status
+    Command='CreatePcbLib:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CreatePcbLib hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCreatePcbLib Caption='&CreatePcbLib' TopLevel=True
+    Link      MNCreatePcbLib_CreatePcbLib  PLID='PLCreatePcbLib:CreatePcbLib'  End
+#if DEBUG
+    Separator MNCreatePcbLib_Sep10                              End
+    Tree MNCreatePcbLib_Developer Caption='&Developer'
+        Link  MNCreatePcbLib_Reload PLID='PLCreatePcbLib:Reload' End
+        Link  MNCreatePcbLib_Status PLID='PLCreatePcbLib:Status' End
+    End
+#endif
+End
+
+Insertion MNCreatePcbLib_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_CreatePcbLib OriginalID=MNCreatePcbLib IDSuffix='_1' End
+End
+Insertion MNCreatePcbLib_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_CreatePcbLib OriginalID=MNCreatePcbLib IDSuffix='_3' End
+End

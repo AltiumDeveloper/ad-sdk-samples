@@ -1,0 +1,40 @@
+PL PLPcbViewport:GetViewport
+    Command='PcbViewport:Run'
+    Caption='&Get Viewport'
+    Image=''
+    Description='Show the PCB viewport title and a technology set licence check'
+    Params='Cmd=GetViewport'
+End
+
+#if DEBUG
+PL PLPcbViewport:Reload
+    Command='PcbViewport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbViewport implementation module'
+    Params=''
+End
+
+PL PLPcbViewport:Status
+    Command='PcbViewport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbViewport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbViewport Caption='&PcbViewport' TopLevel=True
+    Link      MNPcbViewport_GetViewport  PLID='PLPcbViewport:GetViewport'  End
+#if DEBUG
+    Separator MNPcbViewport_Sep10                              End
+    Tree MNPcbViewport_Developer Caption='&Developer'
+        Link  MNPcbViewport_Reload PLID='PLPcbViewport:Reload' End
+        Link  MNPcbViewport_Status PLID='PLPcbViewport:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbViewport_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbViewport OriginalID=MNPcbViewport IDSuffix='_3' End
+End

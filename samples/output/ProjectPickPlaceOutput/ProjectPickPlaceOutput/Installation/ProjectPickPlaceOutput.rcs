@@ -1,0 +1,46 @@
+PL PLProjectPickPlaceOutput:Generate
+    Command='ProjectPickPlaceOutput:Run'
+    Caption='&Generate'
+    Image=''
+    Description='Generate the focused project''s Pick Place output files'
+    Params='Cmd=Generate'
+End
+
+#if DEBUG
+PL PLProjectPickPlaceOutput:Reload
+    Command='ProjectPickPlaceOutput:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectPickPlaceOutput implementation module'
+    Params=''
+End
+
+PL PLProjectPickPlaceOutput:Status
+    Command='ProjectPickPlaceOutput:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectPickPlaceOutput hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectPickPlaceOutput Caption='&ProjectPickPlaceOutput' TopLevel=True
+    Link      MNProjectPickPlaceOutput_Generate  PLID='PLProjectPickPlaceOutput:Generate'  End
+#if DEBUG
+    Separator MNProjectPickPlaceOutput_Sep10                              End
+    Tree MNProjectPickPlaceOutput_Developer Caption='&Developer'
+        Link  MNProjectPickPlaceOutput_Reload PLID='PLProjectPickPlaceOutput:Reload' End
+        Link  MNProjectPickPlaceOutput_Status PLID='PLProjectPickPlaceOutput:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectPickPlaceOutput_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectPickPlaceOutput OriginalID=MNProjectPickPlaceOutput IDSuffix='_1' End
+End
+Insertion MNProjectPickPlaceOutput_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectPickPlaceOutput OriginalID=MNProjectPickPlaceOutput IDSuffix='_2' End
+End
+Insertion MNProjectPickPlaceOutput_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectPickPlaceOutput OriginalID=MNProjectPickPlaceOutput IDSuffix='_3' End
+End

@@ -1,0 +1,46 @@
+PL PLRunExternalProcess:RunExternalProcess
+    Command='RunExternalProcess:Run'
+    Caption='&Run External Process'
+    Image=''
+    Description='Run an external program and wait for it to exit'
+    Params='Cmd=RunExternalProcess'
+End
+
+#if DEBUG
+PL PLRunExternalProcess:Reload
+    Command='RunExternalProcess:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the RunExternalProcess implementation module'
+    Params=''
+End
+
+PL PLRunExternalProcess:Status
+    Command='RunExternalProcess:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show RunExternalProcess hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNRunExternalProcess Caption='&RunExternalProcess' TopLevel=True
+    Link      MNRunExternalProcess_RunExternalProcess  PLID='PLRunExternalProcess:RunExternalProcess'  End
+#if DEBUG
+    Separator MNRunExternalProcess_Sep10                              End
+    Tree MNRunExternalProcess_Developer Caption='&Developer'
+        Link  MNRunExternalProcess_Reload PLID='PLRunExternalProcess:Reload' End
+        Link  MNRunExternalProcess_Status PLID='PLRunExternalProcess:Status' End
+    End
+#endif
+End
+
+Insertion MNRunExternalProcess_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_RunExternalProcess OriginalID=MNRunExternalProcess IDSuffix='_1' End
+End
+Insertion MNRunExternalProcess_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_RunExternalProcess OriginalID=MNRunExternalProcess IDSuffix='_2' End
+End
+Insertion MNRunExternalProcess_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_RunExternalProcess OriginalID=MNRunExternalProcess IDSuffix='_3' End
+End

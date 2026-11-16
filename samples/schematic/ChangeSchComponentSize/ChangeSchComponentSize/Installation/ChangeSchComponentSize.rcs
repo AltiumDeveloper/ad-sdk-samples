@@ -1,0 +1,58 @@
+PL PLChangeSchComponentSize:ChangeComponentSize
+    Command='ChangeSchComponentSize:Run'
+    Caption='&Change Component Size'
+    Image=''
+    Description='Pick components and recalculate their size'
+    Params='Cmd=ChangeComponentSize'
+End
+
+PL PLChangeSchComponentSize:ListComponents
+    Command='ChangeSchComponentSize:Run'
+    Caption='&List Components'
+    Image=''
+    Description='List the components on the current sheet (test helper)'
+    Params='Cmd=ListComponents'
+End
+
+PL PLChangeSchComponentSize:SelectComponents
+    Command='ChangeSchComponentSize:Run'
+    Caption='&Select Components'
+    Image=''
+    Description='Select components by designator (test helper)'
+    Params='Cmd=SelectComponents'
+End
+
+#if DEBUG
+PL PLChangeSchComponentSize:Reload
+    Command='ChangeSchComponentSize:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ChangeSchComponentSize implementation module'
+    Params=''
+End
+
+PL PLChangeSchComponentSize:Status
+    Command='ChangeSchComponentSize:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ChangeSchComponentSize hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNChangeSchComponentSize Caption='&ChangeSchComponentSize' TopLevel=True
+    Link      MNChangeSchComponentSize_ChangeComponentSize  PLID='PLChangeSchComponentSize:ChangeComponentSize'  End
+    Link      MNChangeSchComponentSize_ListComponents  PLID='PLChangeSchComponentSize:ListComponents'  End
+    Link      MNChangeSchComponentSize_SelectComponents  PLID='PLChangeSchComponentSize:SelectComponents'  End
+#if DEBUG
+    Separator MNChangeSchComponentSize_Sep10                              End
+    Tree MNChangeSchComponentSize_Developer Caption='&Developer'
+        Link  MNChangeSchComponentSize_Reload PLID='PLChangeSchComponentSize:Reload' End
+        Link  MNChangeSchComponentSize_Status PLID='PLChangeSchComponentSize:Status' End
+    End
+#endif
+End
+
+Insertion MNChangeSchComponentSize_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ChangeSchComponentSize OriginalID=MNChangeSchComponentSize IDSuffix='_2' End
+End

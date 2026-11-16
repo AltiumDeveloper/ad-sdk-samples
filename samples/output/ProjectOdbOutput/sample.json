@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectOdbOutput",
+  "title": "Generate ODB++ files from the project",
+  "summary": "Gets the focused project's ODB++ outputer by its output type with IProject.DM_Outputers and generates its files into a folder with DM_Generate_OutputFilesTo, without an Output Job document; lists the files written.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export ODB++ from an extension",
+    "generate fabrication outputs without an OutJob",
+    "run a project outputer into a folder",
+    "create ODB++ job files programmatically"
+  ],
+  "commands": [
+    {
+      "name": "Generate",
+      "description": "Generate the focused project's ODB++ output files",
+      "params": "Out=<folder>|Outputer=<type>|Overrides=<text>|Compile=true (all optional)",
+      "readOnly": false
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+PL PLPcbSelectionPanel:Panel
+    Command='PcbSelectionPanel:Run'
+    Caption='Show &Panel'
+    Image=''
+    Description='Show the PcbSelectionPanel panel (log and current selection)'
+    Params='Cmd=Panel.Show'
+End
+
+PL PLPcbSelectionPanel:ShowSelection
+    Command='PcbSelectionPanel:Run'
+    Caption='Show &Selection'
+    Image=''
+    Description='List the selected primitives of the focused PCB'
+    Params='Cmd=ShowSelection'
+End
+
+PL PLPcbSelectionPanel:AttachView
+    Command='PcbSelectionPanel:Run'
+    Caption='&Attach View to This PCB'
+    Image=''
+    Description='Add the per-document panel view to the focused PCB'
+    Params='Cmd=AttachView'
+End
+
+PL PLPcbSelectionPanel:ListenOn
+    Command='PcbSelectionPanel:Run'
+    Caption='Notifications &On'
+    Image=''
+    Description='Register the notification handler (selection changes are logged)'
+    Params='Cmd=Listen|State=on'
+End
+
+PL PLPcbSelectionPanel:ListenOnAutoAttach
+    Command='PcbSelectionPanel:Run'
+    Caption='Notifications On, Auto-&Attach'
+    Image=''
+    Description='Register the notification handler and attach the panel view to every PCB document that is activated'
+    Params='Cmd=Listen|State=on|AutoAttach=true'
+End
+
+PL PLPcbSelectionPanel:ListenOff
+    Command='PcbSelectionPanel:Run'
+    Caption='Notifications O&ff'
+    Image=''
+    Description='Unregister the notification handler'
+    Params='Cmd=Listen|State=off'
+End
+
+PL PLPcbSelectionPanel:ListenStatus
+    Command='PcbSelectionPanel:Run'
+    Caption='Notifications S&tatus'
+    Image=''
+    Description='Show the handler state, the attached views and the notifications received'
+    Params='Cmd=Listen|State=status'
+End
+
+PL PLPcbSelectionPanel:SelectTest
+    Command='PcbSelectionPanel:Run'
+    Caption='Select 3 Pads (Test)'
+    Image=''
+    Description='Select the first three pads of the focused PCB'
+    Params='Cmd=SelectTest|Kind=Pad|Count=3'
+End
+
+PL PLPcbSelectionPanel:SelectClear
+    Command='PcbSelectionPanel:Run'
+    Caption='Clear Selection (Test)'
+    Image=''
+    Description='Deselect every primitive of the focused PCB'
+    Params='Cmd=SelectTest|Clear=true'
+End
+
+#if DEBUG
+PL PLPcbSelectionPanel:Reload
+    Command='PcbSelectionPanel:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbSelectionPanel implementation module'
+    Params=''
+End
+
+PL PLPcbSelectionPanel:Status
+    Command='PcbSelectionPanel:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbSelectionPanel hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbSelectionPanel Caption='&PcbSelectionPanel' TopLevel=True
+    Link      MNPcbSelectionPanel_Panel  PLID='PLPcbSelectionPanel:Panel'  End
+    Link      MNPcbSelectionPanel_ShowSelection  PLID='PLPcbSelectionPanel:ShowSelection'  End
+    Link      MNPcbSelectionPanel_AttachView  PLID='PLPcbSelectionPanel:AttachView'  End
+    Separator MNPcbSelectionPanel_Sep4  End
+    Link      MNPcbSelectionPanel_ListenOn  PLID='PLPcbSelectionPanel:ListenOn'  End
+    Link      MNPcbSelectionPanel_ListenOnAutoAttach  PLID='PLPcbSelectionPanel:ListenOnAutoAttach'  End
+    Link      MNPcbSelectionPanel_ListenOff  PLID='PLPcbSelectionPanel:ListenOff'  End
+    Link      MNPcbSelectionPanel_ListenStatus  PLID='PLPcbSelectionPanel:ListenStatus'  End
+    Separator MNPcbSelectionPanel_Sep9  End
+    Link      MNPcbSelectionPanel_SelectTest  PLID='PLPcbSelectionPanel:SelectTest'  End
+    Link      MNPcbSelectionPanel_SelectClear  PLID='PLPcbSelectionPanel:SelectClear'  End
+#if DEBUG
+    Separator MNPcbSelectionPanel_Sep10                              End
+    Tree MNPcbSelectionPanel_Developer Caption='&Developer'
+        Link  MNPcbSelectionPanel_Reload PLID='PLPcbSelectionPanel:Reload' End
+        Link  MNPcbSelectionPanel_Status PLID='PLPcbSelectionPanel:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbSelectionPanel_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbSelectionPanel OriginalID=MNPcbSelectionPanel IDSuffix='_3' End
+End

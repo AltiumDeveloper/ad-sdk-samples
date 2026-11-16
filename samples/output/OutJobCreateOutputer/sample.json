@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "OutJobCreateOutputer",
+  "title": "Add an outputer to an Output Job",
+  "summary": "Opens an .OutJob as IWSM_OutputJobDocument, adds it to the focused project and creates a predefined output (PCB Print by default) for each PDF medium with CreateOutputer, then lists the job's media and outputers.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "modify",
+    "configure"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add a PCB print output to an OutJob",
+    "create an output in an output job from code",
+    "list the media and outputs of an OutJob",
+    "add an OutJob to the current project"
+  ],
+  "commands": [
+    {
+      "name": "CreateOutputer",
+      "description": "Open the OutJob, save it, add it to the focused project, then call CreateOutputer once per output medium of type MediumType; report the media and the outputers created",
+      "params": "OutJob=<path, required>|Category=Documentation|Type=PCB Print|Name=MyOutputer|MediumType=PDF",
+      "readOnly": false
+    },
+    {
+      "name": "ListOutputers",
+      "description": "List the OutJob's output media (name, type, outputers) and all its outputers",
+      "params": "OutJob=<path, required>",
+      "readOnly": true
+    }
+  ]
+}

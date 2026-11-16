@@ -1,0 +1,55 @@
+PL PLProjectVcsSync:GetProjectVcsStatus
+    Command='ProjectVcsSync:Run'
+    Caption='&Get Project Vcs Status'
+    Image=''
+    Description='Report the VCS status of the focused project''s documents'
+    Params='Cmd=GetProjectVcsStatus'
+End
+
+PL PLProjectVcsSync:SyncProjectVcs
+    Command='ProjectVcsSync:Run'
+    Caption='&Sync Project Vcs'
+    Image=''
+    Description='Update out-of-date and commit modified documents (dry run by default)'
+    Params='Cmd=SyncProjectVcs|DryRun=true'
+End
+
+#if DEBUG
+PL PLProjectVcsSync:Reload
+    Command='ProjectVcsSync:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectVcsSync implementation module'
+    Params=''
+End
+
+PL PLProjectVcsSync:Status
+    Command='ProjectVcsSync:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectVcsSync hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectVcsSync Caption='&ProjectVcsSync' TopLevel=True
+    Link      MNProjectVcsSync_GetProjectVcsStatus  PLID='PLProjectVcsSync:GetProjectVcsStatus'  End
+    Link      MNProjectVcsSync_SyncProjectVcs  PLID='PLProjectVcsSync:SyncProjectVcs'  End
+#if DEBUG
+    Separator MNProjectVcsSync_Sep10                              End
+    Tree MNProjectVcsSync_Developer Caption='&Developer'
+        Link  MNProjectVcsSync_Reload PLID='PLProjectVcsSync:Reload' End
+        Link  MNProjectVcsSync_Status PLID='PLProjectVcsSync:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectVcsSync_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectVcsSync OriginalID=MNProjectVcsSync IDSuffix='_1' End
+End
+Insertion MNProjectVcsSync_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectVcsSync OriginalID=MNProjectVcsSync IDSuffix='_2' End
+End
+Insertion MNProjectVcsSync_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectVcsSync OriginalID=MNProjectVcsSync IDSuffix='_3' End
+End

@@ -1,0 +1,49 @@
+PL PLPlaceDeviceSheet:PlaceDeviceSheet
+    Command='PlaceDeviceSheet:Run'
+    Caption='&Place Device Sheet'
+    Image=''
+    Description='Place a device sheet as a sheet symbol'
+    Params='Cmd=PlaceDeviceSheet|Name=TestDeviceSheet'
+End
+
+PL PLPlaceDeviceSheet:PlaceSheetFromVault
+    Command='PlaceDeviceSheet:Run'
+    Caption='&Place Sheet From Vault'
+    Image=''
+    Description='Place a Vault sheet by item revision HRID'
+    Params='Cmd=PlaceSheetFromVault|Hrid=SCH-0001-00021-1'
+End
+
+#if DEBUG
+PL PLPlaceDeviceSheet:Reload
+    Command='PlaceDeviceSheet:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlaceDeviceSheet implementation module'
+    Params=''
+End
+
+PL PLPlaceDeviceSheet:Status
+    Command='PlaceDeviceSheet:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlaceDeviceSheet hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlaceDeviceSheet Caption='&PlaceDeviceSheet' TopLevel=True
+    Link      MNPlaceDeviceSheet_PlaceDeviceSheet  PLID='PLPlaceDeviceSheet:PlaceDeviceSheet'  End
+    Link      MNPlaceDeviceSheet_PlaceSheetFromVault  PLID='PLPlaceDeviceSheet:PlaceSheetFromVault'  End
+#if DEBUG
+    Separator MNPlaceDeviceSheet_Sep10                              End
+    Tree MNPlaceDeviceSheet_Developer Caption='&Developer'
+        Link  MNPlaceDeviceSheet_Reload PLID='PLPlaceDeviceSheet:Reload' End
+        Link  MNPlaceDeviceSheet_Status PLID='PLPlaceDeviceSheet:Status' End
+    End
+#endif
+End
+
+Insertion MNPlaceDeviceSheet_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PlaceDeviceSheet OriginalID=MNPlaceDeviceSheet IDSuffix='_2' End
+End

@@ -1,0 +1,49 @@
+PL PLPlacePcbLibComponent:PlaceComponent
+    Command='PlacePcbLibComponent:Run'
+    Caption='&Place Component'
+    Image=''
+    Description='Place a footprint from an integrated library on the board'
+    Params='Cmd=PlaceComponent'
+End
+
+PL PLPlacePcbLibComponent:ListModels
+    Command='PlacePcbLibComponent:Run'
+    Caption='&List Models'
+    Image=''
+    Description='List the models of an integrated library component (read-only)'
+    Params='Cmd=ListModels'
+End
+
+#if DEBUG
+PL PLPlacePcbLibComponent:Reload
+    Command='PlacePcbLibComponent:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlacePcbLibComponent implementation module'
+    Params=''
+End
+
+PL PLPlacePcbLibComponent:Status
+    Command='PlacePcbLibComponent:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlacePcbLibComponent hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlacePcbLibComponent Caption='&PlacePcbLibComponent' TopLevel=True
+    Link      MNPlacePcbLibComponent_PlaceComponent  PLID='PLPlacePcbLibComponent:PlaceComponent'  End
+    Link      MNPlacePcbLibComponent_ListModels      PLID='PLPlacePcbLibComponent:ListModels'      End
+#if DEBUG
+    Separator MNPlacePcbLibComponent_Sep10                              End
+    Tree MNPlacePcbLibComponent_Developer Caption='&Developer'
+        Link  MNPlacePcbLibComponent_Reload PLID='PLPlacePcbLibComponent:Reload' End
+        Link  MNPlacePcbLibComponent_Status PLID='PLPlacePcbLibComponent:Status' End
+    End
+#endif
+End
+
+Insertion MNPlacePcbLibComponent_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PlacePcbLibComponent OriginalID=MNPlacePcbLibComponent IDSuffix='_3' End
+End

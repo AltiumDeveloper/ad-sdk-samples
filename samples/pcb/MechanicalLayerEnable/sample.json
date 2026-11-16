@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "MechanicalLayerEnable",
+  "title": "Enable a mechanical layer and make it current",
+  "summary": "Enables a disabled mechanical layer through IPCB_MechanicalLayer.MechLayerEnabled, marks it used and displayed, and makes it current with CurrentLayerV7, showing that the board-level layer calls do not enable the layer.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "configure",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "turn on mechanical layer 12",
+    "activate a disabled mechanical layer",
+    "set the current layer to a mechanical layer",
+    "check if a mechanical layer is enabled"
+  ],
+  "commands": [
+    {
+      "name": "SetLayerVisible",
+      "description": "Enable a mechanical layer and make it current",
+      "params": "Layer=<1..16> (default 3)|Current=<V7, Layer or None> (default V7: SetState_CurrentLayerV7; Layer: SetState_Layer on the board, which does not change the current layer; None: skip)|Enable=<True or False> (default True: SetState_MechLayerEnabled(true); False: only the LayerIsUsed calls, which do not enable the layer)",
+      "readOnly": false
+    },
+    {
+      "name": "GetLayerState",
+      "description": "Show the state of a mechanical layer",
+      "params": "Layer=<1..16> (default 3)",
+      "readOnly": true
+    }
+  ]
+}

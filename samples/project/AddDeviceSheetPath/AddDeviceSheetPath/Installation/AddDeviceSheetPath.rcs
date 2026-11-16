@@ -1,0 +1,61 @@
+PL PLAddDeviceSheetPath:AddDeviceSheetPath
+    Command='AddDeviceSheetPath:Run'
+    Caption='&Add Device Sheet Path'
+    Image=''
+    Description='Add a folder to the device sheet folders'
+    Params='Cmd=AddDeviceSheetPath'
+End
+
+PL PLAddDeviceSheetPath:ListDeviceSheetPaths
+    Command='AddDeviceSheetPath:Run'
+    Caption='&List Device Sheet Paths'
+    Image=''
+    Description='List the device sheet folders'
+    Params='Cmd=ListDeviceSheetPaths'
+End
+
+PL PLAddDeviceSheetPath:RemoveDeviceSheetPath
+    Command='AddDeviceSheetPath:Run'
+    Caption='&Remove Device Sheet Path'
+    Image=''
+    Description='Remove a folder from the device sheet folders'
+    Params='Cmd=RemoveDeviceSheetPath'
+End
+
+#if DEBUG
+PL PLAddDeviceSheetPath:Reload
+    Command='AddDeviceSheetPath:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the AddDeviceSheetPath implementation module'
+    Params=''
+End
+
+PL PLAddDeviceSheetPath:Status
+    Command='AddDeviceSheetPath:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show AddDeviceSheetPath hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNAddDeviceSheetPath Caption='&AddDeviceSheetPath' TopLevel=True
+    Link      MNAddDeviceSheetPath_AddDeviceSheetPath  PLID='PLAddDeviceSheetPath:AddDeviceSheetPath'  End
+    Link      MNAddDeviceSheetPath_ListDeviceSheetPaths  PLID='PLAddDeviceSheetPath:ListDeviceSheetPaths'  End
+    Link      MNAddDeviceSheetPath_RemoveDeviceSheetPath  PLID='PLAddDeviceSheetPath:RemoveDeviceSheetPath'  End
+#if DEBUG
+    Separator MNAddDeviceSheetPath_Sep10                              End
+    Tree MNAddDeviceSheetPath_Developer Caption='&Developer'
+        Link  MNAddDeviceSheetPath_Reload PLID='PLAddDeviceSheetPath:Reload' End
+        Link  MNAddDeviceSheetPath_Status PLID='PLAddDeviceSheetPath:Status' End
+    End
+#endif
+End
+
+Insertion MNAddDeviceSheetPath_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_AddDeviceSheetPath OriginalID=MNAddDeviceSheetPath IDSuffix='_1' End
+End
+Insertion MNAddDeviceSheetPath_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_AddDeviceSheetPath OriginalID=MNAddDeviceSheetPath IDSuffix='_2' End
+End

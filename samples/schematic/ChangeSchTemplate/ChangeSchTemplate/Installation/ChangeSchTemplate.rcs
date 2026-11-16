@@ -1,0 +1,40 @@
+PL PLChangeSchTemplate:ChangeTemplate
+    Command='ChangeSchTemplate:Run'
+    Caption='&Change Template'
+    Image=''
+    Description='Apply a sheet template to the active schematic'
+    Params='Cmd=ChangeTemplate'
+End
+
+#if DEBUG
+PL PLChangeSchTemplate:Reload
+    Command='ChangeSchTemplate:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ChangeSchTemplate implementation module'
+    Params=''
+End
+
+PL PLChangeSchTemplate:Status
+    Command='ChangeSchTemplate:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ChangeSchTemplate hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNChangeSchTemplate Caption='&ChangeSchTemplate' TopLevel=True
+    Link      MNChangeSchTemplate_ChangeTemplate  PLID='PLChangeSchTemplate:ChangeTemplate'  End
+#if DEBUG
+    Separator MNChangeSchTemplate_Sep10                              End
+    Tree MNChangeSchTemplate_Developer Caption='&Developer'
+        Link  MNChangeSchTemplate_Reload PLID='PLChangeSchTemplate:Reload' End
+        Link  MNChangeSchTemplate_Status PLID='PLChangeSchTemplate:Status' End
+    End
+#endif
+End
+
+Insertion MNChangeSchTemplate_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ChangeSchTemplate OriginalID=MNChangeSchTemplate IDSuffix='_2' End
+End

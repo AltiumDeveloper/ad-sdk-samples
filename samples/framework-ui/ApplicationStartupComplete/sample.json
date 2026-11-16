@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ApplicationStartupComplete",
+  "title": "Detect when Altium Designer finishes starting",
+  "summary": "Registers a .NET INotificationHandler (with DispId 266) to receive Altium Designer's broadcast notifications, counts them by type and code, and handles the ApplicationStartupComplete view notification; shows why an extension loaded on first use misses it.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "react"
+  ],
+  "surface": [
+    "notification",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "run code when Altium Designer has started",
+    "register a notification handler in a .NET extension",
+    "replace ReceiveNotification override in C#",
+    "listen to all notifications AD broadcasts",
+    "fix Member not found dialog for notification handler"
+  ],
+  "commands": [
+    {
+      "name": "StartupStatus",
+      "description": "Report whether ApplicationStartupComplete was received and when, whether the handler is registered, and the notifications received by type (view notifications by code)",
+      "params": "Reset (flag, optional: clears the counts, the startup time and the last error)",
+      "readOnly": true
+    },
+    {
+      "name": "Listen",
+      "description": "Register (State=on) or unregister (State=off) the shim's notification handler with IClient.RegisterNotificationHandler / UnregisterNotificationHandler",
+      "params": "State=on|off (default on)",
+      "readOnly": true
+    },
+    {
+      "name": "Notification.View",
+      "description": "Record ApplicationStartupComplete (called by the shim's notification handler with the notification as context; fails when a user calls it)",
+      "params": "Code=<notification code> (set by the shim)",
+      "readOnly": true
+    }
+  ]
+}

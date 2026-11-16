@@ -1,0 +1,43 @@
+PL PLPcbLibRenameFootprintToFileName:RenameFootprintsToFileName
+    Command='PcbLibRenameFootprintToFileName:Run'
+    Caption='&Rename Footprints To File Name'
+    Image=''
+    Description='Rename each PcbLib footprint in a folder to the file name'
+    Params='Cmd=RenameFootprintsToFileName'
+End
+
+#if DEBUG
+PL PLPcbLibRenameFootprintToFileName:Reload
+    Command='PcbLibRenameFootprintToFileName:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbLibRenameFootprintToFileName implementation module'
+    Params=''
+End
+
+PL PLPcbLibRenameFootprintToFileName:Status
+    Command='PcbLibRenameFootprintToFileName:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbLibRenameFootprintToFileName hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbLibRenameFootprintToFileName Caption='&PcbLibRenameFootprintToFileName' TopLevel=True
+    Link      MNPcbLibRenameFootprintToFileName_RenameFootprintsToFileName  PLID='PLPcbLibRenameFootprintToFileName:RenameFootprintsToFileName'  End
+#if DEBUG
+    Separator MNPcbLibRenameFootprintToFileName_Sep10                              End
+    Tree MNPcbLibRenameFootprintToFileName_Developer Caption='&Developer'
+        Link  MNPcbLibRenameFootprintToFileName_Reload PLID='PLPcbLibRenameFootprintToFileName:Reload' End
+        Link  MNPcbLibRenameFootprintToFileName_Status PLID='PLPcbLibRenameFootprintToFileName:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbLibRenameFootprintToFileName_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PcbLibRenameFootprintToFileName OriginalID=MNPcbLibRenameFootprintToFileName IDSuffix='_1' End
+End
+Insertion MNPcbLibRenameFootprintToFileName_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbLibRenameFootprintToFileName OriginalID=MNPcbLibRenameFootprintToFileName IDSuffix='_3' End
+End

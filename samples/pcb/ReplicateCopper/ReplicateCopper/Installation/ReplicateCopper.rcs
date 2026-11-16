@@ -1,0 +1,49 @@
+PL PLReplicateCopper:ReplicateCopper
+    Command='ReplicateCopper:Run'
+    Caption='&Replicate Copper'
+    Image=''
+    Description='Replicate Top and Multi layer copper by an X offset'
+    Params='Cmd=ReplicateCopper|OffsetMM=40'
+End
+
+PL PLReplicateCopper:CountCopper
+    Command='ReplicateCopper:Run'
+    Caption='&Count Copper'
+    Image=''
+    Description='Count the free Top and Multi layer objects ReplicateCopper copies (test aid)'
+    Params='Cmd=CountCopper'
+End
+
+#if DEBUG
+PL PLReplicateCopper:Reload
+    Command='ReplicateCopper:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ReplicateCopper implementation module'
+    Params=''
+End
+
+PL PLReplicateCopper:Status
+    Command='ReplicateCopper:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ReplicateCopper hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNReplicateCopper Caption='&ReplicateCopper' TopLevel=True
+    Link      MNReplicateCopper_ReplicateCopper  PLID='PLReplicateCopper:ReplicateCopper'  End
+    Link      MNReplicateCopper_CountCopper      PLID='PLReplicateCopper:CountCopper'      End
+#if DEBUG
+    Separator MNReplicateCopper_Sep10                              End
+    Tree MNReplicateCopper_Developer Caption='&Developer'
+        Link  MNReplicateCopper_Reload PLID='PLReplicateCopper:Reload' End
+        Link  MNReplicateCopper_Status PLID='PLReplicateCopper:Status' End
+    End
+#endif
+End
+
+Insertion MNReplicateCopper_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ReplicateCopper OriginalID=MNReplicateCopper IDSuffix='_3' End
+End

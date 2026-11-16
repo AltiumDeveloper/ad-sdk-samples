@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NetPinConnection",
+  "title": "List each net's component pins via the data model",
+  "summary": "Walks every net of the focused project's flattened document, resolves its pin items to live schematic pins and reports them as designator-pin pairs, with an optional text report.",
+  "category": "schematic",
+  "domain": "project",
+  "task": [
+    "report",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "which pins are connected to each net",
+    "get the component and pin number on a net",
+    "export net to pin connections",
+    "find the component that owns a schematic pin"
+  ],
+  "commands": [
+    {
+      "name": "GetPinConnection",
+      "description": "List the component pins of every net of the focused project",
+      "params": "Out=<folder>|Open=true",
+      "readOnly": true
+    }
+  ]
+}

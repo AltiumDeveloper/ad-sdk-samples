@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BomReport",
+  "title": "Build a grouped BOM from the BOM Manager, the project or the PCB",
+  "summary": "Generates a bill of materials four ways: from the BOM engine (IBomManagerFactory) of a document, from the compiled project with its current variant, and from the components of a PCB, grouped by parameter values and written to a text file.",
+  "category": "output",
+  "domain": "bom",
+  "task": [
+    "report",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "generate a bill of materials from code",
+    "read BOM rows and columns with the BOM manager",
+    "group components by comment and footprint",
+    "list PCB components with their parameters",
+    "apply the current variant to a BOM"
+  ],
+  "commands": [
+    {
+      "name": "GenerateBom",
+      "description": "Build a grouped BOM and write it to a text file",
+      "params": "Source=Schema|BomManager|Project|Pcb (default Schema)|GroupBy=Comment,Footprint|Out=<file or folder> (default: temp folder)|Max=<n> (rows returned, default 5, 0 = all)|Update=true (optional)",
+      "readOnly": true
+    }
+  ]
+}

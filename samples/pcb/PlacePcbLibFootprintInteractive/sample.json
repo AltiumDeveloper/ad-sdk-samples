@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlacePcbLibFootprintInteractive",
+  "title": "Start interactive placement of a PcbLib footprint",
+  "summary": "Registers a .PcbLib with the Integrated Library server, finds a footprint by name and starts the PCB editor's interactive placement with IntegratedLibrary:PlaceComponent and the library and footprint GUIDs.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a footprint from a PcbLib on a board",
+    "list footprints in a PCB library",
+    "register a library file with the integrated library server",
+    "attach a footprint to the cursor for placement"
+  ],
+  "commands": [
+    {
+      "name": "PlaceLibComponent",
+      "description": "Start interactive placement of a footprint from a .PcbLib",
+      "params": "PcbLibPath=<full path to .PcbLib> (required; menu: file dialog)|FootprintName=<name> (required, exact)",
+      "readOnly": false
+    },
+    {
+      "name": "ListLibFootprints",
+      "description": "List the footprints of a .PcbLib (read-only)",
+      "params": "PcbLibPath=<full path to .PcbLib> (required; menu: file dialog)",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchDifferentialPair",
+  "title": "Place a DIFFPAIR parameter set directive",
+  "summary": "Creates a parameter set with a hidden DifferentialPair parameter through SchObjectFactory and adds it to the active sheet with the PreProcess/PostProcess bracket and SCHMPrimitiveRegistration; also lists the sheet's parameter sets.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "mark a net as a differential pair on a schematic",
+    "add a parameter set to a schematic sheet",
+    "place a directive from code",
+    "create schematic objects with the object factory"
+  ],
+  "commands": [
+    {
+      "name": "PlaceDiffPairDirective",
+      "description": "Place a DIFFPAIR parameter set on the current sheet",
+      "params": "X=<mil>|Y=<mil>|Name=<set name>|Value=<text> (defaults X=2400, Y=4000, Name=DIFFPAIR, Value=TRUE)",
+      "readOnly": false
+    },
+    {
+      "name": "ListParameterSets",
+      "description": "List the parameter sets on the current sheet",
+      "params": "Max=<n>",
+      "readOnly": true
+    }
+  ]
+}

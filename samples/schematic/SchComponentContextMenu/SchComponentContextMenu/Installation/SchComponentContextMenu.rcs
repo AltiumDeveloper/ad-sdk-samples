@@ -1,0 +1,57 @@
+// Main menu item: no context menu is open when it runs, so it reports what the last right-click hit test left.
+PL PLSchComponentContextMenu:ComponentUnderContextMenu
+    Command='SchComponentContextMenu:Run'
+    Caption='&Component Under Context Menu'
+    Image=''
+    Description='Report the schematic component under the right-click position'
+    Params='Cmd=ComponentUnderContextMenu'
+End
+
+// Context menu item: RunOnComponent shows it only while a component is
+// under the right-click position (ISch_Document.CountContextMenuObjects in its GetState).
+PL PLSchComponentContextMenu:PopupComponentUnderContextMenu
+    Command='SchComponentContextMenu:RunOnComponent'
+    Caption='My Sch Component Command'
+    Image=''
+    Description='Report the designator of this component'
+    Params='Cmd=ComponentUnderContextMenu'
+End
+
+#if DEBUG
+PL PLSchComponentContextMenu:Reload
+    Command='SchComponentContextMenu:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchComponentContextMenu implementation module'
+    Params=''
+End
+
+PL PLSchComponentContextMenu:Status
+    Command='SchComponentContextMenu:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchComponentContextMenu hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchComponentContextMenu Caption='&SchComponentContextMenu' TopLevel=True
+    Link      MNSchComponentContextMenu_ComponentUnderContextMenu  PLID='PLSchComponentContextMenu:ComponentUnderContextMenu'  End
+#if DEBUG
+    Separator MNSchComponentContextMenu_Sep10                              End
+    Tree MNSchComponentContextMenu_Developer Caption='&Developer'
+        Link  MNSchComponentContextMenu_Reload PLID='PLSchComponentContextMenu:Reload' End
+        Link  MNSchComponentContextMenu_Status PLID='PLSchComponentContextMenu:Status' End
+    End
+#endif
+End
+
+Insertion MNSchComponentContextMenu_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchComponentContextMenu OriginalID=MNSchComponentContextMenu IDSuffix='_2' End
+End
+
+// The schematic editor's right-click menu (Tree PUSCHMENU in the System advsch.rcs): before its first
+// item MNSchematic_PUSCHMENU10 (PLSch:FindSimilarObjectsUnderCursor).
+Insertion MNSchComponentContextMenu_Popup1 TargetID='PUSCHMENU' InsertType='Before' RefID0='MNSchematic_PUSCHMENU10'
+    Link MNSchComponentContextMenu_PopupComponent PLID='PLSchComponentContextMenu:PopupComponentUnderContextMenu' End
+End

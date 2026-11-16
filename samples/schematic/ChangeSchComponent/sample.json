@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ChangeSchComponent",
+  "title": "Replace sheet components with a library component",
+  "summary": "Loads a component from a schematic or integrated library and swaps it in for the components on the current sheet at their old locations, with the editor notified of each removal and addition.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "swap a schematic part for a different library part",
+    "load a component from an IntLib and place it on a sheet",
+    "remove and add schematic objects safely",
+    "list the components on a schematic sheet"
+  ],
+  "commands": [
+    {
+      "name": "ChangeSchComponent",
+      "description": "Replace every component on the current sheet with a library component",
+      "params": "LibRef=<name> (default Battery)|Library=<file name or full path of the .IntLib/.SchLib> (default Miscellaneous Devices.IntLib)|Loader=Library|FullPath|Any|NameNoType|NameWithType (default Library)|Max=<n> (default all)",
+      "readOnly": false
+    },
+    {
+      "name": "ListSheetComponents",
+      "description": "List the components on the current sheet",
+      "params": "Max=<n> (default 200)",
+      "readOnly": true
+    }
+  ]
+}

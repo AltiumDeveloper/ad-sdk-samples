@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlacePadInteractive",
+  "title": "Place a pad that follows the cursor",
+  "summary": "Creates a bottom test-point pad with PCBObjectFactory and moves it with the board cursor from Win32 mouse and keyboard hooks until a click keeps it or Escape removes it, without blocking Altium Designer; shows how to remove hooks safely on unload.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "react"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "drag a new object with the mouse before placing it",
+    "interactive placement of a pad",
+    "follow the cursor on a PCB board",
+    "use a mouse hook in an Altium extension",
+    "dim the board while placing an object"
+  ],
+  "commands": [
+    {
+      "name": "PlacePad",
+      "description": "Place a bottom test-point pad that follows the cursor",
+      "readOnly": false
+    },
+    {
+      "name": "PlacePadStatus",
+      "description": "Show the state of the pad placement",
+      "readOnly": true
+    },
+    {
+      "name": "PlacePadCancel",
+      "description": "Cancel a pad placement in progress",
+      "readOnly": false
+    }
+  ]
+}

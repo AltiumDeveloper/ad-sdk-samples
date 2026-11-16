@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectParameterRefresh",
+  "title": "Set a project parameter and refresh the Projects panel",
+  "summary": "Lists the focused project's parameters with DM_Parameters and changes one by name or index with DM_SetValue, followed by DM_RefreshInWorkspaceForm; documents that the change does not mark the project modified.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change a project parameter value",
+    "list project parameters",
+    "update a PrjPcb parameter from code",
+    "refresh the Projects panel after a change"
+  ],
+  "commands": [
+    {
+      "name": "SetProjectParameter",
+      "description": "Set a project parameter (by Name, or by 0-based Index, default 0) to Value (default KKKKEEE) and refresh the Projects panel",
+      "params": "Name=<name>|Index=<n>|Value=<text>",
+      "readOnly": false
+    },
+    {
+      "name": "ListProjectParameters",
+      "description": "List the parameters of the focused project",
+      "readOnly": true
+    }
+  ]
+}

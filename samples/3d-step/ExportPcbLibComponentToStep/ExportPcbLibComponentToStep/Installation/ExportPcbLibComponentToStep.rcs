@@ -1,0 +1,40 @@
+PL PLExportPcbLibComponentToStep:GenerateStep
+    Command='ExportPcbLibComponentToStep:Run'
+    Caption='&Generate Step'
+    Image=''
+    Description='Export every footprint of a PcbLib to STEP files'
+    Params='Cmd=GenerateStep'
+End
+
+#if DEBUG
+PL PLExportPcbLibComponentToStep:Reload
+    Command='ExportPcbLibComponentToStep:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ExportPcbLibComponentToStep implementation module'
+    Params=''
+End
+
+PL PLExportPcbLibComponentToStep:Status
+    Command='ExportPcbLibComponentToStep:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ExportPcbLibComponentToStep hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNExportPcbLibComponentToStep Caption='&ExportPcbLibComponentToStep' TopLevel=True
+    Link      MNExportPcbLibComponentToStep_GenerateStep  PLID='PLExportPcbLibComponentToStep:GenerateStep'  End
+#if DEBUG
+    Separator MNExportPcbLibComponentToStep_Sep10                              End
+    Tree MNExportPcbLibComponentToStep_Developer Caption='&Developer'
+        Link  MNExportPcbLibComponentToStep_Reload PLID='PLExportPcbLibComponentToStep:Reload' End
+        Link  MNExportPcbLibComponentToStep_Status PLID='PLExportPcbLibComponentToStep:Status' End
+    End
+#endif
+End
+
+Insertion MNExportPcbLibComponentToStep_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ExportPcbLibComponentToStep OriginalID=MNExportPcbLibComponentToStep IDSuffix='_3' End
+End

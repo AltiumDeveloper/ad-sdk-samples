@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The sample's code: [HotCommand] methods. Shared framework sources: Directory.Build.targets. -->
+  <PropertyGroup>
+    <SampleRole>Impl</SampleRole>
+  </PropertyGroup>
+
+  <!--
+    The browser control: Microsoft Edge WebView2, from the copy Altium Designer ships in its System folder
+    (Microsoft.Web.WebView2.Core, Microsoft.Web.WebView2.WinForms and WebView2Loader.dll). Referenced, never copied,
+    like the Altium SDK assemblies: the extension uses the same assemblies as AD itself.
+  -->
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>$(AltiumSystemDir)\Microsoft.Web.WebView2.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms">
+      <HintPath>$(AltiumSystemDir)\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

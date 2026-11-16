@@ -1,0 +1,58 @@
+PL PLPcbComponentTextRotation:RotateComponentText
+    Command='PcbComponentTextRotation:Run'
+    Caption='&Rotate Designator Text'
+    Image=''
+    Description='Rotate every component''s designator text to 90 degrees'
+    Params='Cmd=RotateComponentText|Angle=90|Target=Name'
+End
+
+PL PLPcbComponentTextRotation:RotateComponentComment
+    Command='PcbComponentTextRotation:Run'
+    Caption='Rotate &Comment Text'
+    Image=''
+    Description='Rotate every component''s comment text to 90 degrees'
+    Params='Cmd=RotateComponentText|Angle=90|Target=Comment'
+End
+
+PL PLPcbComponentTextRotation:GetComponentTextRotation
+    Command='PcbComponentTextRotation:Run'
+    Caption='&Get Component Text Rotation'
+    Image=''
+    Description='List the rotation of component designator and comment text'
+    Params='Cmd=GetComponentTextRotation'
+End
+
+#if DEBUG
+PL PLPcbComponentTextRotation:Reload
+    Command='PcbComponentTextRotation:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbComponentTextRotation implementation module'
+    Params=''
+End
+
+PL PLPcbComponentTextRotation:Status
+    Command='PcbComponentTextRotation:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbComponentTextRotation hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbComponentTextRotation Caption='&PcbComponentTextRotation' TopLevel=True
+    Link      MNPcbComponentTextRotation_RotateComponentText  PLID='PLPcbComponentTextRotation:RotateComponentText'  End
+    Link      MNPcbComponentTextRotation_RotateComponentComment  PLID='PLPcbComponentTextRotation:RotateComponentComment'  End
+    Link      MNPcbComponentTextRotation_GetComponentTextRotation  PLID='PLPcbComponentTextRotation:GetComponentTextRotation'  End
+#if DEBUG
+    Separator MNPcbComponentTextRotation_Sep10                              End
+    Tree MNPcbComponentTextRotation_Developer Caption='&Developer'
+        Link  MNPcbComponentTextRotation_Reload PLID='PLPcbComponentTextRotation:Reload' End
+        Link  MNPcbComponentTextRotation_Status PLID='PLPcbComponentTextRotation:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbComponentTextRotation_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbComponentTextRotation OriginalID=MNPcbComponentTextRotation IDSuffix='_3' End
+End

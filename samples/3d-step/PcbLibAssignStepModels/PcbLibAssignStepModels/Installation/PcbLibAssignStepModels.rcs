@@ -1,0 +1,49 @@
+PL PLPcbLibAssignStepModels:AssignStepModels
+    Command='PcbLibAssignStepModels:Run'
+    Caption='&Assign Step Models'
+    Image=''
+    Description='Assign STEP models to PcbLib footprints by name prefix'
+    Params='Cmd=AssignStepModels'
+End
+
+PL PLPcbLibAssignStepModels:ListBodies
+    Command='PcbLibAssignStepModels:Run'
+    Caption='&List Bodies'
+    Image=''
+    Description='List the 3D bodies of each footprint of a PcbLib (read-back)'
+    Params='Cmd=ListBodies'
+End
+
+#if DEBUG
+PL PLPcbLibAssignStepModels:Reload
+    Command='PcbLibAssignStepModels:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbLibAssignStepModels implementation module'
+    Params=''
+End
+
+PL PLPcbLibAssignStepModels:Status
+    Command='PcbLibAssignStepModels:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbLibAssignStepModels hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbLibAssignStepModels Caption='&PcbLibAssignStepModels' TopLevel=True
+    Link      MNPcbLibAssignStepModels_AssignStepModels  PLID='PLPcbLibAssignStepModels:AssignStepModels'  End
+    Link      MNPcbLibAssignStepModels_ListBodies  PLID='PLPcbLibAssignStepModels:ListBodies'  End
+#if DEBUG
+    Separator MNPcbLibAssignStepModels_Sep10                              End
+    Tree MNPcbLibAssignStepModels_Developer Caption='&Developer'
+        Link  MNPcbLibAssignStepModels_Reload PLID='PLPcbLibAssignStepModels:Reload' End
+        Link  MNPcbLibAssignStepModels_Status PLID='PLPcbLibAssignStepModels:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbLibAssignStepModels_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbLibAssignStepModels OriginalID=MNPcbLibAssignStepModels IDSuffix='_3' End
+End

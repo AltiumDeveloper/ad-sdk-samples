@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "HarnessEntryCreate",
+  "title": "Add a harness entry to a harness connector",
+  "summary": "Creates a harness entry with SchObjectFactory, adds it to the first harness connector on the focused sheet inside a robot-manager bracket, and reads it back; also lists connectors and their entries.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add an entry to a harness connector",
+    "list harness connector entries on a sheet",
+    "create a child object inside a schematic container",
+    "what unit is DistanceFromTop in"
+  ],
+  "commands": [
+    {
+      "name": "CreateHarnessEntry",
+      "description": "Add a harness entry to the first harness connector on the sheet",
+      "params": "DistanceFromTop=<n>|Name=<text>|Side=Left|Right|Top|Bottom (all optional; DistanceFromTop defaults to 20)",
+      "readOnly": false
+    },
+    {
+      "name": "ListHarnessEntries",
+      "description": "List the harness connectors and their entries on the sheet",
+      "readOnly": true
+    }
+  ]
+}

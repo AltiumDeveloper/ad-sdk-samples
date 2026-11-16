@@ -1,0 +1,49 @@
+PL PLHarnessEntryCreate:CreateHarnessEntry
+    Command='HarnessEntryCreate:Run'
+    Caption='&Create Harness Entry'
+    Image=''
+    Description='Add a harness entry to the first harness connector on the sheet'
+    Params='Cmd=CreateHarnessEntry'
+End
+
+PL PLHarnessEntryCreate:ListHarnessEntries
+    Command='HarnessEntryCreate:Run'
+    Caption='&List Harness Entries'
+    Image=''
+    Description='List the harness connectors and their entries on the sheet'
+    Params='Cmd=ListHarnessEntries'
+End
+
+#if DEBUG
+PL PLHarnessEntryCreate:Reload
+    Command='HarnessEntryCreate:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the HarnessEntryCreate implementation module'
+    Params=''
+End
+
+PL PLHarnessEntryCreate:Status
+    Command='HarnessEntryCreate:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show HarnessEntryCreate hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNHarnessEntryCreate Caption='&HarnessEntryCreate' TopLevel=True
+    Link      MNHarnessEntryCreate_CreateHarnessEntry  PLID='PLHarnessEntryCreate:CreateHarnessEntry'  End
+    Link      MNHarnessEntryCreate_ListHarnessEntries  PLID='PLHarnessEntryCreate:ListHarnessEntries'  End
+#if DEBUG
+    Separator MNHarnessEntryCreate_Sep10                              End
+    Tree MNHarnessEntryCreate_Developer Caption='&Developer'
+        Link  MNHarnessEntryCreate_Reload PLID='PLHarnessEntryCreate:Reload' End
+        Link  MNHarnessEntryCreate_Status PLID='PLHarnessEntryCreate:Status' End
+    End
+#endif
+End
+
+Insertion MNHarnessEntryCreate_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_HarnessEntryCreate OriginalID=MNHarnessEntryCreate IDSuffix='_2' End
+End

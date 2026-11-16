@@ -1,0 +1,43 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "NavigateToSchLibComp",
+  "title": "Open a placed component's source SchLib symbol",
+  "summary": "A schematic right-click menu item, shown only over a component, that opens the component's source .SchLib and makes its symbol the library's current component.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "extend-ui",
+    "inspect"
+  ],
+  "surface": [
+    "context-menu",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "add an item to the schematic right-click menu",
+    "open the library a component came from",
+    "show a symbol in the schematic library editor",
+    "find the component under the mouse on right-click"
+  ],
+  "commands": [
+    {
+      "name": "NavigateToSchLibComp",
+      "description": "Open the source .SchLib of a component on the current sheet and make its symbol the library's current component; returns the component, the library path and the read-back current component",
+      "params": "Designator=<designator, wins when given>|Component=popup|selected (default selected; the context menu item passes popup)|LibraryFolders=<folder>[;<folder>...] (then the sheet's folder and its Libraries subfolder are searched)",
+      "readOnly": true
+    },
+    {
+      "name": "ListSheetComponents",
+      "description": "Test helper: list designator, LibReference, SourceLibraryName and selection of the components on the current sheet",
+      "params": "Designator=<x>|Max=<n, default 50>",
+      "readOnly": true
+    },
+    {
+      "name": "CurrentLibraryComponent",
+      "description": "Test helper: report the current schematic document and, if it is a library, its current component",
+      "readOnly": true
+    }
+  ]
+}

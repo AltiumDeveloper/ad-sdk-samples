@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PadCache",
+  "title": "Invalidate a pad's solder mask cache",
+  "summary": "Shows the read-modify-assign pattern for a pad's V7_PadCache and the alternative IPCB_Pad.InvalidateCache, with before and after read-backs that reveal what PostProcess revalidates.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change a pad cache field and assign it back",
+    "mark solder mask expansion as invalid on pads",
+    "read the cached solder mask and paste mask of a pad",
+    "make pads recalculate their rule values"
+  ],
+  "commands": [
+    {
+      "name": "InvalidatePadSolderMaskCache",
+      "description": "Set SolderMaskExpansionValid to eCacheInvalid on the first pad (All=True: every pad) and report the cache before and after",
+      "params": "All=True|False (default False)|Method=Assign|Invalidate (default Assign)",
+      "readOnly": false
+    },
+    {
+      "name": "ReadPadCache",
+      "description": "Report the first pad's cache fields",
+      "readOnly": true
+    }
+  ]
+}

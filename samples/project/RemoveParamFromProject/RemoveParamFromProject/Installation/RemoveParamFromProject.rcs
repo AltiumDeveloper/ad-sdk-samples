@@ -1,0 +1,64 @@
+PL PLRemoveParamFromProject:RemoveParamFromProject
+    Command='RemoveParamFromProject:Run'
+    Caption='&Remove Param From Project'
+    Image=''
+    Description='Remove all parameters from the focused project'
+    Params='Cmd=RemoveParamFromProject'
+End
+
+PL PLRemoveParamFromProject:ListProjectParameters
+    Command='RemoveParamFromProject:Run'
+    Caption='&List Project Parameters'
+    Image=''
+    Description='List the parameters of the focused project'
+    Params='Cmd=ListProjectParameters'
+End
+
+PL PLRemoveParamFromProject:AddProjectParameter
+    Command='RemoveParamFromProject:Run'
+    Caption='&Add Project Parameter'
+    Image=''
+    Description='Add or update a parameter of the focused project'
+    Params='Cmd=AddProjectParameter'
+End
+
+#if DEBUG
+PL PLRemoveParamFromProject:Reload
+    Command='RemoveParamFromProject:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the RemoveParamFromProject implementation module'
+    Params=''
+End
+
+PL PLRemoveParamFromProject:Status
+    Command='RemoveParamFromProject:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show RemoveParamFromProject hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNRemoveParamFromProject Caption='&RemoveParamFromProject' TopLevel=True
+    Link      MNRemoveParamFromProject_RemoveParamFromProject  PLID='PLRemoveParamFromProject:RemoveParamFromProject'  End
+    Link      MNRemoveParamFromProject_ListProjectParameters  PLID='PLRemoveParamFromProject:ListProjectParameters'  End
+    Link      MNRemoveParamFromProject_AddProjectParameter  PLID='PLRemoveParamFromProject:AddProjectParameter'  End
+#if DEBUG
+    Separator MNRemoveParamFromProject_Sep10                              End
+    Tree MNRemoveParamFromProject_Developer Caption='&Developer'
+        Link  MNRemoveParamFromProject_Reload PLID='PLRemoveParamFromProject:Reload' End
+        Link  MNRemoveParamFromProject_Status PLID='PLRemoveParamFromProject:Status' End
+    End
+#endif
+End
+
+Insertion MNRemoveParamFromProject_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_RemoveParamFromProject OriginalID=MNRemoveParamFromProject IDSuffix='_1' End
+End
+Insertion MNRemoveParamFromProject_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_RemoveParamFromProject OriginalID=MNRemoveParamFromProject IDSuffix='_2' End
+End
+Insertion MNRemoveParamFromProject_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_RemoveParamFromProject OriginalID=MNRemoveParamFromProject IDSuffix='_3' End
+End

@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "IterateNetLabel",
+  "title": "Iterate the net labels of a schematic sheet",
+  "summary": "The basic schematic iterator pattern: create a filtered iterator on the active sheet, walk its net labels, collect their display text and destroy the iterator in a finally block.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "list all net labels on a sheet",
+    "loop over schematic objects of one kind",
+    "filter a schematic iterator by object type",
+    "get net label text"
+  ],
+  "commands": [
+    {
+      "name": "IterateNetLabel",
+      "description": "List the net labels on the current schematic sheet",
+      "params": "Max=<n>",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "BoardOutlineRect",
+  "title": "Redefine the board outline as a rectangle",
+  "summary": "Reads the board outline vertex by vertex and rewrites it as a rectangle with PCB.PolySegment, then makes the board pick it up with SetState_XSizeYSize_1 and UpdateBoardOutline; shows why RebuildBoardOutline discards the written shape.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the board shape from code",
+    "set a rectangular board outline",
+    "read board outline vertices",
+    "resize the PCB board programmatically"
+  ],
+  "commands": [
+    {
+      "name": "ReadBoardOutline",
+      "description": "Read the board outline: point count, layer, each segment (index 0..PointCount) relative to the board origin, and the bounding-rectangle width and height in the display unit and the other unit",
+      "readOnly": true
+    },
+    {
+      "name": "UpdateBoardRegion",
+      "description": "Replace the board outline by a rectangle of four line segments and report the resulting size and segments",
+      "params": "Width=<mil, default 1000>|Height=<mil, default 1000>|CenterX=<mil from the board origin, default 0>|CenterY=<mil from the board origin, default 0>|Rebuild=true (optional, also calls RebuildBoardOutline, which discards the rectangle)",
+      "readOnly": false
+    }
+  ]
+}

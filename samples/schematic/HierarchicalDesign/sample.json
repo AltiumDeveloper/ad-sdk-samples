@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "HierarchicalDesign",
+  "title": "List all physical designators of a flattened project",
+  "summary": "Compiles the focused project when needed and lists the physical and logical designator and source sheet of every component instance in the flattened document, optionally writing a text report.",
+  "category": "schematic",
+  "domain": "project",
+  "task": [
+    "iterate",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "list every component instance in a multichannel design",
+    "get physical designators of all components",
+    "compile a project only if needed",
+    "read the flattened document of a project"
+  ],
+  "commands": [
+    {
+      "name": "GetAllComponents",
+      "description": "List the physical designators of the compiled project",
+      "params": "Out=<file or folder> (optional)|Open=true (optional)|Max=<designators listed in the result, default 50>",
+      "readOnly": true
+    }
+  ]
+}

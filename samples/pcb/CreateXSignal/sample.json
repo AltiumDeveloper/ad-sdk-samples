@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CreateXSignal",
+  "title": "Create an xSignal between two component pins",
+  "summary": "Shows how to create a pin pair (xSignal) from pin descriptors with IPCB_PinPairsManager.CreateFromPinsDescriptors, list pin pairs with their node count and length, and delete one.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add a pin pair between two pads",
+    "list xSignals and their lengths on a board",
+    "delete an xSignal by name",
+    "define a signal path from U1 pin 16 to U4 pin 23"
+  ],
+  "commands": [
+    {
+      "name": "CreateXSignal",
+      "description": "Create an xSignal between two pins",
+      "params": "Pins=<Des-Pad>,<Des-Pad> (default U1-16,U4-23)",
+      "readOnly": false
+    },
+    {
+      "name": "ListXSignals",
+      "description": "List the board's xSignals",
+      "readOnly": true
+    },
+    {
+      "name": "DeleteXSignal",
+      "description": "Delete an xSignal by name",
+      "params": "Name=<xSignal name> (required)",
+      "readOnly": false
+    }
+  ]
+}

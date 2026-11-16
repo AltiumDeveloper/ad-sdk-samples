@@ -1,0 +1,71 @@
+// Main menu item: no context menu is open when it runs, so the command needs Designator=<x> or one selected
+// component (the menu item passes neither; select a component first).
+PL PLUpdateComponentFromSchLib:UpdateComponentFromSchLib
+    Command='UpdateComponentFromSchLib:Run'
+    Caption='&Update Component From SchLib'
+    Image=''
+    Description='Reload the selected component from its source SchLib'
+    Params='Cmd=UpdateComponentFromSchLib'
+End
+
+// Context menu item: RunOnComponent shows it only while a component is under the
+// right-click position (ISch_Document.CountContextMenuObjects in its GetState).
+PL PLUpdateComponentFromSchLib:PopupUpdateComponentFromSchLib
+    Command='UpdateComponentFromSchLib:RunOnComponent'
+    Caption='Update Component From SchLib'
+    Image=''
+    Description='Reload this component from its source SchLib'
+    Params='Cmd=UpdateComponentFromSchLib'
+End
+
+PL PLUpdateComponentFromSchLib:ComponentInfo
+    Command='UpdateComponentFromSchLib:Run'
+    Caption='&Component Info'
+    Image=''
+    Description='Report a placed component''s library, part, location and unique ID'
+    Params='Cmd=ComponentInfo'
+End
+
+#if DEBUG
+PL PLUpdateComponentFromSchLib:Reload
+    Command='UpdateComponentFromSchLib:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the UpdateComponentFromSchLib implementation module'
+    Params=''
+End
+
+PL PLUpdateComponentFromSchLib:Status
+    Command='UpdateComponentFromSchLib:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show UpdateComponentFromSchLib hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNUpdateComponentFromSchLib Caption='&UpdateComponentFromSchLib' TopLevel=True
+    Link      MNUpdateComponentFromSchLib_UpdateComponentFromSchLib  PLID='PLUpdateComponentFromSchLib:UpdateComponentFromSchLib'  End
+    Link      MNUpdateComponentFromSchLib_ComponentInfo  PLID='PLUpdateComponentFromSchLib:ComponentInfo'  End
+#if DEBUG
+    Separator MNUpdateComponentFromSchLib_Sep10                              End
+    Tree MNUpdateComponentFromSchLib_Developer Caption='&Developer'
+        Link  MNUpdateComponentFromSchLib_Reload PLID='PLUpdateComponentFromSchLib:Reload' End
+        Link  MNUpdateComponentFromSchLib_Status PLID='PLUpdateComponentFromSchLib:Status' End
+    End
+#endif
+End
+
+Insertion MNUpdateComponentFromSchLib_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_UpdateComponentFromSchLib OriginalID=MNUpdateComponentFromSchLib IDSuffix='_2' End
+End
+
+// The schematic editor's right-click menu (Tree PUSCHMENU in the System advsch.rcs): after its separator
+// MNSchematic_PUSCHMENU30, followed by a separator.
+Insertion MNUpdateComponentFromSchLib_Popup1 TargetID='PUSCHMENU' InsertType='After' RefID0='MNSchematic_PUSCHMENU30'
+    Link MNUpdateComponentFromSchLib_PopupUpdate PLID='PLUpdateComponentFromSchLib:PopupUpdateComponentFromSchLib' End
+End
+
+Insertion MNUpdateComponentFromSchLib_Popup2 TargetID='PUSCHMENU' InsertType='After' RefID0='MNUpdateComponentFromSchLib_PopupUpdate'
+    Separator MNUpdateComponentFromSchLib_PopupSep End
+End

@@ -1,0 +1,46 @@
+PL PLInstalledLibraryReport:InstalledLibraryReport
+    Command='InstalledLibraryReport:Run'
+    Caption='&Installed Library Report'
+    Image=''
+    Description='Report installed libraries, components and parameters'
+    Params='Cmd=InstalledLibraryReport|Open=true'
+End
+
+#if DEBUG
+PL PLInstalledLibraryReport:Reload
+    Command='InstalledLibraryReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the InstalledLibraryReport implementation module'
+    Params=''
+End
+
+PL PLInstalledLibraryReport:Status
+    Command='InstalledLibraryReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show InstalledLibraryReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNInstalledLibraryReport Caption='&InstalledLibraryReport' TopLevel=True
+    Link      MNInstalledLibraryReport_InstalledLibraryReport  PLID='PLInstalledLibraryReport:InstalledLibraryReport'  End
+#if DEBUG
+    Separator MNInstalledLibraryReport_Sep10                              End
+    Tree MNInstalledLibraryReport_Developer Caption='&Developer'
+        Link  MNInstalledLibraryReport_Reload PLID='PLInstalledLibraryReport:Reload' End
+        Link  MNInstalledLibraryReport_Status PLID='PLInstalledLibraryReport:Status' End
+    End
+#endif
+End
+
+Insertion MNInstalledLibraryReport_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_InstalledLibraryReport OriginalID=MNInstalledLibraryReport IDSuffix='_1' End
+End
+Insertion MNInstalledLibraryReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_InstalledLibraryReport OriginalID=MNInstalledLibraryReport IDSuffix='_2' End
+End
+Insertion MNInstalledLibraryReport_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_InstalledLibraryReport OriginalID=MNInstalledLibraryReport IDSuffix='_3' End
+End

@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LicenseState",
+  "title": "Show the license and subscription state",
+  "summary": "Shows how to get the client's ISecurityManager and read, without changing anything, the licensed state, whether the subscription is current and its expiry date (a double read as an OLE/TDateTime date).",
+  "category": "licensing",
+  "domain": "system",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "when does my Altium subscription expire",
+    "check if Altium Designer is licensed from an extension",
+    "read the subscription expiry date",
+    "convert AbsoluteSubscriptionExpiryDate to a DateTime"
+  ],
+  "commands": [
+    {
+      "name": "GetLicenseState",
+      "description": "Show the license and subscription state",
+      "params": "[Raw=true]",
+      "readOnly": true
+    }
+  ]
+}

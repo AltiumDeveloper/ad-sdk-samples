@@ -1,0 +1,40 @@
+PL PLSchChildDocumentCount:CountChild
+    Command='SchChildDocumentCount:Run'
+    Caption='&Count Child'
+    Image=''
+    Description='Compile the project and count the child documents of the focused schematic'
+    Params='Cmd=CountChild|Compile=true'
+End
+
+#if DEBUG
+PL PLSchChildDocumentCount:Reload
+    Command='SchChildDocumentCount:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchChildDocumentCount implementation module'
+    Params=''
+End
+
+PL PLSchChildDocumentCount:Status
+    Command='SchChildDocumentCount:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchChildDocumentCount hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchChildDocumentCount Caption='&SchChildDocumentCount' TopLevel=True
+    Link      MNSchChildDocumentCount_CountChild  PLID='PLSchChildDocumentCount:CountChild'  End
+#if DEBUG
+    Separator MNSchChildDocumentCount_Sep10                              End
+    Tree MNSchChildDocumentCount_Developer Caption='&Developer'
+        Link  MNSchChildDocumentCount_Reload PLID='PLSchChildDocumentCount:Reload' End
+        Link  MNSchChildDocumentCount_Status PLID='PLSchChildDocumentCount:Status' End
+    End
+#endif
+End
+
+Insertion MNSchChildDocumentCount_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchChildDocumentCount OriginalID=MNSchChildDocumentCount IDSuffix='_2' End
+End

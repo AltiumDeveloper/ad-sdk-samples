@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "TextDocumentCommands",
+  "title": "Build a text document with ITextCommands",
+  "summary": "Creates a new Text document and fills it through EDP.ITextCommands (cursor moves, insert text, insert line, select line), the same commands a user runs from the keyboard, then reads the lines back.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "create",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "create a new text document from an extension",
+    "insert text at the cursor in a text editor",
+    "move the cursor and select a line",
+    "write lines into a new .Txt document"
+  ],
+  "commands": [
+    {
+      "name": "TextCommand",
+      "description": "Create a text document and fill it through ITextCommands",
+      "readOnly": false
+    }
+  ]
+}

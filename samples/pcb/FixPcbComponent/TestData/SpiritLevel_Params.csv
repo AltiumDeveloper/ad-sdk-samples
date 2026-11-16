@@ -1,0 +1,5 @@
+Designator,SampleValue,SampleNote
+R12-R14,PV-R,range row
+"C1,C2",PV-C,list row
+R15,PV-R15,single row
+ZZ99,PV-NONE,not in the project

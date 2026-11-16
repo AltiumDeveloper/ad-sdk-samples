@@ -1,0 +1,46 @@
+PL PLDbLibComponentKeys:ListComponentKeys
+    Command='DbLibComponentKeys:Run'
+    Caption='&List Component Keys'
+    Image=''
+    Description='List the tables and component keys of a DbLib'
+    Params='Cmd=ListComponentKeys'
+End
+
+#if DEBUG
+PL PLDbLibComponentKeys:Reload
+    Command='DbLibComponentKeys:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DbLibComponentKeys implementation module'
+    Params=''
+End
+
+PL PLDbLibComponentKeys:Status
+    Command='DbLibComponentKeys:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DbLibComponentKeys hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDbLibComponentKeys Caption='&DbLibComponentKeys' TopLevel=True
+    Link      MNDbLibComponentKeys_ListComponentKeys  PLID='PLDbLibComponentKeys:ListComponentKeys'  End
+#if DEBUG
+    Separator MNDbLibComponentKeys_Sep10                              End
+    Tree MNDbLibComponentKeys_Developer Caption='&Developer'
+        Link  MNDbLibComponentKeys_Reload PLID='PLDbLibComponentKeys:Reload' End
+        Link  MNDbLibComponentKeys_Status PLID='PLDbLibComponentKeys:Status' End
+    End
+#endif
+End
+
+Insertion MNDbLibComponentKeys_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_DbLibComponentKeys OriginalID=MNDbLibComponentKeys IDSuffix='_1' End
+End
+Insertion MNDbLibComponentKeys_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DbLibComponentKeys OriginalID=MNDbLibComponentKeys IDSuffix='_2' End
+End
+Insertion MNDbLibComponentKeys_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DbLibComponentKeys OriginalID=MNDbLibComponentKeys IDSuffix='_3' End
+End

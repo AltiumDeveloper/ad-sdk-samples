@@ -1,0 +1,46 @@
+PL PLLicenseState:GetLicenseState
+    Command='LicenseState:Run'
+    Caption='&Get License State'
+    Image=''
+    Description='Show the license and subscription state'
+    Params='Cmd=GetLicenseState'
+End
+
+#if DEBUG
+PL PLLicenseState:Reload
+    Command='LicenseState:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the LicenseState implementation module'
+    Params=''
+End
+
+PL PLLicenseState:Status
+    Command='LicenseState:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show LicenseState hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNLicenseState Caption='&LicenseState' TopLevel=True
+    Link      MNLicenseState_GetLicenseState  PLID='PLLicenseState:GetLicenseState'  End
+#if DEBUG
+    Separator MNLicenseState_Sep10                              End
+    Tree MNLicenseState_Developer Caption='&Developer'
+        Link  MNLicenseState_Reload PLID='PLLicenseState:Reload' End
+        Link  MNLicenseState_Status PLID='PLLicenseState:Status' End
+    End
+#endif
+End
+
+Insertion MNLicenseState_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_LicenseState OriginalID=MNLicenseState IDSuffix='_1' End
+End
+Insertion MNLicenseState_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_LicenseState OriginalID=MNLicenseState IDSuffix='_2' End
+End
+Insertion MNLicenseState_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_LicenseState OriginalID=MNLicenseState IDSuffix='_3' End
+End

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PadSolderMask",
+  "title": "Set manual per-side solder mask on named pads",
+  "summary": "Shows how to find pads by name and switch their solder mask expansion to manual with separate top and bottom values by editing and reassigning the pad cache, with a read-back command.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "override the solder mask expansion of a pad",
+    "set different top and bottom solder mask on pads",
+    "find all pads with a given name",
+    "use a manual solder mask instead of the design rule"
+  ],
+  "commands": [
+    {
+      "name": "ChangePadSolderMask",
+      "description": "Set manual per-side solder mask on pads named M3",
+      "params": "Pad=<name> (default M3)|Top=<mils> (optional)|Bottom=<mils> (optional)",
+      "readOnly": false
+    },
+    {
+      "name": "ShowPadSolderMask",
+      "description": "Show the solder mask settings of pads named M3",
+      "params": "Pad=<name> (default M3)|Max=<n> (default 10)",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ChangeSchComponentSize",
+  "title": "Pick schematic components and recalculate their size",
+  "summary": "Shows interactive point picking and hit testing on a schematic sheet, reading an object's properties with ExportToParameters, and recalculating component bounds inside a proper change bracket.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "let the user click a component on a schematic",
+    "hit test objects under a point on a sheet",
+    "dump a schematic object's properties as a parameter string",
+    "recalculate the bounding rectangle of a component",
+    "select schematic components by designator"
+  ],
+  "commands": [
+    {
+      "name": "ChangeComponentSize",
+      "description": "Pick components and recalculate their size",
+      "params": "Mode=Pick|Selected (default Pick; Pick only from the menu)|At=<x,y> (optional, mils, one hit test without a prompt)|Max=<n> (optional, Pick limit)|Export=true|false (default true)",
+      "readOnly": false
+    },
+    {
+      "name": "ListComponents",
+      "description": "List the components on the current sheet (test helper)",
+      "params": "Max=<n> (default 50)",
+      "readOnly": true
+    },
+    {
+      "name": "SelectComponents",
+      "description": "Select components by designator (test helper)",
+      "params": "Designators=<d1,d2,...> (empty clears the selection)",
+      "readOnly": true
+    }
+  ]
+}

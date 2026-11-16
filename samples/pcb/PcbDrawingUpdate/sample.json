@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbDrawingUpdate",
+  "title": "Open a PCB drawing and update it from the board",
+  "summary": "Opens a Draftsman drawing (.PCBDwf) by document kind, focuses it with ShowDocument and runs the Draftsman process PcbDrawing:UpdateBoard (Import Changes From Board) on it, reporting the modified flag before and after.",
+  "category": "pcb",
+  "domain": "outputs",
+  "task": [
+    "modify",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "import changes from board into a Draftsman drawing",
+    "open a .PCBDwf document from an extension",
+    "run another server's process with RunCommand",
+    "focus a document before running a process"
+  ],
+  "commands": [
+    {
+      "name": "OpenDrawing",
+      "description": "Open a PCB drawing (.PCBDwf) and import changes from its board",
+      "params": "File=<path of a .PCBDwf> (required on the pipe; the menu asks with a file dialog)|Update=false (optional: open and focus only)",
+      "readOnly": false
+    }
+  ]
+}

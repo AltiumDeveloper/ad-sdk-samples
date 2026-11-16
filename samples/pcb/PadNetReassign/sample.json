@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PadNetReassign",
+  "title": "Move all pads to one net with the group warehouse calls",
+  "summary": "Shows the sequence that moves a primitive between nets (CancelGroupWarehouseRegistration, SetState_Net, RegisterWithGroupWarehouse) inside the modify brackets, plus adding a project parameter and counting pads per net.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change the net of a pad",
+    "assign every pad to GND",
+    "count pads on each net",
+    "add a parameter to the focused project"
+  ],
+  "commands": [
+    {
+      "name": "UpdatePad",
+      "description": "Move every pad of the board to one net",
+      "params": "Net=<net name> (optional; default: the first net found)|AddProjectParam (flag)|ParamName=testParam1|ParamValue=1234|Redraw (flag)",
+      "readOnly": false
+    },
+    {
+      "name": "ListPadNets",
+      "description": "Count the pads of each net (read-only)",
+      "params": "Top=<n> (optional, default 10)",
+      "readOnly": true
+    }
+  ]
+}

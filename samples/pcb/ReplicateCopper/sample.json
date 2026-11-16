@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ReplicateCopper",
+  "title": "Replicate top-layer copper 40 mm to the right",
+  "summary": "Collects free Top and Multi layer copper and components with a filtered board iterator, copies each with Replicate or ReplicateWithChildren, adds the copy to the board and moves it by an X offset.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "duplicate copper objects on a PCB",
+    "copy a component with its pads",
+    "clone tracks and vias and shift them",
+    "add a copy of a primitive to the board"
+  ],
+  "commands": [
+    {
+      "name": "ReplicateCopper",
+      "description": "Replicate Top and Multi layer copper by an X offset",
+      "params": "OffsetMM=<mm> (optional, default 40, -1000..1000)",
+      "readOnly": false
+    },
+    {
+      "name": "CountCopper",
+      "description": "Count the free Top and Multi layer objects ReplicateCopper copies (test aid)",
+      "readOnly": true
+    }
+  ]
+}

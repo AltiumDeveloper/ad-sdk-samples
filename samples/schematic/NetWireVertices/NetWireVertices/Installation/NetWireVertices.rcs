@@ -1,0 +1,40 @@
+PL PLNetWireVertices:GetWireVertices
+    Command='NetWireVertices:Run'
+    Caption='&Get Wire Vertices'
+    Image=''
+    Description='List the vertices of the wires of a net'
+    Params='Cmd=GetWireVertices'
+End
+
+#if DEBUG
+PL PLNetWireVertices:Reload
+    Command='NetWireVertices:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the NetWireVertices implementation module'
+    Params=''
+End
+
+PL PLNetWireVertices:Status
+    Command='NetWireVertices:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show NetWireVertices hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNNetWireVertices Caption='&NetWireVertices' TopLevel=True
+    Link      MNNetWireVertices_GetWireVertices  PLID='PLNetWireVertices:GetWireVertices'  End
+#if DEBUG
+    Separator MNNetWireVertices_Sep10                              End
+    Tree MNNetWireVertices_Developer Caption='&Developer'
+        Link  MNNetWireVertices_Reload PLID='PLNetWireVertices:Reload' End
+        Link  MNNetWireVertices_Status PLID='PLNetWireVertices:Status' End
+    End
+#endif
+End
+
+Insertion MNNetWireVertices_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_NetWireVertices OriginalID=MNNetWireVertices IDSuffix='_2' End
+End

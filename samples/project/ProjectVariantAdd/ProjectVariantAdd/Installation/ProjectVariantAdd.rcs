@@ -1,0 +1,55 @@
+PL PLProjectVariantAdd:AddVariant
+    Command='ProjectVariantAdd:Run'
+    Caption='&Add Variant'
+    Image=''
+    Description='Create or update a project variant with parameter variations'
+    Params='Cmd=AddVariant|Name=Testing'
+End
+
+PL PLProjectVariantAdd:ListVariant
+    Command='ProjectVariantAdd:Run'
+    Caption='&List Variant'
+    Image=''
+    Description='List the component and parameter variations of a project variant'
+    Params='Cmd=ListVariant|Name=Testing'
+End
+
+#if DEBUG
+PL PLProjectVariantAdd:Reload
+    Command='ProjectVariantAdd:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ProjectVariantAdd implementation module'
+    Params=''
+End
+
+PL PLProjectVariantAdd:Status
+    Command='ProjectVariantAdd:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ProjectVariantAdd hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNProjectVariantAdd Caption='&ProjectVariantAdd' TopLevel=True
+    Link      MNProjectVariantAdd_AddVariant  PLID='PLProjectVariantAdd:AddVariant'  End
+    Link      MNProjectVariantAdd_ListVariant  PLID='PLProjectVariantAdd:ListVariant'  End
+#if DEBUG
+    Separator MNProjectVariantAdd_Sep10                              End
+    Tree MNProjectVariantAdd_Developer Caption='&Developer'
+        Link  MNProjectVariantAdd_Reload PLID='PLProjectVariantAdd:Reload' End
+        Link  MNProjectVariantAdd_Status PLID='PLProjectVariantAdd:Status' End
+    End
+#endif
+End
+
+Insertion MNProjectVariantAdd_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ProjectVariantAdd OriginalID=MNProjectVariantAdd IDSuffix='_1' End
+End
+Insertion MNProjectVariantAdd_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_ProjectVariantAdd OriginalID=MNProjectVariantAdd IDSuffix='_2' End
+End
+Insertion MNProjectVariantAdd_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ProjectVariantAdd OriginalID=MNProjectVariantAdd IDSuffix='_3' End
+End

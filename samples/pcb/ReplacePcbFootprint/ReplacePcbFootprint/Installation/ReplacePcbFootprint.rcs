@@ -1,0 +1,49 @@
+PL PLReplacePcbFootprint:ReplacePcbFootprint
+    Command='ReplacePcbFootprint:Run'
+    Caption='&Replace Pcb Footprint'
+    Image=''
+    Description='Rename a footprint pattern and refresh height and description'
+    Params='Cmd=ReplacePcbFootprint'
+End
+
+PL PLReplacePcbFootprint:ListFootprints
+    Command='ReplacePcbFootprint:Run'
+    Caption='&List Footprints'
+    Image=''
+    Description='List the footprint patterns of the board''s components'
+    Params='Cmd=ListFootprints'
+End
+
+#if DEBUG
+PL PLReplacePcbFootprint:Reload
+    Command='ReplacePcbFootprint:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ReplacePcbFootprint implementation module'
+    Params=''
+End
+
+PL PLReplacePcbFootprint:Status
+    Command='ReplacePcbFootprint:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ReplacePcbFootprint hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNReplacePcbFootprint Caption='&ReplacePcbFootprint' TopLevel=True
+    Link      MNReplacePcbFootprint_ReplacePcbFootprint  PLID='PLReplacePcbFootprint:ReplacePcbFootprint'  End
+    Link      MNReplacePcbFootprint_ListFootprints  PLID='PLReplacePcbFootprint:ListFootprints'  End
+#if DEBUG
+    Separator MNReplacePcbFootprint_Sep10                              End
+    Tree MNReplacePcbFootprint_Developer Caption='&Developer'
+        Link  MNReplacePcbFootprint_Reload PLID='PLReplacePcbFootprint:Reload' End
+        Link  MNReplacePcbFootprint_Status PLID='PLReplacePcbFootprint:Status' End
+    End
+#endif
+End
+
+Insertion MNReplacePcbFootprint_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ReplacePcbFootprint OriginalID=MNReplacePcbFootprint IDSuffix='_3' End
+End

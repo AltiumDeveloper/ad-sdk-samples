@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "GenerateGerber",
+  "title": "Generate Gerber files through an Output Job",
+  "summary": "Attaches a template Output Job to the focused project, opens it as IWSM_OutputJobDocument and runs only its Gerber outputer into a chosen folder with IOutputer.DM_Generate_OutputFilesTo, with no user interface and full cleanup.",
+  "category": "output",
+  "domain": "outputs",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export Gerbers from a PCB without dialogs",
+    "run one output of an OutJob from code",
+    "generate fabrication files to a folder",
+    "add a temporary document to a project"
+  ],
+  "commands": [
+    {
+      "name": "GenerateGerber",
+      "description": "Generate Gerber files for the active PcbDoc through a temporary Output Job attached to the focused project; returns the outputers, the DM_Generate_OutputFilesTo result, whether the temp job was detached, and the files written under Out",
+      "params": "Out=<folder> (default <temp>\\GenerateGerber)|OutJob=<.OutJob template> (default: the Gerber.OutJob embedded in the Impl assembly)",
+      "readOnly": false
+    }
+  ]
+}

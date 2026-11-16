@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbLibMerge",
+  "title": "Merge PcbLib files from a folder into a new library",
+  "summary": "Shows how to copy footprints between PCB libraries: create a new PcbLib, clone every footprint of every .PcbLib in a folder with ReplicateWithChildren, register the copies with unique names and save the result.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "create",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "combine several footprint libraries into one",
+    "copy footprints from one PcbLib to another",
+    "clone a footprint into a different library",
+    "create a new PCB library and save it",
+    "handle duplicate footprint names when merging"
+  ],
+  "commands": [
+    {
+      "name": "MergePcbLibs",
+      "description": "Merge all PcbLib files of a folder into a new PcbLib",
+      "params": "Folder=<folder with .PcbLib files> (menu without Folder: folder picker)|Out=<folder or .PcbLib path> (default: temp folder, file PcbLibMerge.PcbLib)|Overwrite=true (replace an existing Out file)|Duplicates=Rename|Skip (default Rename)|Reference=Center|Keep (default Center: changes every copied footprint; Keep copies them unchanged)",
+      "readOnly": false
+    },
+    {
+      "name": "ListFootprints",
+      "description": "List the footprints of a PcbLib file (read-back check)",
+      "params": "Lib=<path to .PcbLib>",
+      "readOnly": true
+    }
+  ]
+}

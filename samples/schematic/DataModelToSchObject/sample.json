@@ -1,0 +1,39 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DataModelToSchObject",
+  "title": "Resolve compiled components and nets to schematic objects",
+  "summary": "Bridges the compiled project data model to the live schematic objects with DM_SchHandle and SupportsInterface, to list vault components and recolour the wires and buses of a net.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "inspect",
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get the schematic object behind a compiled component",
+    "change the colour of all wires on a net",
+    "find components placed from a workspace vault",
+    "go from IComponent to ISch_Component",
+    "highlight a bus net on every sheet"
+  ],
+  "commands": [
+    {
+      "name": "ListVaultComponents",
+      "description": "List the vault components of the focused project via their schematic objects",
+      "params": "Project=<file name or path> (optional, default the focused project)|All=true (optional: also list components without a VaultGUID)",
+      "readOnly": true
+    },
+    {
+      "name": "RecolorNetObjects",
+      "description": "Recolour the schematic wires and buses of a compiled net",
+      "params": "Net=<net name> (required)|Color=<BGR: decimal, 0x or # hex> (default 0x0000FF, red)|Project=<file name or path> (optional)",
+      "readOnly": false
+    }
+  ]
+}

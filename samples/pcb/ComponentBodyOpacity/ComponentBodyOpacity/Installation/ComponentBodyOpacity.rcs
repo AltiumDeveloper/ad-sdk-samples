@@ -1,0 +1,58 @@
+PL PLComponentBodyOpacity:BoardInfo3D
+    Command='ComponentBodyOpacity:Run'
+    Caption='&Board Info 3D'
+    Image=''
+    Description='Report the board Z range, the 3D camera and ROUTETOOLPATHLAYER'
+    Params='Cmd=BoardInfo3D'
+End
+
+PL PLComponentBodyOpacity:SetCamera
+    Command='ComponentBodyOpacity:Run'
+    Caption='&Set Camera'
+    Image=''
+    Description='Set the 3D camera of the main view (default: current camera)'
+    Params='Cmd=SetCamera'
+End
+
+PL PLComponentBodyOpacity:SetBodyOpacity
+    Command='ComponentBodyOpacity:Run'
+    Caption='Set Body &Opacity'
+    Image=''
+    Description='Set the 3D opacity of the first component body'
+    Params='Cmd=SetBodyOpacity|Opacity=1'
+End
+
+#if DEBUG
+PL PLComponentBodyOpacity:Reload
+    Command='ComponentBodyOpacity:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ComponentBodyOpacity implementation module'
+    Params=''
+End
+
+PL PLComponentBodyOpacity:Status
+    Command='ComponentBodyOpacity:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ComponentBodyOpacity hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNComponentBodyOpacity Caption='&ComponentBodyOpacity' TopLevel=True
+    Link      MNComponentBodyOpacity_BoardInfo3D  PLID='PLComponentBodyOpacity:BoardInfo3D'  End
+    Link      MNComponentBodyOpacity_SetCamera  PLID='PLComponentBodyOpacity:SetCamera'  End
+    Link      MNComponentBodyOpacity_SetBodyOpacity  PLID='PLComponentBodyOpacity:SetBodyOpacity'  End
+#if DEBUG
+    Separator MNComponentBodyOpacity_Sep10                              End
+    Tree MNComponentBodyOpacity_Developer Caption='&Developer'
+        Link  MNComponentBodyOpacity_Reload PLID='PLComponentBodyOpacity:Reload' End
+        Link  MNComponentBodyOpacity_Status PLID='PLComponentBodyOpacity:Status' End
+    End
+#endif
+End
+
+Insertion MNComponentBodyOpacity_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ComponentBodyOpacity OriginalID=MNComponentBodyOpacity IDSuffix='_3' End
+End

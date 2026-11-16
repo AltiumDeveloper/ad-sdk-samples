@@ -1,0 +1,55 @@
+PL PLRunScript:RunScript
+    Command='RunScript:Run'
+    Caption='&Run Script'
+    Image=''
+    Description='Run a procedure of an existing script (a script AD cannot find shows a blocking error box)'
+    Params='Cmd=RunScript'
+End
+
+PL PLRunScript:WriteDemoScript
+    Command='RunScript:Run'
+    Caption='&Write Demo Script'
+    Image=''
+    Description='Write a demo script project (RunScriptDemo.PrjScr, RunScriptDemo.pas)'
+    Params='Cmd=WriteDemoScript'
+End
+
+#if DEBUG
+PL PLRunScript:Reload
+    Command='RunScript:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the RunScript implementation module'
+    Params=''
+End
+
+PL PLRunScript:Status
+    Command='RunScript:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show RunScript hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNRunScript Caption='&RunScript' TopLevel=True
+    Link      MNRunScript_RunScript  PLID='PLRunScript:RunScript'  End
+    Link      MNRunScript_WriteDemoScript  PLID='PLRunScript:WriteDemoScript'  End
+#if DEBUG
+    Separator MNRunScript_Sep10                              End
+    Tree MNRunScript_Developer Caption='&Developer'
+        Link  MNRunScript_Reload PLID='PLRunScript:Reload' End
+        Link  MNRunScript_Status PLID='PLRunScript:Status' End
+    End
+#endif
+End
+
+Insertion MNRunScript_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_RunScript OriginalID=MNRunScript IDSuffix='_1' End
+End
+Insertion MNRunScript_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_RunScript OriginalID=MNRunScript IDSuffix='_2' End
+End
+Insertion MNRunScript_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_RunScript OriginalID=MNRunScript IDSuffix='_3' End
+End

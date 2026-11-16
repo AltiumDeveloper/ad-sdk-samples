@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CmpLibSelectedHrids",
+  "title": "List HRIDs of components selected in a CmpLib",
+  "summary": "Checks that the active document is a component library (.CmpLib) and returns the HRID of each component selected in its editor. Shows a safe document-kind check before casting to IComponentLibraryDocument.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get selected components in a component library",
+    "read item IDs of selected CmpLib components",
+    "check if the active document is a CmpLib",
+    "list the selection in the component library editor"
+  ],
+  "commands": [
+    {
+      "name": "GetSelectedComponents",
+      "description": "List the HRIDs of the components selected in the active CmpLib",
+      "readOnly": true
+    }
+  ]
+}

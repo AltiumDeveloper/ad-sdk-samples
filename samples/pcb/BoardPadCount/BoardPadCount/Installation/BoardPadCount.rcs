@@ -1,0 +1,40 @@
+PL PLBoardPadCount:CountPads
+    Command='BoardPadCount:Run'
+    Caption='&Count Pads'
+    Image=''
+    Description='Count the pads on the current board'
+    Params='Cmd=CountPads'
+End
+
+#if DEBUG
+PL PLBoardPadCount:Reload
+    Command='BoardPadCount:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the BoardPadCount implementation module'
+    Params=''
+End
+
+PL PLBoardPadCount:Status
+    Command='BoardPadCount:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show BoardPadCount hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNBoardPadCount Caption='&BoardPadCount' TopLevel=True
+    Link      MNBoardPadCount_CountPads  PLID='PLBoardPadCount:CountPads'  End
+#if DEBUG
+    Separator MNBoardPadCount_Sep10                              End
+    Tree MNBoardPadCount_Developer Caption='&Developer'
+        Link  MNBoardPadCount_Reload PLID='PLBoardPadCount:Reload' End
+        Link  MNBoardPadCount_Status PLID='PLBoardPadCount:Status' End
+    End
+#endif
+End
+
+Insertion MNBoardPadCount_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_BoardPadCount OriginalID=MNBoardPadCount IDSuffix='_3' End
+End

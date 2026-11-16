@@ -1,0 +1,49 @@
+PL PLHidePcbLayer:HideLayer
+    Command='HidePcbLayer:Run'
+    Caption='&Hide Layer'
+    Image=''
+    Description='Hide (or show) a layer of the board view'
+    Params='Cmd=HideLayer'
+End
+
+PL PLHidePcbLayer:ListLayerDisplay
+    Command='HidePcbLayer:Run'
+    Caption='&List Layer Display'
+    Image=''
+    Description='List the layers of the stack and whether each is displayed'
+    Params='Cmd=ListLayerDisplay'
+End
+
+#if DEBUG
+PL PLHidePcbLayer:Reload
+    Command='HidePcbLayer:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the HidePcbLayer implementation module'
+    Params=''
+End
+
+PL PLHidePcbLayer:Status
+    Command='HidePcbLayer:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show HidePcbLayer hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNHidePcbLayer Caption='&HidePcbLayer' TopLevel=True
+    Link      MNHidePcbLayer_HideLayer  PLID='PLHidePcbLayer:HideLayer'  End
+    Link      MNHidePcbLayer_ListLayerDisplay  PLID='PLHidePcbLayer:ListLayerDisplay'  End
+#if DEBUG
+    Separator MNHidePcbLayer_Sep10                              End
+    Tree MNHidePcbLayer_Developer Caption='&Developer'
+        Link  MNHidePcbLayer_Reload PLID='PLHidePcbLayer:Reload' End
+        Link  MNHidePcbLayer_Status PLID='PLHidePcbLayer:Status' End
+    End
+#endif
+End
+
+Insertion MNHidePcbLayer_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_HidePcbLayer OriginalID=MNHidePcbLayer IDSuffix='_3' End
+End

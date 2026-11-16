@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectVariantAdd",
+  "title": "Create a project variant with parameter variations",
+  "summary": "Finds or adds a named project variant and gives every component a component variation with parameter variations, using the idempotent find-or-add pattern inside DM_BeginUpdate/DM_EndUpdate, plus a read-back command.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "create",
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "add an assembly variant to a project",
+    "override component parameter values in a variant",
+    "list the variations of a variant",
+    "create component variations from code"
+  ],
+  "commands": [
+    {
+      "name": "AddVariant",
+      "description": "Create or update a project variant with parameter variations for every component",
+      "params": "Name=<variant name> (default Testing)|Suffix=<text> (default _$)",
+      "readOnly": false
+    },
+    {
+      "name": "ListVariant",
+      "description": "List the component and parameter variations of a project variant (read-back for testing)",
+      "params": "Name=<variant name> (default Testing)|Max=<rows> (default 10)",
+      "readOnly": true
+    }
+  ]
+}

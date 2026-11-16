@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PickTrackCoordinates",
+  "title": "Pick tracks and show their coordinates",
+  "summary": "Lets the user click tracks with ChooseLocation and GetObjectAtXYAskUserIfAmbiguous and reports each track's end points in mils relative to the board origin; an At=x,y parameter runs the same hit test without a click.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "get the start and end point of a clicked track",
+    "let the user click a location on the board",
+    "find the object at a point on the PCB",
+    "convert internal units to mils relative to the origin"
+  ],
+  "commands": [
+    {
+      "name": "ShowTrackCoord",
+      "description": "Pick tracks and show their coordinates",
+      "params": "Max=<n> (optional)|Pick=true (pipe: prompt for clicks)|At=<x,y> (optional, mils from the board origin)",
+      "readOnly": true
+    },
+    {
+      "name": "ListTracks",
+      "description": "List track coordinates (test helper)",
+      "params": "Max=<n> (default 5)",
+      "readOnly": true
+    }
+  ]
+}

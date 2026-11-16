@@ -1,0 +1,64 @@
+PL PLPreferencesOptionsPage:ShowPreference
+    Command='PreferencesOptionsPage:Run'
+    Caption='&Show Preference'
+    Image=''
+    Description='Show the stored Temperature preference'
+    Params='Cmd=ShowPreference'
+End
+
+PL PLPreferencesOptionsPage:SetPreference
+    Command='PreferencesOptionsPage:Run'
+    Caption='&Set Preference'
+    Image=''
+    Description='Write the Temperature preference'
+    Params='Cmd=SetPreference|Temperature=100'
+End
+
+PL PLPreferencesOptionsPage:ExportPreferencesFolder
+    Command='PreferencesOptionsPage:Run'
+    Caption='&Export Preferences Folder'
+    Image=''
+    Description='Show the Preferences export folder'
+    Params='Cmd=ExportPreferencesFolder'
+End
+
+#if DEBUG
+PL PLPreferencesOptionsPage:Reload
+    Command='PreferencesOptionsPage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PreferencesOptionsPage implementation module'
+    Params=''
+End
+
+PL PLPreferencesOptionsPage:Status
+    Command='PreferencesOptionsPage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PreferencesOptionsPage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPreferencesOptionsPage Caption='&PreferencesOptionsPage' TopLevel=True
+    Link      MNPreferencesOptionsPage_ShowPreference  PLID='PLPreferencesOptionsPage:ShowPreference'  End
+    Link      MNPreferencesOptionsPage_SetPreference  PLID='PLPreferencesOptionsPage:SetPreference'  End
+    Link      MNPreferencesOptionsPage_ExportPreferencesFolder  PLID='PLPreferencesOptionsPage:ExportPreferencesFolder'  End
+#if DEBUG
+    Separator MNPreferencesOptionsPage_Sep10                              End
+    Tree MNPreferencesOptionsPage_Developer Caption='&Developer'
+        Link  MNPreferencesOptionsPage_Reload PLID='PLPreferencesOptionsPage:Reload' End
+        Link  MNPreferencesOptionsPage_Status PLID='PLPreferencesOptionsPage:Status' End
+    End
+#endif
+End
+
+Insertion MNPreferencesOptionsPage_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PreferencesOptionsPage OriginalID=MNPreferencesOptionsPage IDSuffix='_1' End
+End
+Insertion MNPreferencesOptionsPage_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PreferencesOptionsPage OriginalID=MNPreferencesOptionsPage IDSuffix='_2' End
+End
+Insertion MNPreferencesOptionsPage_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PreferencesOptionsPage OriginalID=MNPreferencesOptionsPage IDSuffix='_3' End
+End

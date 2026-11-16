@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "InternalPlaneLayerIterator",
+  "title": "List the tracks on each internal plane layer",
+  "summary": "Walks the board's internal planes with InternalPlaneLayerIterator and lists the tracks on each with a board iterator filtered to that plane's TV6_Layer, plus a helper that inserts a plane into the layer stack and places a track on it.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "iterate",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "find tracks on power plane layers",
+    "loop over plane layers and their objects",
+    "add an internal plane to the layer stack",
+    "get track coordinates in mm relative to the board origin"
+  ],
+  "commands": [
+    {
+      "name": "GetTracks",
+      "description": "List the tracks on each internal plane layer",
+      "params": "Units=mm|mil (default mm)|Max=<n> (default 20)|Out=<file or folder> (optional)|Check=true (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestPlaneTrack",
+      "description": "Place a track on an internal plane (test setup)",
+      "params": "AddPlane=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

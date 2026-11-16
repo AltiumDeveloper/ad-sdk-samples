@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "HidePcbLayer",
+  "title": "Hide a PCB layer in the board view",
+  "summary": "Walks the board's V7 layer stack, finds a layer by name or TV6_Layer ID and hides or shows it in the view with IPCB_LayerObject_V7.IsDisplayed, plus a listing of every electrical layer's display state.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "turn off the top layer in the PCB view",
+    "toggle layer visibility from code",
+    "show or hide a signal layer",
+    "check which board layers are visible"
+  ],
+  "commands": [
+    {
+      "name": "HideLayer",
+      "description": "Hide (or show) a layer of the board view",
+      "params": "Layer=<layer name or TV6_Layer name> (optional, default the top layer)|Show=true (optional, show instead of hide)",
+      "readOnly": false
+    },
+    {
+      "name": "ListLayerDisplay",
+      "description": "List the layers of the stack and whether each is displayed",
+      "readOnly": true
+    }
+  ]
+}

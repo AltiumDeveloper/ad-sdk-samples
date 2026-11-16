@@ -1,0 +1,40 @@
+PL PLInternalPlaneLayer:Iterator
+    Command='InternalPlaneLayer:Run'
+    Caption='&Iterator'
+    Image=''
+    Description='List the internal planes and their pull-back distance'
+    Params='Cmd=Iterator'
+End
+
+#if DEBUG
+PL PLInternalPlaneLayer:Reload
+    Command='InternalPlaneLayer:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the InternalPlaneLayer implementation module'
+    Params=''
+End
+
+PL PLInternalPlaneLayer:Status
+    Command='InternalPlaneLayer:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show InternalPlaneLayer hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNInternalPlaneLayer Caption='&InternalPlaneLayer' TopLevel=True
+    Link      MNInternalPlaneLayer_Iterator  PLID='PLInternalPlaneLayer:Iterator'  End
+#if DEBUG
+    Separator MNInternalPlaneLayer_Sep10                              End
+    Tree MNInternalPlaneLayer_Developer Caption='&Developer'
+        Link  MNInternalPlaneLayer_Reload PLID='PLInternalPlaneLayer:Reload' End
+        Link  MNInternalPlaneLayer_Status PLID='PLInternalPlaneLayer:Status' End
+    End
+#endif
+End
+
+Insertion MNInternalPlaneLayer_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_InternalPlaneLayer OriginalID=MNInternalPlaneLayer IDSuffix='_3' End
+End

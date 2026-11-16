@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ExportPcbLibComponentToStep",
+  "title": "Export every PcbLib footprint to a STEP file",
+  "summary": "Writes the 3D model of each footprint of a PCB library to its own .step file, through a transient IPCB_Component loaded with LoadFromLibrary or directly from IPCB_LibComponent.SaveModelToFile, and reports which files were written.",
+  "category": "3d-step",
+  "domain": "library",
+  "task": [
+    "import-export",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "save each footprint's 3D model as a step file",
+    "batch export a PCB library to STEP",
+    "load a footprint into a temporary component",
+    "write 3D models of library footprints to disk"
+  ],
+  "commands": [
+    {
+      "name": "GenerateStep",
+      "description": "Export every footprint of a PcbLib to STEP files",
+      "params": "Lib=<.PcbLib path> (default: the focused PCB library)|Out=<folder> (default: temp folder; files go to <Out>\\<library name>\\<footprint>.step)|Via=Component|LibComponent (default Component: a transient IPCB_Component)|Attach=false (Via=Component only: do not assign the library's board to the transient component; LoadFromLibrary then raises an access violation)",
+      "readOnly": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlaceLibraryComponent",
+  "title": "Place a library component with models and parameters",
+  "summary": "Places a schematic library component, or one part of a multi-part component, at an exact location with PlaceLibraryComponent and its Key=Value parameter string, and reads the placed component back.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a component from a SchLib on a sheet",
+    "place part B of a multi-part component",
+    "add parameters when placing a component",
+    "place a symbol at given coordinates without clicking"
+  ],
+  "commands": [
+    {
+      "name": "PlaceComponent",
+      "description": "Place a component from a .SchLib/.IntLib on the active sheet with PlacingFromDatabase=true, PCB footprint models (ModelTypeN/ModelNameN/LocationN) and hidden parameters (ParameterNameN/ParameterValueN/ParameterVisibleN); reports the call's result, the parameter string and the new components",
+      "params": "Lib=<full path to a .SchLib/.IntLib, or file name of an installed library; required>|LibRef=<component, default RES2>|Models=<footprint@pcblib path;...; optional>|Params=<Name=Value;...; default PartNumber=931H451;Value=100R;Power=1/4W;Tolerance=5%; empty = none>|X=<mils, default 1000>|Y=<mils, default 1000>|Interactive (menu only: no location, cursor placement)",
+      "readOnly": false
+    },
+    {
+      "name": "PlacePart",
+      "description": "Place one part of a multi-part component with PartID=<n>; reports the call's result and the new component with its CurrentPartID",
+      "params": "Lib=<full path to a .SchLib/.IntLib, or file name of an installed library; required>|LibRef=<component, default XC2S300E-6PQ208C>|PartID=<n, 1-based, default 2>|X=<mils, default 1000>|Y=<mils, default 1000>|Interactive (menu only)",
+      "readOnly": false
+    }
+  ]
+}

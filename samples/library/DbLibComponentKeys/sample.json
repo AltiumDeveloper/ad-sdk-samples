@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DbLibComponentKeys",
+  "title": "List the tables and component keys of a DbLib",
+  "summary": "Finds database libraries through the integrated library manager, lists their tables and, optionally, each table's component keys via GetAllComponentKeys with a caller-supplied IStrings list.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "read component keys from a database library",
+    "list tables in a .DbLib file",
+    "find installed database libraries",
+    "pass an IStrings list to an SDK call"
+  ],
+  "commands": [
+    {
+      "name": "ListComponentKeys",
+      "description": "List the tables and component keys of a DbLib",
+      "params": "DbLib=<path to .DbLib> (optional, default: every available database library)|Keys=true (optional)|Max=<keys listed per table, default 5, 0 = all> (optional)",
+      "readOnly": true
+    }
+  ]
+}

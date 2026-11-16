@@ -1,0 +1,49 @@
+PL PLPadNetReassign:UpdatePad
+    Command='PadNetReassign:Run'
+    Caption='&Update Pad'
+    Image=''
+    Description='Move every pad of the board to one net'
+    Params='Cmd=UpdatePad'
+End
+
+PL PLPadNetReassign:ListPadNets
+    Command='PadNetReassign:Run'
+    Caption='&List Pad Nets'
+    Image=''
+    Description='Count the pads of each net (read-only)'
+    Params='Cmd=ListPadNets'
+End
+
+#if DEBUG
+PL PLPadNetReassign:Reload
+    Command='PadNetReassign:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PadNetReassign implementation module'
+    Params=''
+End
+
+PL PLPadNetReassign:Status
+    Command='PadNetReassign:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PadNetReassign hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPadNetReassign Caption='&PadNetReassign' TopLevel=True
+    Link      MNPadNetReassign_UpdatePad  PLID='PLPadNetReassign:UpdatePad'  End
+    Link      MNPadNetReassign_ListPadNets  PLID='PLPadNetReassign:ListPadNets'  End
+#if DEBUG
+    Separator MNPadNetReassign_Sep10                              End
+    Tree MNPadNetReassign_Developer Caption='&Developer'
+        Link  MNPadNetReassign_Reload PLID='PLPadNetReassign:Reload' End
+        Link  MNPadNetReassign_Status PLID='PLPadNetReassign:Status' End
+    End
+#endif
+End
+
+Insertion MNPadNetReassign_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PadNetReassign OriginalID=MNPadNetReassign IDSuffix='_3' End
+End

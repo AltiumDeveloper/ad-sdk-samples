@@ -1,0 +1,22 @@
+ClientInsFile 1.0
+
+Server
+    EditorName        = 'BoardPadsInArea'
+    EditorExePath     = 'BoardPadsInArea.DLL'
+    EditorDescription = 'Count pads in an area with a spatial iterator'
+    Version           = 'Version 1.0.0.0'
+    Date              = '11/13/2026'
+    HelpAboutInfo     = 'Altium Designer SDK sample.'
+    Copyright         = 'Copyright Altium Limited'
+    // Merge this extension's menus at startup. Without it, AD merges them only when the server first starts,
+    // after the menu bar is built: no top-level menu.
+    Updates           = 'AdvSch'
+End
+
+// Generic, stable processes. Features are [HotCommand] methods reached through Run with Cmd=<Name>.
+// "#if DEBUG" blocks are kept in Debug builds only (Directory.Build.targets).
+Command Name = 'Run'    LongSummary = 'Run a command of BoardPadsInArea (Params: Cmd=<Name>|...)' End
+#if DEBUG
+Command Name = 'Reload' LongSummary = 'Reload the BoardPadsInArea implementation module'        End
+Command Name = 'Status' LongSummary = 'Show BoardPadsInArea hot reload status'                  End
+#endif

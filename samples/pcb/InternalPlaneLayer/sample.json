@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "InternalPlaneLayer",
+  "title": "Iterate a board's internal planes and read pull-back",
+  "summary": "Walks the board's internal plane layers with IPCB_Board.InternalPlaneLayerIterator, casts each layer object to IPCB_InternalPlane_V7 and reports its name and pull-back distance in millimetres and internal units.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "iterate",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "list the plane layers of a board",
+    "get the pullback distance of a power plane",
+    "loop over internal planes in a PCB",
+    "convert PCB coordinates to millimeters"
+  ],
+  "commands": [
+    {
+      "name": "Iterator",
+      "description": "List the internal planes and their pull-back distance",
+      "readOnly": true
+    }
+  ]
+}

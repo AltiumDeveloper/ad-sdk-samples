@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbLibToImage",
+  "title": "Export PcbLib footprints as PNG thumbnails",
+  "summary": "Shows how to iterate a PCB library and render each footprint with PaintFootprintThumbnail into a bitmap handle, then save it as a PNG file from .NET, including a workaround for the overflowing typed result.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "save footprint previews as images",
+    "render a footprint to a bitmap",
+    "generate thumbnails for every footprint in a library",
+    "convert an HBITMAP from Altium to a PNG file"
+  ],
+  "commands": [
+    {
+      "name": "GenerateImage",
+      "description": "Export the footprints of a PCB library as PNG images",
+      "params": "Lib=<path to .PcbLib> (default: the focused PCB library)|Out=<folder> (default: temp folder)|Size=<pixels, 1-4096> (default 500)",
+      "readOnly": false
+    }
+  ]
+}

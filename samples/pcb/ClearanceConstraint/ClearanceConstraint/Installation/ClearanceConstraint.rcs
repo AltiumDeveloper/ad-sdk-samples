@@ -1,0 +1,40 @@
+PL PLClearanceConstraint:ChangeClearance
+    Command='ClearanceConstraint:Run'
+    Caption='&Change Clearance'
+    Image=''
+    Description='Multiply the Arc-to-Track clearance of a clearance rule'
+    Params='Cmd=ChangeClearance|Rule=Clearance|Factor=3'
+End
+
+#if DEBUG
+PL PLClearanceConstraint:Reload
+    Command='ClearanceConstraint:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ClearanceConstraint implementation module'
+    Params=''
+End
+
+PL PLClearanceConstraint:Status
+    Command='ClearanceConstraint:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ClearanceConstraint hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNClearanceConstraint Caption='&ClearanceConstraint' TopLevel=True
+    Link      MNClearanceConstraint_ChangeClearance  PLID='PLClearanceConstraint:ChangeClearance'  End
+#if DEBUG
+    Separator MNClearanceConstraint_Sep10                              End
+    Tree MNClearanceConstraint_Developer Caption='&Developer'
+        Link  MNClearanceConstraint_Reload PLID='PLClearanceConstraint:Reload' End
+        Link  MNClearanceConstraint_Status PLID='PLClearanceConstraint:Status' End
+    End
+#endif
+End
+
+Insertion MNClearanceConstraint_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ClearanceConstraint OriginalID=MNClearanceConstraint IDSuffix='_3' End
+End

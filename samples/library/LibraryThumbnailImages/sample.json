@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "LibraryThumbnailImages",
+  "title": "Render PNG thumbnails of library symbols and footprints",
+  "summary": "Opens every SchLib and PcbLib in a folder and saves a PNG image of each symbol and footprint with the SDK thumbnail renderers. Shows the late-bound workaround for the Paint methods' handle overflow and how to leave user-opened libraries alone.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export footprint images to PNG",
+    "generate preview pictures of schematic symbols",
+    "batch render library thumbnails",
+    "save a picture of every component in a library"
+  ],
+  "commands": [
+    {
+      "name": "GenerateThumbnails",
+      "description": "Render PNG thumbnails of every symbol and footprint in library folders",
+      "params": "SchFolder=<folder with .SchLib files>|PcbFolder=<folder with .PcbLib files> (at least one)|Out=<folder> (default: %TEMP%\\LibraryThumbnailImages)|SchSize=<pixels 1-4096> (default 2000)|PcbSize=<pixels 1-4096> (default 500)",
+      "readOnly": true
+    }
+  ]
+}

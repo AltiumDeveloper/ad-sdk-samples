@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SaveSchDocToAscii",
+  "title": "Save a schematic document in ASCII format",
+  "summary": "Saves a copy of the active schematic sheet through a named save filter with IServerDocument.DoFileSave, keeping the open document on its own file.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "export a SchDoc as text",
+    "save a schematic copy in ascii format",
+    "save a document with a specific file format",
+    "write a schematic to another file without renaming it"
+  ],
+  "commands": [
+    {
+      "name": "SaveToAscii",
+      "description": "Save the active schematic in ASCII format",
+      "params": "Out=<file or existing folder> (optional, default temp folder)|Format=<save filter> (optional, default 'Advanced Schematic ascii')|Keep=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

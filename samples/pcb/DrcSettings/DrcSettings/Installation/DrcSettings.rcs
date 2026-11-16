@@ -1,0 +1,58 @@
+PL PLDrcSettings:ReportDrcSettings
+    Command='DrcSettings:Run'
+    Caption='&Report DRC Settings'
+    Image=''
+    Description='Report the online DRC switch and the board''s design rules'
+    Params='Cmd=ReportDrcSettings'
+End
+
+PL PLDrcSettings:EnableOnlineAndBatchCheck
+    Command='DrcSettings:Run'
+    Caption='&Enable Online DRC'
+    Image=''
+    Description='Turn online DRC on or off'
+    Params='Cmd=EnableOnlineAndBatchCheck|Online=true'
+End
+
+PL PLDrcSettings:RunBatchDrc
+    Command='DrcSettings:Run'
+    Caption='Run &Batch DRC'
+    Image=''
+    Description='Run a batch DRC and write the report file'
+    Params='Cmd=RunBatchDrc'
+End
+
+#if DEBUG
+PL PLDrcSettings:Reload
+    Command='DrcSettings:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DrcSettings implementation module'
+    Params=''
+End
+
+PL PLDrcSettings:Status
+    Command='DrcSettings:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DrcSettings hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDrcSettings Caption='&DrcSettings' TopLevel=True
+    Link      MNDrcSettings_ReportDrcSettings  PLID='PLDrcSettings:ReportDrcSettings'  End
+    Link      MNDrcSettings_EnableOnlineAndBatchCheck  PLID='PLDrcSettings:EnableOnlineAndBatchCheck'  End
+    Link      MNDrcSettings_RunBatchDrc  PLID='PLDrcSettings:RunBatchDrc'  End
+#if DEBUG
+    Separator MNDrcSettings_Sep10                              End
+    Tree MNDrcSettings_Developer Caption='&Developer'
+        Link  MNDrcSettings_Reload PLID='PLDrcSettings:Reload' End
+        Link  MNDrcSettings_Status PLID='PLDrcSettings:Status' End
+    End
+#endif
+End
+
+Insertion MNDrcSettings_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DrcSettings OriginalID=MNDrcSettings IDSuffix='_3' End
+End

@@ -1,0 +1,40 @@
+PL PLHighlightPcbLayer:HighlightLayer
+    Command='HighlightPcbLayer:Run'
+    Caption='&Highlight Layer'
+    Image=''
+    Description='Turn on single-layer mode and make a layer current'
+    Params='Cmd=HighlightLayer'
+End
+
+#if DEBUG
+PL PLHighlightPcbLayer:Reload
+    Command='HighlightPcbLayer:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the HighlightPcbLayer implementation module'
+    Params=''
+End
+
+PL PLHighlightPcbLayer:Status
+    Command='HighlightPcbLayer:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show HighlightPcbLayer hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNHighlightPcbLayer Caption='&HighlightPcbLayer' TopLevel=True
+    Link      MNHighlightPcbLayer_HighlightLayer  PLID='PLHighlightPcbLayer:HighlightLayer'  End
+#if DEBUG
+    Separator MNHighlightPcbLayer_Sep10                              End
+    Tree MNHighlightPcbLayer_Developer Caption='&Developer'
+        Link  MNHighlightPcbLayer_Reload PLID='PLHighlightPcbLayer:Reload' End
+        Link  MNHighlightPcbLayer_Status PLID='PLHighlightPcbLayer:Status' End
+    End
+#endif
+End
+
+Insertion MNHighlightPcbLayer_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_HighlightPcbLayer OriginalID=MNHighlightPcbLayer IDSuffix='_3' End
+End

@@ -1,0 +1,49 @@
+PL PLConvertToStep:ConvertToStep
+    Command='ConvertToStep:Run'
+    Caption='&Convert To Step'
+    Image=''
+    Description='Convert non-generic 3D bodies of the PcbLib to generic'
+    Params='Cmd=ConvertToStep'
+End
+
+PL PLConvertToStep:AddTestBody
+    Command='ConvertToStep:Run'
+    Caption='&Add Test Body'
+    Image=''
+    Description='Add a cylinder 3D body to the current footprint (test setup)'
+    Params='Cmd=AddTestBody'
+End
+
+#if DEBUG
+PL PLConvertToStep:Reload
+    Command='ConvertToStep:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ConvertToStep implementation module'
+    Params=''
+End
+
+PL PLConvertToStep:Status
+    Command='ConvertToStep:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ConvertToStep hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNConvertToStep Caption='&ConvertToStep' TopLevel=True
+    Link      MNConvertToStep_ConvertToStep  PLID='PLConvertToStep:ConvertToStep'  End
+    Link      MNConvertToStep_AddTestBody  PLID='PLConvertToStep:AddTestBody'  End
+#if DEBUG
+    Separator MNConvertToStep_Sep10                              End
+    Tree MNConvertToStep_Developer Caption='&Developer'
+        Link  MNConvertToStep_Reload PLID='PLConvertToStep:Reload' End
+        Link  MNConvertToStep_Status PLID='PLConvertToStep:Status' End
+    End
+#endif
+End
+
+Insertion MNConvertToStep_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ConvertToStep OriginalID=MNConvertToStep IDSuffix='_3' End
+End

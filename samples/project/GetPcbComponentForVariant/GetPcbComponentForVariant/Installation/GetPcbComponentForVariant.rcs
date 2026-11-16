@@ -1,0 +1,52 @@
+PL PLGetPcbComponentForVariant:GetVariantComponent
+    Command='GetPcbComponentForVariant:Run'
+    Caption='&Get Variant Component'
+    Image=''
+    Description='List the current variant''s component variations and the board''s PCB components'
+    Params='Cmd=GetVariantComponent|Max=50'
+End
+
+PL PLGetPcbComponentForVariant:AddTestVariant
+    Command='GetPcbComponentForVariant:Run'
+    Caption='Add &Test Variant'
+    Image=''
+    Description='Create a variant with one Not Fitted component and make it current (test setup)'
+    Params='Cmd=AddTestVariant'
+End
+
+#if DEBUG
+PL PLGetPcbComponentForVariant:Reload
+    Command='GetPcbComponentForVariant:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the GetPcbComponentForVariant implementation module'
+    Params=''
+End
+
+PL PLGetPcbComponentForVariant:Status
+    Command='GetPcbComponentForVariant:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show GetPcbComponentForVariant hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNGetPcbComponentForVariant Caption='&GetPcbComponentForVariant' TopLevel=True
+    Link      MNGetPcbComponentForVariant_GetVariantComponent  PLID='PLGetPcbComponentForVariant:GetVariantComponent'  End
+    Link      MNGetPcbComponentForVariant_AddTestVariant  PLID='PLGetPcbComponentForVariant:AddTestVariant'  End
+#if DEBUG
+    Separator MNGetPcbComponentForVariant_Sep10                              End
+    Tree MNGetPcbComponentForVariant_Developer Caption='&Developer'
+        Link  MNGetPcbComponentForVariant_Reload PLID='PLGetPcbComponentForVariant:Reload' End
+        Link  MNGetPcbComponentForVariant_Status PLID='PLGetPcbComponentForVariant:Status' End
+    End
+#endif
+End
+
+Insertion MNGetPcbComponentForVariant_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_GetPcbComponentForVariant OriginalID=MNGetPcbComponentForVariant IDSuffix='_2' End
+End
+Insertion MNGetPcbComponentForVariant_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_GetPcbComponentForVariant OriginalID=MNGetPcbComponentForVariant IDSuffix='_3' End
+End

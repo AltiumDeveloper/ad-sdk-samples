@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PadViaTemplate",
+  "title": "Report the template each pad is linked to",
+  "summary": "Shows how to find the pad/via template behind each pad with FindLinkedBoardTemplate, read its library and template IDs, group pads by template, and create and link a board template from a pad.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "which pad via template is a pad using",
+    "list pad templates used on a board",
+    "link a pad to a pad stack template",
+    "get the library ID of a pad template"
+  ],
+  "commands": [
+    {
+      "name": "GetTemplateName",
+      "description": "Report the pad/via template each pad is linked to",
+      "params": "Max=<number of linked pads listed, default 50> (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "LinkTestPadTemplate",
+      "description": "Create a board template from a pad and link the pad to it (test setup)",
+      "params": "Pad=<pin descriptor, e.g. U1-1> (optional; default: first unlinked pad)",
+      "readOnly": false
+    }
+  ]
+}

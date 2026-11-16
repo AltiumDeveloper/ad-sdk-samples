@@ -1,0 +1,43 @@
+PL PLImportDwgToPcb:ImportDwg
+    Command='ImportDwgToPcb:Run'
+    Caption='&Import Dwg'
+    Image=''
+    Description='Import a DWG/DXF file into a new PCB document and save it'
+    Params='Cmd=ImportDwg'
+End
+
+#if DEBUG
+PL PLImportDwgToPcb:Reload
+    Command='ImportDwgToPcb:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the ImportDwgToPcb implementation module'
+    Params=''
+End
+
+PL PLImportDwgToPcb:Status
+    Command='ImportDwgToPcb:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show ImportDwgToPcb hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNImportDwgToPcb Caption='&ImportDwgToPcb' TopLevel=True
+    Link      MNImportDwgToPcb_ImportDwg  PLID='PLImportDwgToPcb:ImportDwg'  End
+#if DEBUG
+    Separator MNImportDwgToPcb_Sep10                              End
+    Tree MNImportDwgToPcb_Developer Caption='&Developer'
+        Link  MNImportDwgToPcb_Reload PLID='PLImportDwgToPcb:Reload' End
+        Link  MNImportDwgToPcb_Status PLID='PLImportDwgToPcb:Status' End
+    End
+#endif
+End
+
+Insertion MNImportDwgToPcb_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_ImportDwgToPcb OriginalID=MNImportDwgToPcb IDSuffix='_1' End
+End
+Insertion MNImportDwgToPcb_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_ImportDwgToPcb OriginalID=MNImportDwgToPcb IDSuffix='_3' End
+End

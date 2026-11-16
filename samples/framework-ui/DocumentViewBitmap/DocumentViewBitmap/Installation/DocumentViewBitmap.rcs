@@ -1,0 +1,43 @@
+PL PLDocumentViewBitmap:CreateImages
+    Command='DocumentViewBitmap:Run'
+    Caption='&Create Images'
+    Image=''
+    Description='Save the current document view as a bitmap'
+    Params='Cmd=CreateImages|Out='
+End
+
+#if DEBUG
+PL PLDocumentViewBitmap:Reload
+    Command='DocumentViewBitmap:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the DocumentViewBitmap implementation module'
+    Params=''
+End
+
+PL PLDocumentViewBitmap:Status
+    Command='DocumentViewBitmap:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show DocumentViewBitmap hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNDocumentViewBitmap Caption='&DocumentViewBitmap' TopLevel=True
+    Link      MNDocumentViewBitmap_CreateImages  PLID='PLDocumentViewBitmap:CreateImages'  End
+#if DEBUG
+    Separator MNDocumentViewBitmap_Sep10                              End
+    Tree MNDocumentViewBitmap_Developer Caption='&Developer'
+        Link  MNDocumentViewBitmap_Reload PLID='PLDocumentViewBitmap:Reload' End
+        Link  MNDocumentViewBitmap_Status PLID='PLDocumentViewBitmap:Status' End
+    End
+#endif
+End
+
+Insertion MNDocumentViewBitmap_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_DocumentViewBitmap OriginalID=MNDocumentViewBitmap IDSuffix='_2' End
+End
+Insertion MNDocumentViewBitmap_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_DocumentViewBitmap OriginalID=MNDocumentViewBitmap IDSuffix='_3' End
+End

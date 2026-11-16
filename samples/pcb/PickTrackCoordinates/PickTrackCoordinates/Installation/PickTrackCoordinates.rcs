@@ -1,0 +1,49 @@
+PL PLPickTrackCoordinates:ShowTrackCoord
+    Command='PickTrackCoordinates:Run'
+    Caption='&Show Track Coord'
+    Image=''
+    Description='Pick tracks and show their coordinates'
+    Params='Cmd=ShowTrackCoord'
+End
+
+PL PLPickTrackCoordinates:ListTracks
+    Command='PickTrackCoordinates:Run'
+    Caption='&List Tracks'
+    Image=''
+    Description='List track coordinates (test helper)'
+    Params='Cmd=ListTracks|Max=5'
+End
+
+#if DEBUG
+PL PLPickTrackCoordinates:Reload
+    Command='PickTrackCoordinates:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PickTrackCoordinates implementation module'
+    Params=''
+End
+
+PL PLPickTrackCoordinates:Status
+    Command='PickTrackCoordinates:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PickTrackCoordinates hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPickTrackCoordinates Caption='&PickTrackCoordinates' TopLevel=True
+    Link      MNPickTrackCoordinates_ShowTrackCoord  PLID='PLPickTrackCoordinates:ShowTrackCoord'  End
+    Link      MNPickTrackCoordinates_ListTracks  PLID='PLPickTrackCoordinates:ListTracks'  End
+#if DEBUG
+    Separator MNPickTrackCoordinates_Sep10                              End
+    Tree MNPickTrackCoordinates_Developer Caption='&Developer'
+        Link  MNPickTrackCoordinates_Reload PLID='PLPickTrackCoordinates:Reload' End
+        Link  MNPickTrackCoordinates_Status PLID='PLPickTrackCoordinates:Status' End
+    End
+#endif
+End
+
+Insertion MNPickTrackCoordinates_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PickTrackCoordinates OriginalID=MNPickTrackCoordinates IDSuffix='_3' End
+End

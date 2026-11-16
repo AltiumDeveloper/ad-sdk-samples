@@ -1,0 +1,109 @@
+// Main menu items: they act on the selected wire (Wire=selected is the commands' default).
+PL PLWireAddParameter:AddParameterToWire
+    Command='WireAddParameter:Run'
+    Caption='&Add Parameter To Selected Wire'
+    Image=''
+    Description='Add a parameter (NewParamName=NewParamValue) to the selected wire'
+    Params='Cmd=AddParameterToWire|Name=NewParamName|Value=NewParamValue'
+End
+
+PL PLWireAddParameter:GetParameterFromWire
+    Command='WireAddParameter:Run'
+    Caption='&Get Parameters Of Selected Wire'
+    Image=''
+    Description='List the parameters of the selected wire'
+    Params='Cmd=GetParameterFromWire'
+End
+
+PL PLWireAddParameter:RemoveParameterFromWire
+    Command='WireAddParameter:Run'
+    Caption='&Remove Parameters From Selected Wire'
+    Image=''
+    Description='Remove the parameters of the selected wire'
+    Params='Cmd=RemoveParameterFromWire'
+End
+
+PL PLWireAddParameter:ListWires
+    Command='WireAddParameter:Run'
+    Caption='&List Wires'
+    Image=''
+    Description='List the wires of the current sheet with their parameter counts'
+    Params='Cmd=ListWires'
+End
+
+// Context menu items: RunOnWire shows them only while a wire is under the right-click position, and Wire=popup
+// makes the command use that wire (ISch_Document.PopupMenuHitTest).
+PL PLWireAddParameter:PopupAddParameterToWire
+    Command='WireAddParameter:RunOnWire'
+    Caption='Wire: Add Parameter'
+    Image=''
+    Description='Add a parameter (NewParamName=NewParamValue) to this wire'
+    Params='Cmd=AddParameterToWire|Wire=popup|Name=NewParamName|Value=NewParamValue'
+End
+
+PL PLWireAddParameter:PopupRemoveParameterFromWire
+    Command='WireAddParameter:RunOnWire'
+    Caption='Wire: Remove Parameters'
+    Image=''
+    Description='Remove the parameters of this wire'
+    Params='Cmd=RemoveParameterFromWire|Wire=popup'
+End
+
+PL PLWireAddParameter:PopupGetParameterFromWire
+    Command='WireAddParameter:RunOnWire'
+    Caption='Wire: Get Parameters'
+    Image=''
+    Description='List the parameters of this wire'
+    Params='Cmd=GetParameterFromWire|Wire=popup'
+End
+
+#if DEBUG
+PL PLWireAddParameter:Reload
+    Command='WireAddParameter:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the WireAddParameter implementation module'
+    Params=''
+End
+
+PL PLWireAddParameter:Status
+    Command='WireAddParameter:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show WireAddParameter hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNWireAddParameter Caption='&WireAddParameter' TopLevel=True
+    Link      MNWireAddParameter_AddParameterToWire  PLID='PLWireAddParameter:AddParameterToWire'  End
+    Link      MNWireAddParameter_GetParameterFromWire  PLID='PLWireAddParameter:GetParameterFromWire'  End
+    Link      MNWireAddParameter_RemoveParameterFromWire  PLID='PLWireAddParameter:RemoveParameterFromWire'  End
+    Link      MNWireAddParameter_ListWires  PLID='PLWireAddParameter:ListWires'  End
+#if DEBUG
+    Separator MNWireAddParameter_Sep10                              End
+    Tree MNWireAddParameter_Developer Caption='&Developer'
+        Link  MNWireAddParameter_Reload PLID='PLWireAddParameter:Reload' End
+        Link  MNWireAddParameter_Status PLID='PLWireAddParameter:Status' End
+    End
+#endif
+End
+
+Insertion MNWireAddParameter_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_WireAddParameter OriginalID=MNWireAddParameter IDSuffix='_2' End
+End
+
+// The schematic editor's right-click menu (Tree PUSCHMENU in the System advsch.rcs): after the separator
+// MNSchematic_PUSCHMENU30; then each item after the previous one.
+Insertion MNWireAddParameter_Popup1 TargetID='PUSCHMENU' InsertType='After' RefID0='MNSchematic_PUSCHMENU30'
+    Link MNWireAddParameter_PopupAdd PLID='PLWireAddParameter:PopupAddParameterToWire' End
+End
+Insertion MNWireAddParameter_Popup2 TargetID='PUSCHMENU' InsertType='After' RefID0='MNWireAddParameter_PopupAdd'
+    Link MNWireAddParameter_PopupRemove PLID='PLWireAddParameter:PopupRemoveParameterFromWire' End
+End
+Insertion MNWireAddParameter_Popup3 TargetID='PUSCHMENU' InsertType='After' RefID0='MNWireAddParameter_PopupRemove'
+    Link MNWireAddParameter_PopupGet PLID='PLWireAddParameter:PopupGetParameterFromWire' End
+End
+Insertion MNWireAddParameter_Popup4 TargetID='PUSCHMENU' InsertType='After' RefID0='MNWireAddParameter_PopupGet'
+    Separator MNWireAddParameter_PopupSep End
+End

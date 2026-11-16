@@ -1,0 +1,40 @@
+PL PLPlaceComponentFromVault:PlaceVaultComponent
+    Command='PlaceComponentFromVault:Run'
+    Caption='&Place Vault Component'
+    Image=''
+    Description='Place a Vault component by item revision HRID'
+    Params='Cmd=PlaceVaultComponent|Hrid=CMP-0001-00000-1'
+End
+
+#if DEBUG
+PL PLPlaceComponentFromVault:Reload
+    Command='PlaceComponentFromVault:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlaceComponentFromVault implementation module'
+    Params=''
+End
+
+PL PLPlaceComponentFromVault:Status
+    Command='PlaceComponentFromVault:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlaceComponentFromVault hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlaceComponentFromVault Caption='&PlaceComponentFromVault' TopLevel=True
+    Link      MNPlaceComponentFromVault_PlaceVaultComponent  PLID='PLPlaceComponentFromVault:PlaceVaultComponent'  End
+#if DEBUG
+    Separator MNPlaceComponentFromVault_Sep10                              End
+    Tree MNPlaceComponentFromVault_Developer Caption='&Developer'
+        Link  MNPlaceComponentFromVault_Reload PLID='PLPlaceComponentFromVault:Reload' End
+        Link  MNPlaceComponentFromVault_Status PLID='PLPlaceComponentFromVault:Status' End
+    End
+#endif
+End
+
+Insertion MNPlaceComponentFromVault_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_PlaceComponentFromVault OriginalID=MNPlaceComponentFromVault IDSuffix='_2' End
+End

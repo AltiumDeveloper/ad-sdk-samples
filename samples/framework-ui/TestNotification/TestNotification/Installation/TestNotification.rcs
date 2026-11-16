@@ -1,0 +1,64 @@
+PL PLTestNotification:BroadCast
+    Command='TestNotification:Run'
+    Caption='&Broadcast'
+    Image=''
+    Description='Broadcast a validate-state-transition notification (asynchronous)'
+    Params='Cmd=BroadCast'
+End
+
+PL PLTestNotification:BroadCastSync
+    Command='TestNotification:Run'
+    Caption='Broadcast &Synchronously'
+    Image=''
+    Description='Broadcast the notification synchronously and report what subscribers did'
+    Params='Cmd=BroadCast|Mode=sync'
+End
+
+PL PLTestNotification:NotificationStatus
+    Command='TestNotification:Run'
+    Caption='&Notification Status'
+    Image=''
+    Description='Show the last broadcast notification and what subscribers asked of it'
+    Params='Cmd=NotificationStatus'
+End
+
+#if DEBUG
+PL PLTestNotification:Reload
+    Command='TestNotification:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the TestNotification implementation module'
+    Params=''
+End
+
+PL PLTestNotification:Status
+    Command='TestNotification:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show TestNotification hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNTestNotification Caption='&TestNotification' TopLevel=True
+    Link      MNTestNotification_BroadCast  PLID='PLTestNotification:BroadCast'  End
+    Link      MNTestNotification_BroadCastSync  PLID='PLTestNotification:BroadCastSync'  End
+    Link      MNTestNotification_NotificationStatus  PLID='PLTestNotification:NotificationStatus'  End
+#if DEBUG
+    Separator MNTestNotification_Sep10                              End
+    Tree MNTestNotification_Developer Caption='&Developer'
+        Link  MNTestNotification_Reload PLID='PLTestNotification:Reload' End
+        Link  MNTestNotification_Status PLID='PLTestNotification:Status' End
+    End
+#endif
+End
+
+Insertion MNTestNotification_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_TestNotification OriginalID=MNTestNotification IDSuffix='_1' End
+End
+Insertion MNTestNotification_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_TestNotification OriginalID=MNTestNotification IDSuffix='_2' End
+End
+Insertion MNTestNotification_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_TestNotification OriginalID=MNTestNotification IDSuffix='_3' End
+End

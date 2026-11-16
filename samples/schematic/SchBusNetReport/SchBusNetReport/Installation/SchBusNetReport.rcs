@@ -1,0 +1,43 @@
+PL PLSchBusNetReport:GetBusInfo
+    Command='SchBusNetReport:Run'
+    Caption='&Get Bus Info'
+    Image=''
+    Description='List the compiled buses of every schematic and their member nets'
+    Params='Cmd=GetBusInfo'
+End
+
+#if DEBUG
+PL PLSchBusNetReport:Reload
+    Command='SchBusNetReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchBusNetReport implementation module'
+    Params=''
+End
+
+PL PLSchBusNetReport:Status
+    Command='SchBusNetReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchBusNetReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchBusNetReport Caption='&SchBusNetReport' TopLevel=True
+    Link      MNSchBusNetReport_GetBusInfo  PLID='PLSchBusNetReport:GetBusInfo'  End
+#if DEBUG
+    Separator MNSchBusNetReport_Sep10                              End
+    Tree MNSchBusNetReport_Developer Caption='&Developer'
+        Link  MNSchBusNetReport_Reload PLID='PLSchBusNetReport:Reload' End
+        Link  MNSchBusNetReport_Status PLID='PLSchBusNetReport:Status' End
+    End
+#endif
+End
+
+Insertion MNSchBusNetReport_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_SchBusNetReport OriginalID=MNSchBusNetReport IDSuffix='_1' End
+End
+Insertion MNSchBusNetReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchBusNetReport OriginalID=MNSchBusNetReport IDSuffix='_2' End
+End

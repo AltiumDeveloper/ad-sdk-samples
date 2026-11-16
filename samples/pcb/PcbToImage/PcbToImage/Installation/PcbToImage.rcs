@@ -1,0 +1,40 @@
+PL PLPcbToImage:PcbToImage
+    Command='PcbToImage:Run'
+    Caption='&Pcb To Image'
+    Image=''
+    Description='Switch the PCB view to 3D and save the view window as a PNG'
+    Params='Cmd=PcbToImage'
+End
+
+#if DEBUG
+PL PLPcbToImage:Reload
+    Command='PcbToImage:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PcbToImage implementation module'
+    Params=''
+End
+
+PL PLPcbToImage:Status
+    Command='PcbToImage:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PcbToImage hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPcbToImage Caption='&PcbToImage' TopLevel=True
+    Link      MNPcbToImage_PcbToImage  PLID='PLPcbToImage:PcbToImage'  End
+#if DEBUG
+    Separator MNPcbToImage_Sep10                              End
+    Tree MNPcbToImage_Developer Caption='&Developer'
+        Link  MNPcbToImage_Reload PLID='PLPcbToImage:Reload' End
+        Link  MNPcbToImage_Status PLID='PLPcbToImage:Status' End
+    End
+#endif
+End
+
+Insertion MNPcbToImage_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PcbToImage OriginalID=MNPcbToImage IDSuffix='_3' End
+End

@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ComponentBodyOpacity",
+  "title": "Read 3D camera and board Z range, set body opacity",
+  "summary": "Shows how to read and write the camera of a board's main graphical view, read the board's Z range and an entry of its exported parameter string, and change the 3D opacity of a component body inside a modify bracket.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "make a component body transparent in 3D",
+    "get or set the 3D view camera of a PCB",
+    "read the board thickness range in Z",
+    "read a value from a board's exported parameters"
+  ],
+  "commands": [
+    {
+      "name": "BoardInfo3D",
+      "description": "Report the board Z range, the 3D camera and ROUTETOOLPATHLAYER",
+      "readOnly": true
+    },
+    {
+      "name": "SetCamera",
+      "description": "Set the 3D camera of the main view (default: current camera)",
+      "params": "LookAtX|LookAtY|LookAtZ|QuatX|QuatY|QuatZ|QuatW|Zoom (each optional, default: current value)",
+      "readOnly": false
+    },
+    {
+      "name": "SetBodyOpacity",
+      "description": "Set the 3D opacity of the first component body",
+      "params": "Opacity=<0..1> (default 1)",
+      "readOnly": false
+    }
+  ]
+}

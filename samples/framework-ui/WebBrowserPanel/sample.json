@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "WebBrowserPanel",
+  "title": "Show a web page in a dockable panel",
+  "summary": "Hosts a Microsoft Edge WebView2 browser (the copy Altium Designer ships) in a dockable extension panel, opens the panel from a command and navigates to an http(s) address.",
+  "category": "framework-ui",
+  "domain": "system",
+  "task": [
+    "extend-ui"
+  ],
+  "surface": [
+    "panel",
+    "command"
+  ],
+  "requiresRestart": true,
+  "phrasings": [
+    "embed a web browser in an extension panel",
+    "open a URL inside Altium Designer",
+    "use WebView2 in a dockable panel",
+    "host a WinForms control in a panel"
+  ],
+  "commands": [
+    {
+      "name": "NavigateToURL",
+      "description": "Load a web address in the Web Browser panel and show it",
+      "params": "URL=<http(s) address>",
+      "readOnly": true
+    },
+    {
+      "name": "GetBrowserState",
+      "description": "Report the Web Browser panel's address, page title and last navigation result (added read-back for tests)",
+      "readOnly": true
+    }
+  ]
+}

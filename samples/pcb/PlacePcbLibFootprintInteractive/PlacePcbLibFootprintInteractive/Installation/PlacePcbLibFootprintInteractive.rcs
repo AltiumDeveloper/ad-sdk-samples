@@ -1,0 +1,49 @@
+PL PLPlacePcbLibFootprintInteractive:PlaceLibComponent
+    Command='PlacePcbLibFootprintInteractive:Run'
+    Caption='&Place Lib Component'
+    Image=''
+    Description='Start interactive placement of a footprint from a .PcbLib'
+    Params='Cmd=PlaceLibComponent'
+End
+
+PL PLPlacePcbLibFootprintInteractive:ListLibFootprints
+    Command='PlacePcbLibFootprintInteractive:Run'
+    Caption='&List Lib Footprints'
+    Image=''
+    Description='List the footprints of a .PcbLib (read-only)'
+    Params='Cmd=ListLibFootprints'
+End
+
+#if DEBUG
+PL PLPlacePcbLibFootprintInteractive:Reload
+    Command='PlacePcbLibFootprintInteractive:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PlacePcbLibFootprintInteractive implementation module'
+    Params=''
+End
+
+PL PLPlacePcbLibFootprintInteractive:Status
+    Command='PlacePcbLibFootprintInteractive:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PlacePcbLibFootprintInteractive hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPlacePcbLibFootprintInteractive Caption='&PlacePcbLibFootprintInteractive' TopLevel=True
+    Link      MNPlacePcbLibFootprintInteractive_PlaceLibComponent  PLID='PLPlacePcbLibFootprintInteractive:PlaceLibComponent'  End
+    Link      MNPlacePcbLibFootprintInteractive_ListLibFootprints  PLID='PLPlacePcbLibFootprintInteractive:ListLibFootprints'  End
+#if DEBUG
+    Separator MNPlacePcbLibFootprintInteractive_Sep10                              End
+    Tree MNPlacePcbLibFootprintInteractive_Developer Caption='&Developer'
+        Link  MNPlacePcbLibFootprintInteractive_Reload PLID='PLPlacePcbLibFootprintInteractive:Reload' End
+        Link  MNPlacePcbLibFootprintInteractive_Status PLID='PLPlacePcbLibFootprintInteractive:Status' End
+    End
+#endif
+End
+
+Insertion MNPlacePcbLibFootprintInteractive_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_PlacePcbLibFootprintInteractive OriginalID=MNPlacePcbLibFootprintInteractive IDSuffix='_3' End
+End

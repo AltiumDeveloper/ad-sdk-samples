@@ -1,0 +1,43 @@
+PL PLCompareBoard:CompareBoard
+    Command='CompareBoard:Run'
+    Caption='&Compare Board'
+    Image=''
+    Description='Compare two PCB documents layer by layer'
+    Params='Cmd=CompareBoard'
+End
+
+#if DEBUG
+PL PLCompareBoard:Reload
+    Command='CompareBoard:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the CompareBoard implementation module'
+    Params=''
+End
+
+PL PLCompareBoard:Status
+    Command='CompareBoard:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show CompareBoard hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNCompareBoard Caption='&CompareBoard' TopLevel=True
+    Link      MNCompareBoard_CompareBoard  PLID='PLCompareBoard:CompareBoard'  End
+#if DEBUG
+    Separator MNCompareBoard_Sep10                              End
+    Tree MNCompareBoard_Developer Caption='&Developer'
+        Link  MNCompareBoard_Reload PLID='PLCompareBoard:Reload' End
+        Link  MNCompareBoard_Status PLID='PLCompareBoard:Status' End
+    End
+#endif
+End
+
+Insertion MNCompareBoard_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_CompareBoard OriginalID=MNCompareBoard IDSuffix='_1' End
+End
+Insertion MNCompareBoard_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_CompareBoard OriginalID=MNCompareBoard IDSuffix='_3' End
+End

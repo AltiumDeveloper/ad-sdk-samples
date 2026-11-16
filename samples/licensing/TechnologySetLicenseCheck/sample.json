@@ -1,0 +1,34 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "TechnologySetLicenseCheck",
+  "title": "Detect a full AD license via a technology set",
+  "summary": "Checks with IServerSecurity.IsTechnologySetSupported whether the running license includes the Schematic_Editor technology set, and lists all technology sets the license reports.",
+  "category": "licensing",
+  "domain": "system",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "check which Altium license is active",
+    "is a feature licensed in this session",
+    "list licensed technology sets",
+    "detect schematic editor license from an extension"
+  ],
+  "commands": [
+    {
+      "name": "CheckADLicense",
+      "description": "Check whether the Schematic_Editor technology set is licensed",
+      "params": "TechnologySet=<name, default Schematic_Editor>|Server=<server module name, default this extension>",
+      "readOnly": true
+    },
+    {
+      "name": "ListTechnologySets",
+      "description": "List the technology sets the license reports (addition)",
+      "readOnly": true
+    }
+  ]
+}

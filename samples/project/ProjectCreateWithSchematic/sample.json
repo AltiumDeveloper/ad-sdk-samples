@@ -1,0 +1,28 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ProjectCreateWithSchematic",
+  "title": "Create a PCB project with a blank schematic",
+  "summary": "Creates a new PCB project by sending the WorkspaceManager:OpenObject process, then creates a blank schematic with DM_CreateNewDocument, adds it to the project and opens it, checking that the new project is the focused one.",
+  "category": "project",
+  "domain": "project",
+  "task": [
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "create a new PrjPcb from code",
+    "add a new SchDoc to a project",
+    "make a new project and open a blank sheet",
+    "run a workspace process when no API exists"
+  ],
+  "commands": [
+    {
+      "name": "CreateProject",
+      "description": "Create a PCB project with a blank schematic",
+      "readOnly": false
+    }
+  ]
+}

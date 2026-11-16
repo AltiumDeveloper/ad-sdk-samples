@@ -1,0 +1,49 @@
+PL PLPortalSessionSignIn:Login
+    Command='PortalSessionSignIn:Run'
+    Caption='&Login'
+    Image=''
+    Description='Sign in to the Altium portal with a session ID'
+    Params='Cmd=Login'
+End
+
+PL PLPortalSessionSignIn:LoginState
+    Command='PortalSessionSignIn:Run'
+    Caption='&Login State'
+    Image=''
+    Description='Show the Altium portal sign-in state'
+    Params='Cmd=LoginState'
+End
+
+#if DEBUG
+PL PLPortalSessionSignIn:Reload
+    Command='PortalSessionSignIn:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the PortalSessionSignIn implementation module'
+    Params=''
+End
+
+PL PLPortalSessionSignIn:Status
+    Command='PortalSessionSignIn:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show PortalSessionSignIn hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNPortalSessionSignIn Caption='&PortalSessionSignIn' TopLevel=True
+    Link      MNPortalSessionSignIn_Login  PLID='PLPortalSessionSignIn:Login'  End
+    Link      MNPortalSessionSignIn_LoginState  PLID='PLPortalSessionSignIn:LoginState'  End
+#if DEBUG
+    Separator MNPortalSessionSignIn_Sep10                              End
+    Tree MNPortalSessionSignIn_Developer Caption='&Developer'
+        Link  MNPortalSessionSignIn_Reload PLID='PLPortalSessionSignIn:Reload' End
+        Link  MNPortalSessionSignIn_Status PLID='PLPortalSessionSignIn:Status' End
+    End
+#endif
+End
+
+Insertion MNPortalSessionSignIn_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_PortalSessionSignIn OriginalID=MNPortalSessionSignIn IDSuffix='_1' End
+End

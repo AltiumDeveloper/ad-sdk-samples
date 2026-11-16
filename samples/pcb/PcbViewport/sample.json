@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PcbViewport",
+  "title": "Read the PCB viewport title and a technology set licence",
+  "summary": "Gets DXP.IServerSecurity from a server module to check whether a technology set is licensed, then reads IPCB_Board.Viewport and its title, handling the null viewport an ordinary board returns.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "check if a technology set is licensed",
+    "get IServerSecurity from an extension",
+    "read the viewport of a board",
+    "is a feature licensed in this session"
+  ],
+  "commands": [
+    {
+      "name": "GetViewport",
+      "description": "Show the PCB viewport title and a technology set licence check",
+      "params": "TechnologySet=<name> (optional, default Cam350)",
+      "readOnly": true
+    }
+  ]
+}

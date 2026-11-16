@@ -1,0 +1,40 @@
+PL PLSchAutoJunctionReport:GetAllAutoJunctions
+    Command='SchAutoJunctionReport:Run'
+    Caption='&Get All Auto Junctions'
+    Image=''
+    Description='List auto-placed junctions of the current sheet with their net names'
+    Params='Cmd=GetAllAutoJunctions'
+End
+
+#if DEBUG
+PL PLSchAutoJunctionReport:Reload
+    Command='SchAutoJunctionReport:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the SchAutoJunctionReport implementation module'
+    Params=''
+End
+
+PL PLSchAutoJunctionReport:Status
+    Command='SchAutoJunctionReport:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show SchAutoJunctionReport hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNSchAutoJunctionReport Caption='&SchAutoJunctionReport' TopLevel=True
+    Link      MNSchAutoJunctionReport_GetAllAutoJunctions  PLID='PLSchAutoJunctionReport:GetAllAutoJunctions'  End
+#if DEBUG
+    Separator MNSchAutoJunctionReport_Sep10                              End
+    Tree MNSchAutoJunctionReport_Developer Caption='&Developer'
+        Link  MNSchAutoJunctionReport_Reload PLID='PLSchAutoJunctionReport:Reload' End
+        Link  MNSchAutoJunctionReport_Status PLID='PLSchAutoJunctionReport:Status' End
+    End
+#endif
+End
+
+Insertion MNSchAutoJunctionReport_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_SchAutoJunctionReport OriginalID=MNSchAutoJunctionReport IDSuffix='_2' End
+End

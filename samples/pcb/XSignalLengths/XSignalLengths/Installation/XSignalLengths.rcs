@@ -1,0 +1,49 @@
+PL PLXSignalLengths:GetXSignalInfo
+    Command='XSignalLengths:Run'
+    Caption='&Get XSignal Info'
+    Image=''
+    Description='Report the lengths of the xSignals in each xSignal class'
+    Params='Cmd=GetXSignalInfo'
+End
+
+PL PLXSignalLengths:AddTestXSignal
+    Command='XSignalLengths:Run'
+    Caption='&Add Test XSignal'
+    Image=''
+    Description='Create an xSignal in a test class (test setup)'
+    Params='Cmd=AddTestXSignal'
+End
+
+#if DEBUG
+PL PLXSignalLengths:Reload
+    Command='XSignalLengths:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the XSignalLengths implementation module'
+    Params=''
+End
+
+PL PLXSignalLengths:Status
+    Command='XSignalLengths:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show XSignalLengths hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNXSignalLengths Caption='&XSignalLengths' TopLevel=True
+    Link      MNXSignalLengths_GetXSignalInfo  PLID='PLXSignalLengths:GetXSignalInfo'  End
+    Link      MNXSignalLengths_AddTestXSignal  PLID='PLXSignalLengths:AddTestXSignal'  End
+#if DEBUG
+    Separator MNXSignalLengths_Sep10                              End
+    Tree MNXSignalLengths_Developer Caption='&Developer'
+        Link  MNXSignalLengths_Reload PLID='PLXSignalLengths:Reload' End
+        Link  MNXSignalLengths_Status PLID='PLXSignalLengths:Status' End
+    End
+#endif
+End
+
+Insertion MNXSignalLengths_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_XSignalLengths OriginalID=MNXSignalLengths IDSuffix='_3' End
+End

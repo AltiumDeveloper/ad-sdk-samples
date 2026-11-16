@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DrillDrawingLayerExport",
+  "title": "Export drill drawing layer primitives to a text file",
+  "summary": "Iterates every primitive on the Drill Drawing layer of the current board with a layer-filtered board iterator and writes each one's Export_ToParameters string to a text file, with a count per object kind.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "iterate",
+    "import-export"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "list all objects on one PCB layer",
+    "dump drill table contents to a file",
+    "filter a board iterator by layer",
+    "serialize PCB primitives to parameter strings"
+  ],
+  "commands": [
+    {
+      "name": "ExportDrillDrawing",
+      "description": "Export the primitives of the drill drawing layer to a text file",
+      "params": "Out=<folder or file> (optional, default temp folder)|TextOnly=true (optional)",
+      "readOnly": true
+    },
+    {
+      "name": "AddTestText",
+      "description": "Place a text on the drill drawing layer (test setup)",
+      "params": "Text=<string> (default DrillDrawingLayerExport_Test)",
+      "readOnly": false
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+PL PLWebBrowserPanel:NavigateToURL
+    Command='WebBrowserPanel:Run'
+    Caption='&Navigate To URL'
+    Image=''
+    Description='Load a web address in the Web Browser panel and show it'
+    Params='Cmd=NavigateToURL|URL=https://www.altium.com'
+End
+
+PL PLWebBrowserPanel:GetBrowserState
+    Command='WebBrowserPanel:Run'
+    Caption='Browser &State'
+    Image=''
+    Description='Report the Web Browser panel''s address, page title and last navigation result'
+    Params='Cmd=GetBrowserState'
+End
+
+PL PLWebBrowserPanel:Panel
+    Command='WebBrowserPanel:Run'
+    Caption='Show &Panel'
+    Image=''
+    Description='Show the WebBrowserPanel panel'
+    Params='Cmd=Panel.Show'
+End
+
+#if DEBUG
+PL PLWebBrowserPanel:Reload
+    Command='WebBrowserPanel:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the WebBrowserPanel implementation module'
+    Params=''
+End
+
+PL PLWebBrowserPanel:Status
+    Command='WebBrowserPanel:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show WebBrowserPanel hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNWebBrowserPanel Caption='&WebBrowserPanel' TopLevel=True
+    Link      MNWebBrowserPanel_NavigateToURL  PLID='PLWebBrowserPanel:NavigateToURL'  End
+    Link      MNWebBrowserPanel_GetBrowserState  PLID='PLWebBrowserPanel:GetBrowserState'  End
+    Link      MNWebBrowserPanel_Panel  PLID='PLWebBrowserPanel:Panel'  End
+#if DEBUG
+    Separator MNWebBrowserPanel_Sep10                              End
+    Tree MNWebBrowserPanel_Developer Caption='&Developer'
+        Link  MNWebBrowserPanel_Reload PLID='PLWebBrowserPanel:Reload' End
+        Link  MNWebBrowserPanel_Status PLID='PLWebBrowserPanel:Status' End
+    End
+#endif
+End
+
+Insertion MNWebBrowserPanel_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_WebBrowserPanel OriginalID=MNWebBrowserPanel IDSuffix='_1' End
+End
+Insertion MNWebBrowserPanel_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_WebBrowserPanel OriginalID=MNWebBrowserPanel IDSuffix='_2' End
+End
+Insertion MNWebBrowserPanel_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_WebBrowserPanel OriginalID=MNWebBrowserPanel IDSuffix='_3' End
+End

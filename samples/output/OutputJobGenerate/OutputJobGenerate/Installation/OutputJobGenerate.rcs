@@ -1,0 +1,55 @@
+PL PLOutputJobGenerate:RunOutputJobs
+    Command='OutputJobGenerate:Run'
+    Caption='&Run Output Jobs'
+    Image=''
+    Description='Run the Output Job media of the focused project'
+    Params='Cmd=RunOutputJobs'
+End
+
+PL PLOutputJobGenerate:ListOutputMedia
+    Command='OutputJobGenerate:Run'
+    Caption='&List Output Media'
+    Image=''
+    Description='List the Output Job media of the focused project'
+    Params='Cmd=ListOutputMedia'
+End
+
+#if DEBUG
+PL PLOutputJobGenerate:Reload
+    Command='OutputJobGenerate:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the OutputJobGenerate implementation module'
+    Params=''
+End
+
+PL PLOutputJobGenerate:Status
+    Command='OutputJobGenerate:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show OutputJobGenerate hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNOutputJobGenerate Caption='&OutputJobGenerate' TopLevel=True
+    Link      MNOutputJobGenerate_RunOutputJobs  PLID='PLOutputJobGenerate:RunOutputJobs'  End
+    Link      MNOutputJobGenerate_ListOutputMedia  PLID='PLOutputJobGenerate:ListOutputMedia'  End
+#if DEBUG
+    Separator MNOutputJobGenerate_Sep10                              End
+    Tree MNOutputJobGenerate_Developer Caption='&Developer'
+        Link  MNOutputJobGenerate_Reload PLID='PLOutputJobGenerate:Reload' End
+        Link  MNOutputJobGenerate_Status PLID='PLOutputJobGenerate:Status' End
+    End
+#endif
+End
+
+Insertion MNOutputJobGenerate_1 TargetID='MNNoDocument' InsertType='Before' RefID0='MNNoDocument_Window'
+    TreeCopy MNNoDocument_OutputJobGenerate OriginalID=MNOutputJobGenerate IDSuffix='_1' End
+End
+Insertion MNOutputJobGenerate_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_OutputJobGenerate OriginalID=MNOutputJobGenerate IDSuffix='_2' End
+End
+Insertion MNOutputJobGenerate_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_OutputJobGenerate OriginalID=MNOutputJobGenerate IDSuffix='_3' End
+End

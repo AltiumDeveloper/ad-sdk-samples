@@ -1,0 +1,40 @@
+PL PLHarnessPortTypes:GetHarness
+    Command='HarnessPortTypes:Run'
+    Caption='&Get Harness'
+    Image=''
+    Description='List the harness ports of the focused sheet'
+    Params='Cmd=GetHarness'
+End
+
+#if DEBUG
+PL PLHarnessPortTypes:Reload
+    Command='HarnessPortTypes:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the HarnessPortTypes implementation module'
+    Params=''
+End
+
+PL PLHarnessPortTypes:Status
+    Command='HarnessPortTypes:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show HarnessPortTypes hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNHarnessPortTypes Caption='&HarnessPortTypes' TopLevel=True
+    Link      MNHarnessPortTypes_GetHarness  PLID='PLHarnessPortTypes:GetHarness'  End
+#if DEBUG
+    Separator MNHarnessPortTypes_Sep10                              End
+    Tree MNHarnessPortTypes_Developer Caption='&Developer'
+        Link  MNHarnessPortTypes_Reload PLID='PLHarnessPortTypes:Reload' End
+        Link  MNHarnessPortTypes_Status PLID='PLHarnessPortTypes:Status' End
+    End
+#endif
+End
+
+Insertion MNHarnessPortTypes_2 TargetID='MNSchematicMenu' InsertType='Before' RefID0='MNSchematic_Window1'
+    TreeCopy MNSchematicMenu_HarnessPortTypes OriginalID=MNHarnessPortTypes IDSuffix='_2' End
+End

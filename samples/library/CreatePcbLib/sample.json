@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "CreatePcbLib",
+  "title": "Create a PcbLib with a footprint and extruded body",
+  "summary": "Creates and saves a new PCB library from code, registers a new footprint and gives it an extruded 3D component body built from a square outline. Shows the order of outline and extruded model, and how library coordinates read back.",
+  "category": "library",
+  "domain": "library",
+  "task": [
+    "create"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "create a new PCB library programmatically",
+    "add a footprint to a PcbLib",
+    "add an extruded 3D body to a footprint",
+    "make a component body with a height",
+    "save a new library document"
+  ],
+  "commands": [
+    {
+      "name": "CreatePcbLib",
+      "description": "Create a PcbLib with a footprint and an extruded 3D body",
+      "params": "Out=<folder> (default temp)|Name=<file name> (default test.PcbLib)|Pattern=<footprint name> (default TestComp)|Overwrite=true (optional)",
+      "readOnly": false
+    }
+  ]
+}

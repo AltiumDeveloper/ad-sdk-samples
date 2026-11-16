@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "DrcSettings",
+  "title": "Read a board's DRC settings and run a batch DRC",
+  "summary": "Shows where DRC settings live in the .NET API: the online DRC switch in the PCB system options, the DRCEnabled flag on each rule, and IPCB_Board.RunBatchDesignRuleCheck to write an HTML or text report without a dialog.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "inspect",
+    "configure",
+    "report"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "run design rule check from code and save the report",
+    "turn online DRC on or off",
+    "count enabled design rules by kind",
+    "count violations on a board"
+  ],
+  "commands": [
+    {
+      "name": "ReportDrcSettings",
+      "description": "Report the online DRC switch and the board's design rules",
+      "readOnly": true
+    },
+    {
+      "name": "EnableOnlineAndBatchCheck",
+      "description": "Turn online DRC on or off",
+      "params": "Online=true|false (required)",
+      "readOnly": false
+    },
+    {
+      "name": "RunBatchDrc",
+      "description": "Run a batch DRC and write the report file",
+      "params": "Out=<folder or file> (default temp folder)|Format=Html|Text (default Html)",
+      "readOnly": false
+    }
+  ]
+}

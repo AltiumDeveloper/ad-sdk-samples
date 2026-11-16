@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "EditSchComponent",
+  "title": "Add a pin to a component's library symbol and reload it",
+  "summary": "Goes from a placed schematic component to its source .SchLib, adds a pin to the symbol, saves the library and swaps the placed component for the updated symbol while keeping its location, designator and part.",
+  "category": "schematic",
+  "domain": "library",
+  "task": [
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "edit the library symbol of a placed component",
+    "add a pin to a SchLib symbol and save the library",
+    "update a placed part from its library",
+    "open a schematic library from code",
+    "find the source library of a schematic component"
+  ],
+  "commands": [
+    {
+      "name": "EditSchLibComponent",
+      "description": "Add a pin to a component's library symbol and reload it",
+      "params": "Designator=<x> (else the PopupMenuHitTest component, else the one selected component)|Library=<.SchLib path> (optional)|LibraryFolder=<folder> (optional)|PinDesignator=0|PinName=0|PinX=400|PinY=330 (mils)",
+      "readOnly": false
+    },
+    {
+      "name": "ListSheetComponents",
+      "description": "List the components on the current sheet with their library and pin count (test helper)",
+      "params": "Designator=<x> (optional filter)|Max=50",
+      "readOnly": true
+    }
+  ]
+}

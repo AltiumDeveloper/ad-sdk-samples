@@ -1,0 +1,40 @@
+PL PLGenerateGerber:GenerateGerber
+    Command='GenerateGerber:Run'
+    Caption='&Generate Gerber'
+    Image=''
+    Description='Generate Gerber files for the active PcbDoc through an Output Job'
+    Params='Cmd=GenerateGerber'
+End
+
+#if DEBUG
+PL PLGenerateGerber:Reload
+    Command='GenerateGerber:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the GenerateGerber implementation module'
+    Params=''
+End
+
+PL PLGenerateGerber:Status
+    Command='GenerateGerber:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show GenerateGerber hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNGenerateGerber Caption='&GenerateGerber' TopLevel=True
+    Link      MNGenerateGerber_GenerateGerber  PLID='PLGenerateGerber:GenerateGerber'  End
+#if DEBUG
+    Separator MNGenerateGerber_Sep10                              End
+    Tree MNGenerateGerber_Developer Caption='&Developer'
+        Link  MNGenerateGerber_Reload PLID='PLGenerateGerber:Reload' End
+        Link  MNGenerateGerber_Status PLID='PLGenerateGerber:Status' End
+    End
+#endif
+End
+
+Insertion MNGenerateGerber_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_GenerateGerber OriginalID=MNGenerateGerber IDSuffix='_3' End
+End

@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "PlaceAndMovePcbComponent",
+  "title": "Place a footprint and start the interactive move",
+  "summary": "Creates a component with PCBObjectFactory, loads a footprint from a .PcbLib with LoadFromLibrary, adds it to the board inside PreProcess/PostProcess, selects it and starts the editor's PCB:MoveObject tool so the user drops it with a click.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "create",
+    "modify"
+  ],
+  "surface": [
+    "command"
+  ],
+  "interactive": true,
+  "phrasings": [
+    "place a footprint from a PcbLib on the board",
+    "add a component to a PCB from code",
+    "start the move tool on a new component",
+    "load a footprint with LoadFromLibrary"
+  ],
+  "commands": [
+    {
+      "name": "PlaceAndMoveComponent",
+      "description": "Place a PcbLib footprint and start the interactive move",
+      "params": "Lib=<.PcbLib path, absolute or relative to the board folder> (default: first .PcbLib in the board folder or a direct subfolder)|Footprint=<name> (default: footprint of the first component on the board)|X=<mil>|Y=<mil> (from the board origin, default 0)|Move=true|false (default true from the menu, false from the pipe)",
+      "readOnly": false
+    }
+  ]
+}

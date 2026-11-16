@@ -1,0 +1,41 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "ComponentMoveUndoGroup",
+  "title": "Move all components as one undoable step",
+  "summary": "Shows how to change many PCB objects in one batch that a single Undo reverts, using either the PCB process messages sent with IPCB_Board.DispatchMessage or the PreProcess/PostProcess bracket, and how to run PCB:Undo from code.",
+  "category": "pcb",
+  "domain": "pcb",
+  "task": [
+    "modify",
+    "iterate"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "group many PCB edits into one undo",
+    "move every component on a board",
+    "make a batch change undoable with a single Ctrl+Z",
+    "trigger undo in the PCB editor from code"
+  ],
+  "commands": [
+    {
+      "name": "MoveComponents",
+      "description": "Multiply every component's X location as one undo step",
+      "params": "Factor=<positive number> (default 2)|Grouping=Messages|PreProcess (default Messages)",
+      "readOnly": false
+    },
+    {
+      "name": "ComponentPositions",
+      "description": "Summarise the components' X locations",
+      "params": "List=<n> (default 5)",
+      "readOnly": true
+    },
+    {
+      "name": "UndoLast",
+      "description": "Undo the last PCB edit (test support)",
+      "readOnly": false
+    }
+  ]
+}

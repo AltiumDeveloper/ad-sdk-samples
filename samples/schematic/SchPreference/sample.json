@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../schema/sample.schema.json",
+  "schemaVersion": 1,
+  "id": "SchPreference",
+  "title": "Read and toggle a schematic preference",
+  "summary": "Reads a boolean option of the SCH server with ServerOptionsReader, writes the negated value with ServerOptionsWriter and asks the server module to reload its options through IServerOptions.ReloadOptions.",
+  "category": "schematic",
+  "domain": "schematic",
+  "task": [
+    "configure",
+    "inspect"
+  ],
+  "surface": [
+    "command"
+  ],
+  "phrasings": [
+    "change a schematic editor option from code",
+    "read Altium Designer preferences",
+    "write a server option and reload it",
+    "turn off reset designators on paste"
+  ],
+  "commands": [
+    {
+      "name": "ChangeSchPreference",
+      "description": "Toggle a boolean schematic preference and reload the SCH options; returns old and new value",
+      "params": "Section=<section> (default 'Schematic Preferences')|Key=<option> (default 'ResetPartsDesignatorsOnPaste')",
+      "readOnly": false
+    },
+    {
+      "name": "ReadSchPreference",
+      "description": "Show the current value of a boolean schematic preference (added read-back command)",
+      "params": "Section=<section> (default 'Schematic Preferences')|Key=<option> (default 'ResetPartsDesignatorsOnPaste')",
+      "readOnly": true
+    }
+  ]
+}

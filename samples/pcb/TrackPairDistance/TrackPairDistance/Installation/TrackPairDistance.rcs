@@ -1,0 +1,40 @@
+PL PLTrackPairDistance:ClearanceCheck
+    Command='TrackPairDistance:Run'
+    Caption='&Clearance Check'
+    Image=''
+    Description='Measure the distance between every pair of tracks'
+    Params='Cmd=ClearanceCheck'
+End
+
+#if DEBUG
+PL PLTrackPairDistance:Reload
+    Command='TrackPairDistance:Reload'
+    Caption='&Reload Implementation'
+    Image=''
+    Description='Reload the TrackPairDistance implementation module'
+    Params=''
+End
+
+PL PLTrackPairDistance:Status
+    Command='TrackPairDistance:Status'
+    Caption='Hot Reload &Status'
+    Image=''
+    Description='Show TrackPairDistance hot reload status'
+    Params=''
+End
+#endif
+
+Tree MNTrackPairDistance Caption='&TrackPairDistance' TopLevel=True
+    Link      MNTrackPairDistance_ClearanceCheck  PLID='PLTrackPairDistance:ClearanceCheck'  End
+#if DEBUG
+    Separator MNTrackPairDistance_Sep10                              End
+    Tree MNTrackPairDistance_Developer Caption='&Developer'
+        Link  MNTrackPairDistance_Reload PLID='PLTrackPairDistance:Reload' End
+        Link  MNTrackPairDistance_Status PLID='PLTrackPairDistance:Status' End
+    End
+#endif
+End
+
+Insertion MNTrackPairDistance_3 TargetID='MNPCBMenu' InsertType='Before' RefID0='MNPCBMenu_Window1'
+    TreeCopy MNPCBMenu_TrackPairDistance OriginalID=MNTrackPairDistance IDSuffix='_3' End
+End

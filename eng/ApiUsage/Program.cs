@@ -150,9 +150,16 @@ sealed class SampleUsage
                 var owner = m.IsExtensionMethod && m.Parameters.Length > 0 ? m.Parameters[0].Type : m.ContainingType;
                 var name = m.Name;
                 var prefix = AccessorPrefixes.FirstOrDefault(p => name.StartsWith(p, StringComparison.Ordinal));
-                var member = prefix != null ? name[prefix.Length..] : name;
-                // An accessor pair (GetState_X / SetState_X) is the property X, as the SDK reference names it.
-                Add(Members, $"{TypeId(owner)}.{member}", file, line, command, name, prefix != null ? "property" : "method");
+                // An accessor (GetState_X, SetState_X, alone or as a pair) is the property X, as the SDK reference names
+                // it, when it has the shape of one: a getter returns the value, a setter takes it as its last
+                // parameter, and neither has out or ref parameters. Otherwise it is a method (GetState_ZTopBottom(out,
+                // out), SetState_FilterAll()).
+                var parameters = m.IsExtensionMethod ? m.Parameters.Skip(1).ToList() : m.Parameters.ToList();
+                var byRef = parameters.Any(p => p.RefKind != RefKind.None);
+                var isProperty = prefix != null && !byRef
+                    && (prefix.StartsWith("Get", StringComparison.Ordinal) ? !m.ReturnsVoid : parameters.Count >= 1);
+                var member = isProperty ? name[prefix!.Length..] : name;
+                Add(Members, $"{TypeId(owner)}.{member}", file, line, command, name, isProperty ? "property" : "method");
                 Add(Types, TypeId(owner), file, line, command, owner.Name);
                 break;
             }

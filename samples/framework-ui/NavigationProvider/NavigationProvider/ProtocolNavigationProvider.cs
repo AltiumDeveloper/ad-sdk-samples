@@ -16,9 +16,9 @@ namespace CSharpPlugin
         // Keeps the provider reachable for the whole AD session (AD only holds a COM reference to it).
         private ProtocolNavigationProvider _navigationProvider;
 
-        // The framework's constructor calls RegisterViews(client) once, after InitializeCommands. This sample has no
-        // panel (no Panel.cs), so the partial method is free for creating the provider.
-        partial void RegisterViews(IClient client)
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // The provider lives here, in the shim: Altium Designer keeps a reference to it for the session.
+        partial void OnCreated(IClient client)
         {
             _navigationProvider = new ProtocolNavigationProvider();
             // The implementation cannot reference shim types, so it finds the object through AppDomain data and uses

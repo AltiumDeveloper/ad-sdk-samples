@@ -6,9 +6,9 @@ so the file on disk stays clean. It shows how a .NET extension receives notifica
 `DXP.INotificationHandler`, and how to add and remove schematic parameters.
 
 ## What it shows
-- `DXP.IClient.RegisterNotificationHandler`: registers an object whose `DXP.INotificationHandler.HandleNotification`
-  AD calls for every notification it broadcasts. Register the SDK's own `DXP.NotificationHandler` with a callback,
-  not a handler class of your own: AD could not call a sample class declared `[ClassInterface(AutoDispatch)]`
+- `DXP.NotificationHandler`: the SDK's notification handler. Its constructor registers it with the client, and AD
+  then calls its callback for every notification it broadcasts. Use it with a callback, not a handler class of your
+  own: AD could not call a sample class declared `[ClassInterface(AutoDispatch)]`
   ("Member not found ... DXPSDK.dll" dialogs for every notification), while the SDK class works.
   In .NET this replaces an override of `ReceiveNotification`: `DXP.ServerModule.ReceiveNotification` is not virtual.
 - `DXP.INotification.GetNotificationType` / `GetNotificationCode` / `GetNotificationData`: what a notification
@@ -54,8 +54,9 @@ and value default to what `EnableNotifications State=on` set last.
 
 ## How it works
 `DocumentOpenSaveNotification/DocumentNotifications.cs` is the shim part. When AD creates the server module, it
-registers a `DocumentNotificationHandler` with `IClient.RegisterNotificationHandler`. AD then calls its
-`HandleNotification` for every notification. While the switch is off (the default) it returns at once. While it
+creates a `DXP.NotificationHandler` with the callback `DocumentNotificationHandler.HandleNotification` (in the
+template hook `OnCreated`). The constructor registers it with the client, and AD then calls the callback for every
+notification. While the switch is off (the default) it returns at once. While it
 is on, it keeps only notifications of type `NotificationType.DocumentNotification` and passes each one to the
 implementation command `Notification.Document`, with the notification as the command's context. Exceptions are
 caught and kept for the status, so none reaches AD's notification loop.
@@ -82,16 +83,15 @@ parameter with `SchObjectFactory`: name, text, hidden, the component's location,
   folder. It is off after every AD start.
 - `DXP.ServerModule.ReceiveNotification` is public but not virtual: an `override` fails with CS0506. The reference
   says the method "needs to be overridden", which a .NET extension can't do. Hence the registered handler.
-- The handler is registered in the framework's `partial void RegisterViews(IClient)`, the only hook the shared
-  `PluginServerModule` constructor offers. A sample with a panel already uses that hook and could not do the same.
+- The handler is created once, in the template's `OnCreated` hook, when AD creates the server module. It lives in
+  the shim, so it outlives hot reloads of the implementation. `DXP.NotificationHandler` registers itself in its
+  constructor: do not call `RegisterNotificationHandler` for it as well, or every notification is delivered twice.
 - The save handler leaves the sheet in memory with the parameters again, so the sheet is marked modified right after
   a save (`CountParameters` reports `Document modified: yes`).
 - `DocumentNotificationCode` also has `DocumentBeforeSave` (29). AD raises it for a schematic saved through
   `WorkSpaceManager:SaveObject`, before `DocumentSaved`. Removing the parameter there would avoid the second
   save; this sample removes it after the save and saves again.
-- The `DXP.NotificationHandler` callback is called; **every notification arrives twice**, so the load handler runs
-  twice (the second run updates the parameters it added) and the save handler runs twice; `GetSchDocumentByPath`
-  already finds the sheet at `DocumentLoading`; `DoFileSave` raises no `DocumentSaved`.
+- `GetSchDocumentByPath` already finds the sheet at `DocumentLoading`; `DoFileSave` raises no `DocumentSaved`.
   `DocumentNotificationCode.ToString` gives no name for some codes AD sends (29, 36, 50, 56); the status shows the number.
 - The handler is registered when the extension's server starts, which AD does on the extension's first command
   (or `DXP.IClient.StartServer`). Documents opened before that are not seen. Don't add `SystemExtension = True` to the

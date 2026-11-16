@@ -51,8 +51,8 @@ the `LibReference`, and both counts.
 ## Notes
 - The GetState is in the shim, not in the hot-reloaded implementation: it is called often, and must not depend on
   the hot-reload host. Changing it, the `.ins` or the `.rcs` needs a redeploy and an AD restart.
-- `RunOnComponent` is registered in the partial method `RegisterViews`, which the framework's constructor calls
-  after `InitializeCommands` (the framework has no other hook for extra processes). AD finds a process registered there and calls its GetState: the server module's command launcher
+- `RunOnComponent` is registered in the template's `RegisterCommands` hook, next to `Run`, and AD calls its
+  GetState: the server module's command launcher
   (`Server.GetCommandLauncher().GetCommandState` with the bare process name) reports `RunOnComponent` as
   `enabled=False visible=False` when no component is under the position, while an unknown process name reports the
   default `True/True`.

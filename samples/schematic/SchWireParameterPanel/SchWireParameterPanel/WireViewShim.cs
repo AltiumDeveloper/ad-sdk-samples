@@ -14,16 +14,16 @@ namespace CSharpPlugin
     ///    parameter of the sheet.
     ///
     /// In .NET, DXP.ServerModule.ReceiveNotification is not virtual (overriding it gives
-    /// CS0506), so (1) needs a handler registered with IClient.RegisterNotificationHandler. Notification handlers of
-    /// earlier samples made AD show "Member not found" error dialogs, so nothing here runs on its own: the handler is
-    /// registered only by the implementation's "AutoShow State=on" command, and "AutoShow State=off" unregisters it
-    /// and stops the per-document views from acting. The framework's Panel.cs already implements the RegisterViews
-    /// partial method, so the switches are published from the static constructor, as delegates in AppDomain data
-    /// (BCL types only: they cross the hot reload boundary).
+    /// CS0506), so (1) needs a DXP.NotificationHandler. Nothing here runs on its own: the handler is created only by
+    /// the implementation's "AutoShow State=on" command, and "AutoShow State=off" unregisters it and stops the
+    /// per-document views from acting. The template's OnCreated hook publishes those switches as delegates in
+    /// AppDomain data (BCL types only: they cross the hot reload boundary).
     /// </summary>
     public partial class PluginServerModule
     {
-        static PluginServerModule()
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Publishes the switches the implementation and the panel content call.
+        partial void OnCreated(IClient client)
         {
             AppDomain.CurrentDomain.SetData(WireViewShim.CountsKey, new ConcurrentDictionary<string, int>());
             AppDomain.CurrentDomain.SetData(WireViewShim.LogKey, new ConcurrentQueue<string>());
@@ -57,15 +57,15 @@ namespace CSharpPlugin
         public const int OriginalEndUpdateCode = 6;
 
         /// <summary>
-        /// The view code AD sends to a per-document view after each edit of the sheet (two wire
-        /// edits give code 7 four times, besides 0/2/3 once each). Not a DXP.NotificationCode field either: in
+        /// The view code AD sends to a per-document view when an object on the sheet is redrawn
+        /// (once per ISch_GraphicalObject.GraphicallyInvalidate call). Not a DXP.NotificationCode field either: in
         /// ViewNotificationCode, 7 is ApplicationShutdownStarted, which is not what these mean.
         /// </summary>
         public const int EndUpdateCode = 7;
 
         /// <summary>
-        /// Every view notification arrives twice, and the EndUpdate work itself changes the sheet, which raises more.
-        /// Notifications that arrive within this time after a run ends are ignored, so one edit gives one run, not a loop.
+        /// The run's own changes raise code 7 again, synchronously, and the in-process flag drops those. As a second
+        /// guard, notifications that arrive within this time after a run ends are ignored.
         /// </summary>
         private static readonly TimeSpan QuietAfterRun = TimeSpan.FromMilliseconds(750);
         private static DateTime _lastRunEnded = DateTime.MinValue;
@@ -100,11 +100,9 @@ namespace CSharpPlugin
                 string registered = "handler already registered";
                 if (_handler == null)
                 {
-                    // DXP.NotificationHandler is the SDK's own handler class: it calls the delegate. Earlier samples
-                    // declared a handler class of their own, which made AD show "Member not found"; the SDK
-                    // class is called without that dialog.
+                    // DXP.NotificationHandler calls the delegate for every notification. Its constructor registers it with
+                    // the client, so it is not registered again; UnregisterNotificationHandler removes it.
                     _handler = new NotificationHandler(OnClientNotification);
-                    GlobalVars.Client.RegisterNotificationHandler(_handler);
                     registered = "handler registered";
                 }
                 _enabled = true;

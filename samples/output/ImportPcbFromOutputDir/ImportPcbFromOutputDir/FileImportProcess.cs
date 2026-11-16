@@ -11,11 +11,10 @@ namespace CSharpPlugin
     /// </summary>
     public partial class PluginServerModule
     {
-        // The framework's constructor calls RegisterViews(client) once, after InitializeCommands (which registers
-        // Run/Reload/Status). This sample has no panel (no Panel.cs), so the partial method is free.
-        partial void RegisterViews(IClient client)
+        // Template hook RegisterCommands: registers processes next to Run, when Altium Designer creates the module.
+        // FileImportDirectory is the process the .ins OutputHandler entries name.
+        partial void RegisterCommands(CommandLauncher launcher)
         {
-            var launcher = (CommandLauncher)CommandLauncher;
             launcher.RegisterCommand("FileImportDirectory", FileImportProcess.FileImportDirectory, Commands.GetState_Always);
         }
     }

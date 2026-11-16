@@ -24,9 +24,9 @@ namespace CSharpPlugin
         private static ValidateStateTransitionNotification _last;
         private static int _sequence;
 
-        // The framework's constructor calls RegisterViews(client) once, after InitializeCommands. This sample has no
-        // panel (no Panel.cs), so the partial method is free for this setup.
-        partial void RegisterViews(IClient client)
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Publishes the broadcast functions the implementation calls.
+        partial void OnCreated(IClient client)
         {
             AppDomain.CurrentDomain.SetData(BroadcastKey, (Func<string, bool, IDictionary<string, object>>)Broadcast);
             AppDomain.CurrentDomain.SetData(LastKey, (Func<bool, IDictionary<string, object>>)Last);

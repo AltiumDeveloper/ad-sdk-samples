@@ -19,9 +19,9 @@ namespace CSharpPlugin
     {
         private static StartupNotificationHandler _handler;
 
-        // The framework's constructor calls RegisterViews(client) once, after InitializeCommands. This sample has no
-        // panel (no Panel.cs), so the partial method is free for this setup.
-        partial void RegisterViews(IClient client)
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Publishes the switch the implementation uses to register the handler.
+        partial void OnCreated(IClient client)
         {
             AppDomain.CurrentDomain.SetData(StartupNotificationHandler.ServerCreatedKey, DateTime.Now);
             AppDomain.CurrentDomain.SetData(StartupNotificationHandler.CountsKey, new ConcurrentDictionary<string, int>());

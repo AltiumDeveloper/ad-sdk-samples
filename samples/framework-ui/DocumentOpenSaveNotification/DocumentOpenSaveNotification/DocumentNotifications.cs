@@ -6,8 +6,8 @@ namespace CSharpPlugin
 {
     /// <summary>
     /// Shim part of the sample (tier 3). In .NET,
-    /// DXP.ServerModule.ReceiveNotification is not virtual (CS0506), so this sample registers a notification handler
-    /// with the client instead: IClient.RegisterNotificationHandler with an INotificationHandler object, once, when
+    /// DXP.ServerModule.ReceiveNotification is not virtual (CS0506), so this sample creates a DXP.NotificationHandler
+    /// instead (its constructor registers it with the client), once, when
     /// AD creates the server module. The handler lives in the shim, so it survives hot reloads of the implementation.
     /// </summary>
     public partial class PluginServerModule
@@ -15,24 +15,20 @@ namespace CSharpPlugin
         // Kept in a field: AD holds the handler through COM, and the .NET object must stay reachable.
         private NotificationHandler _notificationHandler;
 
-        // The framework's constructor calls RegisterViews(client) once, after InitializeCommands. This sample has no
-        // panel (no Panel.cs), so the partial method is free for the handler registration.
-        partial void RegisterViews(IClient client)
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // The handler lives here, in the shim, so it outlives hot reloads of the implementation.
+        partial void OnCreated(IClient client)
         {
-            // DXP.NotificationHandler is the SDK's own INotificationHandler: it calls the delegate. A handler class of
-            // the sample's own ([ClassInterface(AutoDispatch)], implementing INotificationHandler) made AD show
-            // "Member not found at ... DXPSDK.dll" for every broadcast notification; the SDK
-            // class is called without error.
+            // DXP.NotificationHandler calls the delegate for every notification. Its constructor registers it with
+            // the client, so it is not registered again; UnregisterNotificationHandler removes it.
             _notificationHandler = new NotificationHandler(DocumentNotificationHandler.HandleNotification);
-            client.RegisterNotificationHandler(_notificationHandler);
         }
     }
 
     /// <summary>
     /// Receives every notification AD broadcasts. It only filters and forwards: what to do with a document
     /// notification is decided by the implementation's "Notification.Document" command, which hot-reloads in Debug
-    /// builds like any other command. AD may deliver a notification more than once (AD delivers every
-    /// one twice), so the implementation must not assume one call per event.
+    /// builds like any other command.
     /// </summary>
     public static class DocumentNotificationHandler
     {

@@ -37,8 +37,8 @@ its fixed dispatch IDs, and the difference between the synchronous and the async
 | `NotificationStatus` | `Reset` (optional flag) | Helper: the same report for the last notification, or `No notification broadcast yet in this AD session.` |
 
 ## How it works
-`TestNotification/ValidateStateTransitionNotification.cs` (shim) holds the notification class. It also holds a
-`RegisterViews` part of `PluginServerModule` that publishes two delegates in AppDomain data: broadcast, and read
+`TestNotification/ValidateStateTransitionNotification.cs` (shim) holds the notification class. It also holds the
+`OnCreated` hook of `PluginServerModule`, which publishes two delegates in AppDomain data: broadcast, and read
 the last notification back. The broadcast delegate creates a `ValidateStateTransitionNotification`
 (`BaseNotification(type, null)`) and calls `IClient.BroadcastNotification` or
 `IClient.BroadcastNotificationAsynchronously` on `GlobalVars.Client`. The class counts every call on its members

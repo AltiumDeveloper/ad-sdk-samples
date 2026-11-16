@@ -9,7 +9,7 @@ plus a dockable panel that lists the sheet's wire parameters.
 - `SCH.ISch_BasicContainer.SchIterator_Create` / `SchIterator_Destroy`: a sheet iterator filtered to `SCH.TObjectId.eWire`, and inside it each wire's own iterator filtered to `SCH.TObjectId.eParameter`. Destroy both, the inner one included.
 - `SCH.ISch_ComplexText.IsHidden`, `SCH.ISch_GraphicalObject.EnableDraw`, `SCH.ISch_GraphicalObject.Selection`, `SCH.ISch_GraphicalObject.GraphicallyInvalidate`: unhide, draw and select a child object, then redraw it.
 - `SCH.ISch_RobotManager.SendMessage` (`SCHMBeginModify` / `SCHMEndModify`): bracket the `IsHidden` change, as the schematic guide shows for modifying an object.
-- `DXP.IClient.RegisterNotificationHandler` / `UnregisterNotificationHandler` with the SDK's `DXP.NotificationHandler`: receive AD's notifications in .NET, where `ServerModule.ReceiveNotification` cannot be overridden.
+- `DXP.NotificationHandler` (its constructor registers it with the client) and `DXP.IClient.UnregisterNotificationHandler`: receive AD's notifications in .NET, where `ServerModule.ReceiveNotification` cannot be overridden.
 - `DXP.NotificationType.DocumentNotification` and `DXP.NotificationCode.DocumentNotificationCode.DocumentActivating`: the .NET forms of `cDocumentNotification` / `cDocumentActivating`.
 - `DXP.IClient.CurrentView`, `DXP.IServerDocument.GetKind`, `GetViewByName`, `AddView`: attach a `DXP.ServerPanelView` to one document.
 - `DXP.IClient.IsDocumentOpen`: forget the views of documents that were closed, so a reopened sheet gets a new view.
@@ -40,8 +40,8 @@ differ: `IsHidden` inside `SCHMBeginModify` / `SCHMEndModify` robot-manager mess
 `Selection` and `GraphicallyInvalidate`, and marks the sheet's server document modified when something was unhidden.
 
 The automatic mode lives in the shim, `SchWireParameterPanel/WireViewShim.cs`, because AD calls those objects back.
-`AutoShow State=on` reaches it through a delegate in AppDomain data. It registers a `DXP.NotificationHandler`
-with `IClient.RegisterNotificationHandler` and attaches the holder view to the focused schematic at once. On each
+`AutoShow State=on` reaches it through a delegate in AppDomain data. It creates a `DXP.NotificationHandler`,
+whose constructor registers it with the client, and attaches the holder view to the focused schematic at once. On each
 `DocumentActivating` document notification, the handler takes `IClient.CurrentView`, its owner document, checks
 `GetKind() == "SCH"`, asks the document with `GetViewByName` and, if that finds nothing or throws, the shim's own
 file-to-view map, then adds a new `SchHolderView` with `IServerDocument.AddView`. On every document notification,
@@ -49,8 +49,8 @@ before each attach and before `AutoShow State=status` lists the views, the map d
 `IClient.IsDocumentOpen` no longer reports, so a sheet that is closed and reopened is attached again. The view
 overrides `ReceiveNotificationImpl`. It counts every notification, and on a view notification with the EndUpdate
 code (7; the older code 6 is still accepted) it runs `ShowWireParameters`, guarded against re-entry by an
-in-process flag and ignoring notifications that arrive within 750 ms after a run (each arrives twice, and the run's
-own changes raise more), then appends the result to its text box. `AutoShow State=off` unregisters the handler and
+in-process flag and ignoring notifications that arrive within 750 ms after a run (the run's own changes
+raise view codes 2 and 7 again while it runs; the in-process flag drops those), then appends the result to its text box. `AutoShow State=off` unregisters the handler and
 makes the attached views do nothing.
 
 The global panel is the framework's (`framework/shim/Panel.cs`). Its content, `Ui/PanelContent.cs`, hot-reloads and
@@ -66,7 +66,9 @@ calls the commands through `SamplePanel.Invoke`.
   codes 0, 2, 3 and 7) reach `ReceiveNotificationImpl`.
 - The EndUpdate code is 7, not 6. Code 6 (`cViewNotification_EndUpdate = 6`) is not a .NET constant (in
   `DXP.NotificationCode.ViewNotificationCode`, 6 is `ApplicationStartupComplete`), and AD does not send it to a
-  per-document view. An edit of the sheet raises view codes 2 and 7, each twice. With the 750 ms quiet time, one
+  per-document view. An edit made through the API raises code 2 once, from `SendMessage` with `SCHMEndModify`, and code 7
+  once per `GraphicallyInvalidate` call (the redraw). Both arrive synchronously, on the stack of the code that edits.
+  A save raises code 20 twice. The in-process flag drops the notifications the automatic run raises itself, so one
   edit gives exactly one automatic run and no loop. `AutoShow State=status` lists every code received.
 - **`Selection` on a wire parameter is not retained**: `SetState_Selection(true)` reads back `false`, while
   `IsHidden` on the same object sticks and the owning wire's selection sticks. So `ShowWireParameters` reports the

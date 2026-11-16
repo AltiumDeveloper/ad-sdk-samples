@@ -46,8 +46,8 @@ The extension adds items to the schematic right-click menu, so deploy it with
 `Wire=popup` takes the first wire under the last right-click position (what the context menu items pass).
 
 ## How it works
-`WireAddParameter/WireContextMenu.cs` (shim) registers the extra process `RunOnWire` in the partial method
-`RegisterViews`, which the framework calls once after `InitializeCommands`. Its GetState calls
+`WireAddParameter/WireContextMenu.cs` (shim) registers the extra process `RunOnWire` in the template's
+`RegisterCommands` hook, next to `Run`. Its GetState calls
 `GetCurrentSchDocument`, `PopupMenuHitTest` and looks for an `eWire` hit object; any exception there shows
 the item, so the command can report the error. `RunOnWire` itself forwards to the framework's `Run`.
 
@@ -64,13 +64,11 @@ them with `RemoveSchObject`.
   iterator on the wire finds them again.
 - With no context menu open, `PopupMenuHitTest` returns a non-null hit test with `HitTestCount` = 0, so
   `Wire=popup` reports "No wire under the right-click position" instead of a stale hit.
-- `ICommandLauncher.GetCommandState` cannot tell whether a process is registered: called from another extension's
-  command with a null context, it returns all-false both for a registered process (even one whose GetState always
-  enables it) and for an unknown one. It does not call the GetState procedure.
+- To ask for a process's state from code, call `GetCommandState` on the server module's own command launcher with
+  the bare process name (`RunOnWire`) and the current view: it runs the registered GetState and returns its values.
 - `RunOnWire` shows its result in a modal message box (through the framework's `Run`); use the `Run` commands
   for scripted calls.
-- Wire parameters may also need `EnableDraw` to be drawn; this sample does not set it (the SchWireParameterPanel
-  sample does).
+- The parameter is drawn without `EnableDraw`. Several parameters on one wire get the same location and overlap.
 - `RemoveParameterFromWire` collects the parameters before removing them: calling `RemoveSchObject` and then
   `NextSchObject` on the same iterator changes the list the iterator walks.
 - The parameter goes to the wire's `Location`; which point of the wire that is (its first vertex?) is not

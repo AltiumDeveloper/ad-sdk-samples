@@ -15,12 +15,10 @@ namespace CSharpPlugin
     /// </summary>
     public partial class PluginServerModule
     {
-        // The framework's constructor calls RegisterViews(client) once, right after InitializeCommands (which
-        // registers Run/Reload/Status). This sample has no panel (no Panel.cs), so the partial method is free.
-        // A command registered here, after InitializeCommands, is found by AD and its GetState is called.
-        partial void RegisterViews(IClient client)
+        // Template hook RegisterCommands: registers processes next to Run, when Altium Designer creates the module.
+        // RunOnComponent is the context-menu item's process, with its own GetState.
+        partial void RegisterCommands(CommandLauncher launcher)
         {
-            var launcher = (CommandLauncher)CommandLauncher;
             launcher.RegisterCommand("RunOnComponent", ComponentContextMenu.RunOnComponent, ComponentContextMenu.GetState_ComponentUnderCursor);
         }
     }

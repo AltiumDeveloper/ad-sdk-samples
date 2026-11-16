@@ -30,8 +30,8 @@ The extension must be deployed with `tools/deploy.ps1 -Sample AutoReleaseLicense
 | `AutoRelease.Idle` | `DryRun`, `IdleSeconds` (set by the shim) | run by the shim's timer, not on a menu; its text becomes the status's "Last result" |
 
 ## How it works
-`AutoReleaseLicense/IdleWatcher.cs` is the shim part. When AD creates the server module, the partial
-`RegisterViews` records the native ID of AD's UI thread and publishes three delegates (start, stop, status) in
+`AutoReleaseLicense/IdleWatcher.cs` is the shim part. When AD creates the server module, the template's
+`OnCreated` hook records the native ID of AD's UI thread and publishes three delegates (start, stop, status) in
 AppDomain data, because the implementation cannot reference the shim assembly. Start installs a mouse and a keyboard
 thread hook on that UI thread (`hMod` 0, so only input to AD's own windows counts) whose procedure only stores
 `Environment.TickCount64` and calls `CallNextHookEx`; the delegates are kept in static fields so the garbage

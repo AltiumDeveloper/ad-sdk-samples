@@ -7,13 +7,14 @@ using DXP;
 namespace CSharpPlugin
 {
     /// <summary>
-    /// Shim part of the sample (tier 3). The framework's constructor calls RegisterViews(client) once, on AD's UI
-    /// thread, after InitializeCommands. This sample has no panel (no Panel.cs), so the partial method is free to
-    /// publish the idle watcher's switches for the implementation.
+    /// Shim part of the sample (tier 3). The template's OnCreated hook, called once on AD's UI thread when AD
+    /// creates the server module, publishes the idle watcher's switches for the implementation.
     /// </summary>
     public partial class PluginServerModule
     {
-        partial void RegisterViews(IClient client) => IdleWatcher.Publish();
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Publishes the idle watcher's switches for the implementation.
+        partial void OnCreated(IClient client) => IdleWatcher.Publish();
     }
 
     /// <summary>

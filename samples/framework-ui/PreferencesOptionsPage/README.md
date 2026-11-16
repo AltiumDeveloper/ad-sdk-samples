@@ -45,8 +45,8 @@ modal Preferences dialog.
 ## How it works
 The page is shim code (`PreferencesOptionsPage/PreferencesPage.cs`), because AD keeps the page objects after the
 call that created them. `PluginServerModule` overrides `RegisterOptionsPages` and calls `RegisterOptionsPageCreator("General", ...)`;
-the creator returns `new OptionsPage(new GeneralOptionsForm())`. The framework's `RegisterViews` hook (called once
-from the module constructor) loads the cached value with `ServerOptionsReader(...).ReadString("General",
+the creator returns `new OptionsPage(new GeneralOptionsForm())`. The template's `OnCreated` hook (called once,
+when AD creates the server module) loads the cached value with `ServerOptionsReader(...).ReadString("General",
 "Temperature", "100")`.
 
 `GeneralOptionsForm` (an `OptionsForm`) shows the cached value in `SetStateControlsImpl` and remembers it

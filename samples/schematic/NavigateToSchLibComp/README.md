@@ -64,8 +64,8 @@ that exists. The command reuses the library document if `GetDocumentByPath` find
   that names its `SourceLibraryName`.
 - The GetState is in the shim, not in the hot-reloaded implementation: it is called whenever AD builds the menu,
   and must not depend on the hot-reload host. Changing it, the `.ins` or the `.rcs` needs a redeploy and an AD restart.
-- `RunOnComponent` is registered in the partial method `RegisterViews`, which the framework's constructor calls
-  after `InitializeCommands`. AD finds a process registered there and dispatches its GetState.
+- `RunOnComponent` is registered in the template's `RegisterCommands` hook, next to `Run`; AD dispatches its
+  GetState.
 - `PopupMenuHitTest` with no context menu open (scripted run, main menu) returns a non-null `ISch_HitTest` with
   `HitTestCount` 0, without an exception. For that reason the main menu item and `tools/ad.ps1` use the selection
   or `Designator`, never the hit test.

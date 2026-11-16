@@ -44,8 +44,8 @@ The extension must be deployed with `tools/deploy.ps1 -Sample NavigationProvider
 Registering twice without unregistering fails with `The provider is already registered for '<protocol>'`.
 
 ## How it works
-`NavigationProvider/ProtocolNavigationProvider.cs` (shim) creates one `ProtocolNavigationProvider` when AD creates
-the server module and publishes it in AppDomain data. It does not register it. Its `NavigateTo` counts the call,
+`NavigationProvider/ProtocolNavigationProvider.cs` (shim) creates one `ProtocolNavigationProvider` in the template hook
+`OnCreated`, when AD creates the server module, and publishes it in AppDomain data. It does not register it. Its `NavigateTo` counts the call,
 records the arguments and forwards them to the implementation's `Navigation.Handle` command. It catches every
 exception, so none reaches AD's navigation system.
 

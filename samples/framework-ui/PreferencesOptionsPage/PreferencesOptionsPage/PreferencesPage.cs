@@ -23,10 +23,9 @@ namespace CSharpPlugin
     /// </summary>
     public partial class PluginServerModule
     {
-        // The framework's constructor calls RegisterViews(client) once, after the base constructor. This sample has
-        // no panel (no Panel.cs), so the partial method is free: it loads the cached preference
-        // (PreferenceStore.Load()) and publishes the shim's state to the implementation.
-        partial void RegisterViews(IClient client)
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Loads the cached preference and publishes the shim's state to the implementation.
+        partial void OnCreated(IClient client)
         {
             PreferenceStore.ModuleCreated = DateTime.Now;
             PreferenceStore.Load();

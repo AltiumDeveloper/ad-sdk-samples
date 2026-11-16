@@ -32,8 +32,8 @@ late for this particular one.
 | `Notification.View` | `Code=<n>` (set by the shim) | Called by the shim's handler for `ApplicationStartupComplete`; records the time. Fails when a user runs it. |
 
 ## How it works
-- `ApplicationStartupComplete/StartupNotifications.cs` (shim): when AD creates the server module, the framework's
-  `RegisterViews` hook records the creation time and publishes a `Func<bool, string>` switch in AppDomain data.
+- `ApplicationStartupComplete/StartupNotifications.cs` (shim): when AD creates the server module, the template's
+  `OnCreated` hook records the creation time and publishes a `Func<bool, string>` switch in AppDomain data.
   The switch registers or unregisters a `StartupNotificationHandler` with
   `DXP.IClient.RegisterNotificationHandler` / `DXP.IClient.UnregisterNotificationHandler` on `DXP.GlobalVars.Client`
   (re-queried each time, not cached).
@@ -56,8 +56,8 @@ late for this particular one.
   `DXP.INotification`. Registration is still opt-in (`Listen`) and reversible (`Listen State=off`).
 - `IClient.UnregisterNotificationHandler` stops the callbacks: after `Listen State=off`, closing a document adds
   nothing to the counts.
-- Opening one schematic raises 6 `altium.dxp.document` notifications and 1 `altium.dxp.documentform`, and no
-  `altium.dxp.view` notification. Document activity does not produce view notifications.
+- Opening one schematic raises several `altium.dxp.document` notifications (the number varies between
+  sessions) and one `altium.dxp.documentform`, and no `altium.dxp.view` notification. Document activity does not produce view notifications.
 - The handler receives every notification AD broadcasts, so it only counts and filters; nothing heavy runs on that
   path. The reaction is a recorded time, not a dialog: a modal dialog inside the notification dispatch (during
   startup) would block AD.

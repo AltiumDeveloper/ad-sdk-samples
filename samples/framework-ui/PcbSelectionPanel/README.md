@@ -12,8 +12,8 @@ client notification handler built on the SDK's `DXP.NotificationHandler`.
 - `DXP.IServerDocument.AddView`, `DXP.IServerDocument.GetViewByName`, `DXP.IServerDocument.GetKind`: attach the
   view once to a document of kind `PCB`.
 - `DXP.IClient.CurrentView`, `DXP.IServerDocumentView.GetOwnerDocument`: find the document to attach to.
-- `DXP.NotificationHandler` with `DXP.IClient.RegisterNotificationHandler` / `UnregisterNotificationHandler`: the
-  SDK's handler class, which calls a `DXP.NotificationHandlerCallback`; it stands in for an override of
+- `DXP.NotificationHandler` (its constructor registers it with the client) and
+  `DXP.IClient.UnregisterNotificationHandler`: the SDK's handler class, which calls a `DXP.NotificationHandlerCallback`; it stands in for an override of
   `DXP.ServerModule.ReceiveNotification`, which is not virtual in .NET.
 - `DXP.NotificationType.DocumentNotification` with `DXP.NotificationCode.DocumentNotificationCode.DocumentActivating`,
   and `DXP.NotificationType.ViewNotification` with the view codes 3 and 42.
@@ -44,10 +44,9 @@ has shim code and two `PanelInfo` blocks).
 without clicking in the editor.
 
 ## How it works
-- `PcbSelectionPanel/SelectionShim.cs` (shim, needs a redeploy and restart): the static constructor of
-  `PluginServerModule` publishes the switches as delegates in AppDomain data, because the framework's `Panel.cs`
-  already uses the `RegisterViews` partial method. `SelectionShim.SetListening` creates a `DXP.NotificationHandler`
-  and registers it with the client; `SelectionShim.AttachView` reads `IClient.CurrentView`, its owner document, checks
+- `PcbSelectionPanel/SelectionShim.cs` (shim, needs a redeploy and restart): the template's `OnCreated` hook of
+  `PluginServerModule` publishes the switches as delegates in AppDomain data. `SelectionShim.SetListening` creates a
+  `DXP.NotificationHandler`, which registers itself with the client; `SelectionShim.AttachView` reads `IClient.CurrentView`, its owner document, checks
   `GetKind() == "PCB"` and the shim's list of attached files (then `GetViewByName`), and calls `AddView` with a new
   `PcbHolderView`. `SelectionShim.Dispatch` counts every notification and forwards view codes 3 and 42 to
   `Notification.View` and `DocumentActivating` to `Notification.Document`. `PcbHolderView.ReceiveNotificationImpl`
@@ -74,9 +73,10 @@ without clicking in the editor.
   so AutoAttach logs `not a PCB document: ... is of kind 'SCH'` for a schematic and `already attached: ...PcbDoc`
   for the board.
 - The two notification paths are complementary: the attached view gets the document's view notifications
-  (`altium.dxp.view`), while the client handler gets only `altium.dxp.document` and `altium.dxp.documentform` ones.
-  With the handler on and a view attached, the log tags each line with the path AD called (`handler` or `view`); only
-  document notifications reach both and appear twice. A module-level handler alone would not see the selection
+  (`altium.dxp.view`), while the client handler gets the `altium.dxp.document` and `altium.dxp.documentform` ones but not the
+  selection changes (view codes 3 and 4).
+  With the handler on and a view attached, the log tags each line with the path AD called (`handler` or `view`); a document
+  notification reaches each path once, so it is logged once per path. A module-level handler alone would not see the selection
   changes a view sees.
 - The .NET API has no `RemoveView`: an attached view stays until its document is closed, and keeps receiving
   notifications after the client handler is unregistered.

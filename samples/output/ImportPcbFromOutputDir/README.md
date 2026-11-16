@@ -45,8 +45,8 @@ segment need not exist.
 `CheckDocumentKind` gets the focused project from the workspace, returns early for `Free Documents`
 (`DM_ObjectKindString`), and counts the logical documents whose `DM_DocumentKind` equals `Kind`.
 
-`FileImportProcess.cs` (shim) registers the extra process `FileImportDirectory` in the partial method
-`RegisterViews` and forwards its parameters to the implementation through `Commands.Run`, as
+`FileImportProcess.cs` (shim) registers the extra process `FileImportDirectory` in the template's
+`RegisterCommands` hook and forwards its parameters to the implementation through `Commands.Run`, as
 `Cmd=FileImportDirectory|<parameters>`. The `.ins` declares it, the `.rcs` menu item calls it.
 
 ## Notes

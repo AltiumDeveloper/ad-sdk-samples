@@ -12,15 +12,16 @@ namespace CSharpPlugin
     /// 2. that view receives notifications and reacts to the view notification code 3 (selection changed).
     ///
     /// In .NET, DXP.ServerModule.ReceiveNotification is not virtual (an override fails with
-    /// CS0506), so (1) needs a handler registered with IClient.RegisterNotificationHandler. Earlier samples' handlers
-    /// made AD show "Member not found" error dialogs, so nothing here runs on its own: the handler is registered, and
-    /// the per-document view is added, only through the implementation's Listen and AttachView commands. Framework
-    /// Panel.cs already implements the RegisterViews partial method, so the switches are published from the static
-    /// constructor instead, as delegates in AppDomain data (BCL types only: they cross the hot reload boundary).
+    /// CS0506), so (1) needs a DXP.NotificationHandler. Nothing here runs on its own: the handler is created, and the
+    /// per-document view is added, only through the implementation's Listen and AttachView commands. The template's
+    /// OnCreated hook publishes those switches as delegates in AppDomain data (BCL types only: they cross the hot
+    /// reload boundary).
     /// </summary>
     public partial class PluginServerModule
     {
-        static PluginServerModule()
+        // Template hook OnCreated: called once, when Altium Designer creates the server module.
+        // Publishes the switches the implementation and the panel content call.
+        partial void OnCreated(IClient client)
         {
             AppDomain.CurrentDomain.SetData(SelectionShim.CountsKey, new ConcurrentDictionary<string, int>());
             AppDomain.CurrentDomain.SetData(SelectionShim.ListenKey, (Func<bool, string>)SelectionShim.SetListening);
@@ -63,12 +64,9 @@ namespace CSharpPlugin
             {
                 if (_handler != null)
                     return "already registered";
-                // DXP.NotificationHandler is the SDK's own handler class: it derives from DXP.SupportService, has an
-                // AutoDispatch class interface and carries DispId 266 on HandleNotification (read from the metadata of
-                // Altium.SDK.dll), and calls the delegate. Earlier samples declared a handler class of their own,
-                // which made AD show "Member not found"; AD calls the SDK class without that dialog.
+                // DXP.NotificationHandler calls the delegate for every notification. Its constructor registers it with
+                // the client, so it is not registered again; UnregisterNotificationHandler removes it.
                 _handler = new NotificationHandler(OnClientNotification);
-                GlobalVars.Client.RegisterNotificationHandler(_handler);
                 AppDomain.CurrentDomain.SetData(ListeningSinceKey, DateTime.Now);
                 return "registered";
             }
